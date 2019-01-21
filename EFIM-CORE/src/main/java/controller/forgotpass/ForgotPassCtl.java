@@ -13,8 +13,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import dao.ProcedureDao;
+import id.co.roxas.efim.common.webservice.global.WsResponse;
 import service.headuser.TblDataUserSvc;
-import webservice.global.WsResponse;
 
 @RestController
 @RequestMapping("/ForgotPassCtl")

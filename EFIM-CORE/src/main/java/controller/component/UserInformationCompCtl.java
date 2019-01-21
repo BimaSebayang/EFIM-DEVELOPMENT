@@ -12,10 +12,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import Constant.CommonConstant;
+import id.co.roxas.efim.common.constant.CommonConstant;
+import id.co.roxas.efim.common.webservice.global.WsResponse;
 import service.headuser.TblDataUserSvc;
 import service.headuser.TblEfimDbSvc;
-import webservice.global.WsResponse;
 
 /*
  * Hanya dibagian controller component yang tidak dibutuhkan procedure hak akses

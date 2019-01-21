@@ -8,10 +8,10 @@ import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import Constant.CommonConstant;
-import common.dto.master.TblCodeDto;
 import dao.master.TblCodeDao;
 import entity.master.TblCode;
+import id.co.roxas.efim.common.common.dto.master.TblCodeDto;
+import id.co.roxas.efim.common.constant.CommonConstant;
 import ma.glasnost.orika.MapperFacade;
 import ma.glasnost.orika.impl.DefaultMapperFactory;
 import service.master.TblCodeSvc;

@@ -11,9 +11,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.zkoss.lang.Strings;
 
-import common.dto.headuser.TblDataUserDto;
 import dao.headuser.TblDataUserDao;
 import entity.headuser.TblDataUser;
+import id.co.roxas.efim.common.common.dto.headuser.TblDataUserDto;
 import ma.glasnost.orika.MapperFacade;
 import ma.glasnost.orika.impl.DefaultMapperFactory;
 import service.headuser.TblDataUserSvc;

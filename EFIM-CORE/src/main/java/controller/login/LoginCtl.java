@@ -13,11 +13,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import common.dto.headuser.TblDataUserDto;
 import dao.ProcedureDao;
+import id.co.roxas.efim.common.common.dto.headuser.TblDataUserDto;
+import id.co.roxas.efim.common.webservice.global.WsResponse;
+import id.co.roxas.efim.common.webservice.lib.RestTemplateLib;
 import service.headuser.TblDataUserSvc;
-import webservice.global.WsResponse;
-import webservice.lib.RestTemplateLib;
 
 @RestController
 @RequestMapping("/LoginCtl")

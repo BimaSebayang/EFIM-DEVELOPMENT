@@ -15,8 +15,8 @@ import org.springframework.web.bind.annotation.RestController;
 import com.google.gson.Gson;
 
 import dao.ProcedureDao;
+import id.co.roxas.efim.common.webservice.global.WsResponse;
 import service.headuser.TblSessionUserSvc;
-import webservice.global.WsResponse;
 
 @RestController
 @RequestMapping("/LoginTesterCtl")

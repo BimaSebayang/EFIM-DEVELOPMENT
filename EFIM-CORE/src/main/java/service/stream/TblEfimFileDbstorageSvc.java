@@ -4,8 +4,8 @@ import java.util.List;
 
 import org.springframework.data.repository.query.Param;
 
-import common.dto.stream.TblEfimFileDbstorageDto;
 import entity.stream.TblEfimFileDbstorage;
+import id.co.roxas.efim.common.common.dto.stream.TblEfimFileDbstorageDto;
 
 public interface TblEfimFileDbstorageSvc {
 	 public byte[] getStreamFile(String fileStrIdReff);

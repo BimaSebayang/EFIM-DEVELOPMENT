@@ -7,9 +7,9 @@ import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import common.dto.stream.TblEfimFileDbstorageDto;
 import dao.stream.TblEfimFileDbStorageDao;
 import entity.stream.TblEfimFileDbstorage;
+import id.co.roxas.efim.common.common.dto.stream.TblEfimFileDbstorageDto;
 import ma.glasnost.orika.MapperFacade;
 import ma.glasnost.orika.impl.DefaultMapperFactory;
 import service.headuser.TblPictureFrontEndSvc;

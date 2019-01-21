@@ -10,9 +10,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.zkoss.lang.Strings;
 
-import Constant.CommonConstant;
+import id.co.roxas.efim.common.constant.CommonConstant;
+import id.co.roxas.efim.common.webservice.global.WsResponse;
 import service.master.TblCodeSvc;
-import webservice.global.WsResponse;
 
 @RestController
 @RequestMapping("/CustomCodeCtl")
