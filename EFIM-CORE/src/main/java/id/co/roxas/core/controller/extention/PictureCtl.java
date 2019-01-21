@@ -27,8 +27,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.thoughtworks.xstream.core.util.Base64Encoder;
 
+import entity.stream.TblPictureFrontEnd;
 import id.co.roxas.core.dao.headuser.TblPictureFrontEndDao;
-import id.co.roxas.core.entity.stream.TblPictureFrontEnd;
 import id.co.roxas.core.service.headuser.TblPictureFrontEndSvc;
 
 @RestController

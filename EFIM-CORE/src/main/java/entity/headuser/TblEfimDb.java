@@ -1,4 +1,4 @@
-package id.co.roxas.core.entity.headuser;
+package entity.headuser;
 
 import java.io.Serializable;
 
@@ -8,8 +8,8 @@ import javax.persistence.Id;
 import javax.persistence.IdClass;
 import javax.persistence.Table;
 
-import id.co.roxas.core.entity.headuser.pk.TblDataUserPk;
-import id.co.roxas.core.entity.headuser.pk.TblEfimDbPk;
+import entity.headuser.pk.TblDataUserPk;
+import entity.headuser.pk.TblEfimDbPk;
 
 @Entity
 @Table(name = "HEADUSER.TBL_EFIM_DB")

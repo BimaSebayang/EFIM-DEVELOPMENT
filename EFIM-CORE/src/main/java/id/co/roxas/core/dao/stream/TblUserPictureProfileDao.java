@@ -4,11 +4,11 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
-import id.co.roxas.core.entity.headuser.TblDataUser;
-import id.co.roxas.core.entity.stream.TblEfimFileDbstorage;
-import id.co.roxas.core.entity.stream.TblUserPictureProfile;
-import id.co.roxas.core.entity.stream.pk.TblEfimFileDbstoragePk;
-import id.co.roxas.core.entity.stream.pk.TblUserPictureProfilePk;
+import entity.headuser.TblDataUser;
+import entity.stream.TblEfimFileDbstorage;
+import entity.stream.TblUserPictureProfile;
+import entity.stream.pk.TblEfimFileDbstoragePk;
+import entity.stream.pk.TblUserPictureProfilePk;
 
 public interface TblUserPictureProfileDao extends JpaRepository<TblUserPictureProfile,TblUserPictureProfilePk>{
 	    

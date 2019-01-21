@@ -8,11 +8,11 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
-import id.co.roxas.core.entity.headuser.TblDataUser;
-import id.co.roxas.core.entity.headuser.TblEfimDb;
-import id.co.roxas.core.entity.headuser.pk.TblDataUserPk;
-import id.co.roxas.core.entity.headuser.pk.TblEfimDbPk;
-import id.co.roxas.core.entity.stream.TblPictureFrontEnd;
+import entity.headuser.TblDataUser;
+import entity.headuser.TblEfimDb;
+import entity.headuser.pk.TblDataUserPk;
+import entity.headuser.pk.TblEfimDbPk;
+import entity.stream.TblPictureFrontEnd;
 
 public interface TblEfimDbDao extends JpaRepository<TblEfimDb, TblEfimDbPk>{
 

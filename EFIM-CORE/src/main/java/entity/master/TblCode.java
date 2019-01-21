@@ -1,4 +1,4 @@
-package id.co.roxas.core.entity.master;
+package entity.master;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -6,7 +6,7 @@ import javax.persistence.Id;
 import javax.persistence.IdClass;
 import javax.persistence.Table;
 
-import id.co.roxas.core.entity.master.pk.TblCodePk;
+import entity.master.pk.TblCodePk;
 
 @Entity
 @Table(name="MASTER.TBL_CODE")

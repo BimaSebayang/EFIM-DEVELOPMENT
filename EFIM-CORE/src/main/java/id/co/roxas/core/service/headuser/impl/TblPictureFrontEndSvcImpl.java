@@ -7,8 +7,8 @@ import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import entity.stream.TblPictureFrontEnd;
 import id.co.roxas.core.dao.headuser.TblPictureFrontEndDao;
-import id.co.roxas.core.entity.stream.TblPictureFrontEnd;
 import id.co.roxas.core.service.headuser.TblPictureFrontEndSvc;
 
 @Service("tblPictureFrontEndSvc")

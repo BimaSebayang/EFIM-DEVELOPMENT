@@ -10,8 +10,8 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
-import id.co.roxas.core.entity.headuser.TblDataUser;
-import id.co.roxas.core.entity.headuser.pk.TblDataUserPk;
+import entity.headuser.TblDataUser;
+import entity.headuser.pk.TblDataUserPk;
 
 public interface TblDataUserDao extends JpaRepository<TblDataUser, TblDataUserPk>{
 	

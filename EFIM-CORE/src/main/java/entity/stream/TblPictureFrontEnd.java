@@ -1,4 +1,4 @@
-package id.co.roxas.core.entity.stream;
+package entity.stream;
 
 import java.util.UUID;
 
@@ -8,7 +8,7 @@ import javax.persistence.Id;
 import javax.persistence.IdClass;
 import javax.persistence.Table;
 
-import id.co.roxas.core.entity.stream.pk.TblPictureFrontEndPk;
+import entity.stream.pk.TblPictureFrontEndPk;
 
 @Entity
 @Table(name = "STREAM.TBL_PIC_FRONT_END")

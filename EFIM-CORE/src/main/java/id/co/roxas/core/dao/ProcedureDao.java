@@ -5,8 +5,8 @@ import java.math.BigInteger;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.query.Procedure;
 
-import id.co.roxas.core.entity.procacclaim.ProcInformation;
-import id.co.roxas.core.entity.procacclaim.pk.ProcInformationPk;
+import entity.procacclaim.ProcInformation;
+import entity.procacclaim.pk.ProcInformationPk;
 
 public interface ProcedureDao extends JpaRepository<ProcInformation, ProcInformationPk>{
 

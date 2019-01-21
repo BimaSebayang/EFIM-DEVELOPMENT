@@ -1,4 +1,4 @@
-package id.co.roxas.core.entity.master.pk;
+package entity.master.pk;
 
 import java.io.Serializable;
 

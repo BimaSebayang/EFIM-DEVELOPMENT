@@ -1,4 +1,4 @@
-package id.co.roxas.core.entity.headuser;
+package entity.headuser;
 
 import java.util.Date;
 
@@ -15,7 +15,7 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
-import id.co.roxas.core.entity.headuser.pk.TblDataUserPk;
+import entity.headuser.pk.TblDataUserPk;
 
 @Entity
 @Table(name = "HEADUSER.TBL_DATA_USER")

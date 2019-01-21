@@ -11,10 +11,10 @@ import org.springframework.data.domain.Page;
 
 import com.google.gson.Gson;
 
+import entity.headuser.TblDataUser;
+import entity.headuser.TblSessionUser;
 import id.co.roxas.core.dao.ProcedureDao;
 import id.co.roxas.core.dao.headuser.TblDataUserDao;
-import id.co.roxas.core.entity.headuser.TblDataUser;
-import id.co.roxas.core.entity.headuser.TblSessionUser;
 
 public class daoTester1 {
 

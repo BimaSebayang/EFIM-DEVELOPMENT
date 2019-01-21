@@ -1,4 +1,4 @@
-package id.co.roxas.core.entity.stream.pk;
+package entity.stream.pk;
 
 import java.io.Serializable;
 import java.util.UUID;

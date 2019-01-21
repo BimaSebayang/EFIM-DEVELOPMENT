@@ -6,11 +6,11 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
-import id.co.roxas.core.entity.master.TblHistoryData;
-import id.co.roxas.core.entity.master.pk.TblHistoryDataPk;
-import id.co.roxas.core.entity.stream.TblEfimFileDbstorage;
-import id.co.roxas.core.entity.stream.TblUserPictureProfile;
-import id.co.roxas.core.entity.stream.pk.TblEfimFileDbstoragePk;
+import entity.master.TblHistoryData;
+import entity.master.pk.TblHistoryDataPk;
+import entity.stream.TblEfimFileDbstorage;
+import entity.stream.TblUserPictureProfile;
+import entity.stream.pk.TblEfimFileDbstoragePk;
 
 public interface TblEfimFileDbStorageDao extends JpaRepository<TblEfimFileDbstorage,TblEfimFileDbstoragePk>{
 	     

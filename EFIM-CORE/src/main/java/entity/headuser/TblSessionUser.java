@@ -1,4 +1,4 @@
-package id.co.roxas.core.entity.headuser;
+package entity.headuser;
 
 import javax.persistence.Access;
 import javax.persistence.AccessType;
@@ -10,8 +10,8 @@ import javax.persistence.IdClass;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
-import id.co.roxas.core.entity.headuser.pk.TblDataUserPk;
-import id.co.roxas.core.entity.headuser.pk.TblSessionUserPk;
+import entity.headuser.pk.TblDataUserPk;
+import entity.headuser.pk.TblSessionUserPk;
 
 @Entity
 @Table(name="HEADUSER.TBL_SESSION_USER")

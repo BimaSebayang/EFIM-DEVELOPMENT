@@ -1,4 +1,4 @@
-package id.co.roxas.core.entity.procacclaim;
+package entity.procacclaim;
 
 import java.io.Serializable;
 
@@ -8,7 +8,7 @@ import javax.persistence.Id;
 import javax.persistence.IdClass;
 import javax.persistence.Table;
 
-import id.co.roxas.core.entity.procacclaim.pk.ProcInformationPk;
+import entity.procacclaim.pk.ProcInformationPk;
 
 @Entity
 @Table(name="PROC_ACCLAIM.PROC_INFORMATION")

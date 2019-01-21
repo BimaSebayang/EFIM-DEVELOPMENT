@@ -1,4 +1,4 @@
-package id.co.roxas.core.entity.procacclaim.pk;
+package entity.procacclaim.pk;
 
 import java.io.Serializable;
 

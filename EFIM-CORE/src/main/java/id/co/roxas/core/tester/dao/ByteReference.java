@@ -13,9 +13,9 @@ import org.apache.commons.codec.binary.Base64;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
+import entity.stream.TblPictureFrontEnd;
 import id.co.roxas.core.dao.ProcedureDao;
 import id.co.roxas.core.dao.headuser.TblPictureFrontEndDao;
-import id.co.roxas.core.entity.stream.TblPictureFrontEnd;
 
 public class ByteReference {
    

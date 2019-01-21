@@ -12,11 +12,11 @@ import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 import org.zkoss.lang.Strings;
 
+import entity.headuser.TblDataUser;
+import entity.headuser.TblEfimDb;
 import id.co.roxas.core.dao.headuser.TblDataUserDao;
 import id.co.roxas.core.dao.headuser.TblEfimDbDao;
 import id.co.roxas.core.dao.stream.TblUserPictureProfileDao;
-import id.co.roxas.core.entity.headuser.TblDataUser;
-import id.co.roxas.core.entity.headuser.TblEfimDb;
 import id.co.roxas.core.service.headuser.TblEfimDbSvc;
 import id.co.roxas.efim.common.common.dto.UserPrivilegeCustom;
 import id.co.roxas.efim.common.common.dto.headuser.TblEfimDbDto;

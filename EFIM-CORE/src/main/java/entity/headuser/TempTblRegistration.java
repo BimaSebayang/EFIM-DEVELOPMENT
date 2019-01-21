@@ -1,4 +1,4 @@
-package id.co.roxas.core.entity.headuser;
+package entity.headuser;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -6,8 +6,8 @@ import javax.persistence.Id;
 import javax.persistence.IdClass;
 import javax.persistence.Table;
 
-import id.co.roxas.core.entity.headuser.pk.TblSessionUserPk;
-import id.co.roxas.core.entity.headuser.pk.TempTblRegistrationPk;
+import entity.headuser.pk.TblSessionUserPk;
+import entity.headuser.pk.TempTblRegistrationPk;
 
 @Entity
 @Table(name="HEADUSER.TEMP_TBL_REGISTRATION")

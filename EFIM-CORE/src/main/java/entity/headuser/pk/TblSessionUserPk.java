@@ -1,4 +1,4 @@
-package id.co.roxas.core.entity.headuser.pk;
+package entity.headuser.pk;
 
 import java.io.Serializable;
 

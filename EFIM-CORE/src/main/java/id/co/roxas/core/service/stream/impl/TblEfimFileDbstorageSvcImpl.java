@@ -7,8 +7,8 @@ import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import entity.stream.TblEfimFileDbstorage;
 import id.co.roxas.core.dao.stream.TblEfimFileDbStorageDao;
-import id.co.roxas.core.entity.stream.TblEfimFileDbstorage;
 import id.co.roxas.core.service.headuser.TblPictureFrontEndSvc;
 import id.co.roxas.core.service.stream.TblEfimFileDbstorageSvc;
 import id.co.roxas.efim.common.common.dto.stream.TblEfimFileDbstorageDto;

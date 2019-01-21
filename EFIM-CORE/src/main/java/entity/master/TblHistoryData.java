@@ -1,4 +1,4 @@
-package id.co.roxas.core.entity.master;
+package entity.master;
 
 import java.util.Date;
 
@@ -10,8 +10,8 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
-import id.co.roxas.core.entity.master.pk.TblCodePk;
-import id.co.roxas.core.entity.master.pk.TblHistoryDataPk;
+import entity.master.pk.TblCodePk;
+import entity.master.pk.TblHistoryDataPk;
 
 @Entity
 @Table(name="MASTER.TBL_HISTORY_DATA")

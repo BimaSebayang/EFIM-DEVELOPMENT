@@ -6,10 +6,10 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
-import id.co.roxas.core.entity.headuser.TblDataUser;
-import id.co.roxas.core.entity.headuser.pk.TblDataUserPk;
-import id.co.roxas.core.entity.master.TblCode;
-import id.co.roxas.core.entity.master.pk.TblCodePk;
+import entity.headuser.TblDataUser;
+import entity.headuser.pk.TblDataUserPk;
+import entity.master.TblCode;
+import entity.master.pk.TblCodePk;
 
 public interface TblCodeDao extends JpaRepository<TblCode, TblCodePk> {
 	@Query("select a from TblCode a where a.mstCodeType = :mstCodeType")
