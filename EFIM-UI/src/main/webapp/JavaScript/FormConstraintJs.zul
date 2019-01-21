@@ -1,0 +1,18 @@
+<?page title="" contentType="text/html;charset=UTF-8"?>
+<zk>
+<script type="text/javascript">
+    function invalid_FormClass(id1,class1) {
+                jq('$' + id1).removeClass(class1);
+    }
+   
+    function valid_FormClass(id1,class1) {
+                jq('$' + id1).addClass(class1);
+    }
+    
+    function call_constraint(id1){
+         var p = $("text-boxWrongValue");
+         var position = p.position();
+         alert("position " + position);
+    }
+ </script>
+</zk>

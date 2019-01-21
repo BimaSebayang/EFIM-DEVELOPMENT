@@ -1,0 +1,27 @@
+<?page title="" contentType="text/html;charset=UTF-8"?>
+<zk>
+
+<include src="/JavaScript/FormConstraintJs.zul"/>
+<include src="/StyleSheet/ss1.zul"/>
+
+<window title="" sclass="window" border="normal"
+	apply="org.zkoss.bind.BindComposer" height="100%" width="100%"
+	viewModel="@id('vm') @init('vmd.error.error404Vmd')">
+	
+<div>	
+<image content="@load(vm.coolBackground) @converter('converter.ImageToZkImageConverter')"
+		   sclass="bg"/>
+<div sclass="divContainer">
+
+<div sclass="regBox">
+<div sclass="subRegBox">
+<label style="font-family: calibri;" value="@bind(vm.label)">
+</label>
+</div>
+</div>    
+
+</div>
+</div>
+
+</window>
+</zk>

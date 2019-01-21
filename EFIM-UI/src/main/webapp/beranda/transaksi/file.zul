@@ -1,0 +1,182 @@
+<?page title="" contentType="text/html;charset=UTF-8"?>
+<zk>
+	<window height="107%" width="104%" sclass="menuPg" border="normal"
+		apply="org.zkoss.bind.BindComposer"
+		viewModel="@id('vm') @init('vmd.beranda.transaksi.FileVmd')">
+		<div sclass="panelButtonReg1">
+			<hbox>
+				<div sclass="hboxDokumen" id="idHbox1"
+					onClick="@command('showDocument')"
+					visible="@load(vm.visDocument)">
+					<attribute name="onClick">
+				    idHbox1.setSclass("ocHboxDokumen");
+				    fileDetail.setSclass("boxFileDetail");
+				    </attribute>
+				    <attribute name="onMouseOver">
+				    if(!idHbox1.getSclass().equalsIgnoreCase("ocHboxDokumen")){
+				    idHbox1.setSclass("omHboxDokumen");
+				    idHbox2.setSclass("hboxGambar");
+				    idHbox3.setSclass("hboxVideo");
+				    idHbox4.setSclass("hboxReBin");
+				    }
+				    </attribute>
+				    <attribute name="onMouseOut">
+				    if(!idHbox1.getSclass().equalsIgnoreCase("ocHboxDokumen")){
+				    idHbox1.setSclass("hboxDokumen");
+				    idHbox2.setSclass("hboxGambar");
+				    idHbox3.setSclass("hboxVideo");
+				    idHbox4.setSclass("hboxReBin");
+				    }
+				    </attribute>
+				    
+				
+					<hbox>
+						<image 
+							content="@load(vm.coolDocument) @converter('converter.ImageToZkImageConverter')"
+							sclass="panelFile1" />
+						<label sclass="labelFile1"
+							value="@load(vm.lblDocument)"/>
+						<div sclass="divUsedSpace1">
+						<label value="Used Space" style="font-size : 15px; font-family : Tahoma, Geneva, sans-serif;
+						color : rgba(106, 60, 159, 1);"/>	
+						<separator width="20px" />
+						<label value="0,35 GB" style="font-size : 15px; font-family : Tahoma, Geneva, sans-serif;
+						color : rgba(106, 60, 159, 1);"/>
+						</div>		
+					</hbox>
+				</div>
+
+				<separator width="50px" />
+
+				<div id= "idHbox2" sclass="hboxGambar" onClick="@command('showGambar')" 
+				visible="@load(vm.visCamera)">
+				
+					<attribute name="onClick">
+				      idHbox2.setSclass("ocHboxGambar");
+				      fileDetail.setSclass("boxFileDetail");
+				    </attribute>
+				    <attribute name="onMouseOver">
+				     if(!idHbox2.getSclass().equalsIgnoreCase("ocHboxGambar")){
+				    idHbox1.setSclass("hboxDokumen");
+				    idHbox2.setSclass("omHboxGambar");
+				    idHbox3.setSclass("hboxVideo");
+				    idHbox4.setSclass("hboxReBin");
+				    }
+				    </attribute>
+				    <attribute name="onMouseOut">
+				     if(!idHbox2.getSclass().equalsIgnoreCase("ocHboxGambar")){
+				    idHbox1.setSclass("hboxDokumen");
+				    idHbox2.setSclass("hboxGambar");
+				    idHbox3.setSclass("hboxVideo");
+				    idHbox4.setSclass("hboxReBin");
+				    }
+				    </attribute>
+					<hbox>
+						<image
+							content="@load(vm.coolCamera) @converter('converter.ImageToZkImageConverter')"
+							sclass="panelFile2" />
+						<label sclass="labelFile2"
+							value="@load(vm.lblCamera)"/>
+							<div sclass="divUsedSpace3">
+						<label value="Used Space" style="font-size : 15px; font-family : Tahoma, Geneva, sans-serif;
+						color : rgba(176, 22, 182, 1);"/>	
+						<separator width="20px" />
+						<label value="0,35 GB" style="font-size : 15px; font-family : Tahoma, Geneva, sans-serif;
+						color : rgba(176, 22, 182, 1);"/>
+						</div>	
+					</hbox>
+				</div>
+
+				<separator width="50px" />
+
+				<div id= "idHbox3" sclass="hboxVideo" onClick="@command('showVideo')" 
+				visible="@load(vm.visVideo)">
+				
+				<attribute name="onClick">
+				    idHbox3.setSclass("ocHboxVideo");
+				      fileDetail.setSclass("boxFileDetail");
+				    </attribute>
+				    <attribute name="onMouseOver">
+				    if(!idHbox3.getSclass().equalsIgnoreCase("ocHboxVideo")){
+				    idHbox1.setSclass("hboxDokumen");
+				    idHbox2.setSclass("hboxGambar");
+				    idHbox3.setSclass("omHboxVideo");
+				    idHbox4.setSclass("hboxReBin");
+				    }
+				    </attribute>
+				    <attribute name="onMouseOut">
+				     if(!idHbox3.getSclass().equalsIgnoreCase("ocHboxVideo")){
+				    idHbox1.setSclass("hboxDokumen");
+				    idHbox2.setSclass("hboxGambar");
+				    idHbox3.setSclass("hboxVideo");
+				    idHbox4.setSclass("hboxReBin");
+				    }
+				    </attribute>
+				
+				
+					<hbox>
+						<image
+							content="@load(vm.coolVideo) @converter('converter.ImageToZkImageConverter')"
+							sclass="panelFile2" />
+						<label sclass="labelFile3"
+							value="@load(vm.lblVideo)" />
+							<div sclass="divUsedSpace2">
+						<label value="Used Space" style="font-size : 15px; font-family :Tahoma, Geneva, sans-serif;
+						color : rgba(107, 97, 107, 1);"/>	
+						<separator width="20px" />
+						<label value="0,35 GB" style="font-size : 15px; font-family : Tahoma, Geneva, sans-serif;
+						color : rgba(107, 97, 107, 1);"/>
+						</div>	
+					</hbox>
+				</div>
+
+				<separator width="60px" />
+
+				<div id= "idHbox4" sclass="hboxReBin" onClick="@command('showBin')" 
+				visible="@load(vm.visBin)">
+				
+				<attribute name="onClick">
+				    idHbox4.setSclass("ocHboxReBin");
+				      fileDetail.setSclass("boxFileDetail");
+				    </attribute>
+				    <attribute name="onMouseOver">
+				     if(!idHbox4.getSclass().equalsIgnoreCase("ocHboxReBin")){
+				    idHbox1.setSclass("hboxDokumen");
+				    idHbox2.setSclass("hboxGambar");
+				    idHbox3.setSclass("hboxVideo");
+				    idHbox4.setSclass("omHboxReBin");
+				    }
+				    </attribute>
+				    <attribute name="onMouseOut">
+				     if(!idHbox4.getSclass().equalsIgnoreCase("ocHboxReBin")){
+				    idHbox1.setSclass("hboxDokumen");
+				    idHbox2.setSclass("hboxGambar");
+				    idHbox3.setSclass("hboxVideo");
+				    idHbox4.setSclass("hboxReBin");
+				    }
+				    </attribute>
+				
+					<hbox>
+						<image
+							content="@load(vm.coolBin) @converter('converter.ImageToZkImageConverter')"
+							sclass="panelFile1" />
+						<label sclass="labelFile4"
+							value="@load(vm.lblBin)" />
+							<div sclass="divUsedSpace1">
+						<label value="Used Space" style="font-size : 15px; font-family : Tahoma, Geneva, sans-serif;
+						color : rgba(40, 168, 36, 1);"/>	
+						<separator width="20px" />
+						<label value="0,35 GB" style="font-size : 15px; font-family : Tahoma, Geneva, sans-serif;
+						color : rgba(40, 168, 36, 1);"/>
+						</div>		
+					</hbox>
+				</div>
+			</hbox>
+			
+			<div id="fileDetail" sclass="boxFileDetailBfr">
+				<include src="@load(vm.fileDetail)"/>
+			</div>
+			
+		</div>
+	</window>
+</zk>

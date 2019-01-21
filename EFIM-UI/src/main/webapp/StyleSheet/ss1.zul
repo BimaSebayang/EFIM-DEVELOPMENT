@@ -1,0 +1,718 @@
+<?page title="" contentType="text/html;charset=UTF-8"?>
+<zk>
+
+<style>
+
+.menuPg{
+position : relative;
+left : -20px;
+top : -20px;
+}
+
+.blury{
+filter: blur(3px); 	
+-webkit-filter: blur(3px);
+}
+
+.bg{
+position : absolute;  height: 100%; width : 100% ; left : 0px; top : 0px;
+}
+
+
+
+.bgFt{
+position : absolute;  height: 65%; width : 100% ; left : 0px; top : 0px;
+}
+
+.bgFtUnder{
+position : absolute;  height: 70%; width : 100% ; left : 0px; top : 600px;
+}
+
+.divContainer{
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    height : 100%;
+    width : 90%;
+}
+
+.logo{
+position : absolute; border-radius: 60%;
+		            width : 130px;
+		            height : 130px;
+		            top : 10px; 
+    	            left : 600px; 
+}
+
+.regBox{
+    background-color: rgba(0, 0, 0, 0.5);
+    width: 320px;
+    height: 280px;
+    padding: 25px;
+    margin: 25px;
+    position : absolute;
+     top : 130px; 
+    left : 485px; 
+}
+
+.EFIMlogoFp{
+  font-family : "times new roman", times, calibri;
+  color : white;
+  position : absolute; 
+  font-size : 40px;
+  top : 27px;
+  left : 120px; 
+ }     
+
+.logoFp{
+position : absolute; border-radius: 60%;
+		            width : 90px;
+		            height : 90px;
+		            top : 10px; 
+    	            left : 20px; 
+}
+
+.boxSub1fp{
+    border-radius: 5px;
+    background-color: rgba(97, 49, 125, 1);
+    width: 102%;
+    height: 16%;
+    padding: 25px;
+    margin: 25px;
+    position : absolute;
+     top : -30px; 
+    left : -30px; 
+}
+
+.button1fp{
+ background-color: transparent;
+ text-align : left;
+ width: 243px;
+ height : 50px;
+}
+
+.vbox1fp{
+    position : absolute;
+    top : 130px; 
+    left : 0px; 
+}
+
+.box1fp{
+    border-radius: 5px;
+    background-color: rgba(26, 25, 25, 0.6);
+    width: 20%;
+    height: 97%;
+    padding: 25px;
+    margin: 25px;
+    position : absolute;
+     top : -30px; 
+    left : -30px; 
+}
+.box2fp{
+    border-radius: 5px;
+    background-color:rgba(255, 255, 255, 0.01);
+    width: 91.6%;
+    height: 97%;
+    padding: 25px;
+    margin: 25px;
+    position : absolute;
+     top : -30px; 
+    left : 17.4%;  
+}
+
+.boxFileDetailBfr{
+    border-radius: 5px;
+    background-color:rgba(255, 255, 255, 0.01);
+    width: 90%;
+    height: 225.8%;
+    padding: 25px;
+    margin: 25px;
+    position : absolute;
+    top : -50px; 
+    left : 320%;  
+    
+}
+
+.boxFileDetail{
+    transition-delay: 2s;
+    border-radius: 5px;
+    background-color:rgba(255, 255, 255, 0.01);
+    width: 95.232%;
+    height: 225.8%;
+    padding: 25px;
+    margin: 25px;
+    position : absolute;
+    top : -50px; 
+    left : 3.4%;  
+    transition: all 0.5s;
+}
+
+.box3fp{
+    border-radius: 5px;
+    background-color:rgba(13, 5, 2, 0.87);
+    width: 300px;
+    height: 50px;
+    padding: 25px;
+    margin: 25px;
+    position : absolute;
+     top : 550px; 
+    left : 10px; 
+}
+
+.box4fp{
+    border-radius: 5px;
+    background-color: rgba(255, 255, 255, 0.24);
+    width: 78%;
+    height: 130%;
+    padding: 25px;
+    margin: 25px;
+    position : absolute;
+     top : -170px; 
+    left : 20%; 
+}
+
+.subRegBox{
+    background-color: lightgrey ;
+    width: 280px;
+    height: 130px;
+    padding: 15px;
+    margin: 25px;
+    position : relative;
+    top : -35px; 
+    left : -30px; 
+}
+
+.buttonRegBox{
+ background-color: #3F3590;
+    width: 280px;
+    height: 50px;
+    position : relative;
+    top : 10px; 
+    left : -5px; 
+}
+
+.button {
+    background-color: #4CAF50;
+	display: inline-block;
+	*display: inline;
+	vertical-align: baseline;
+	margin: 0 2px;
+	outline: none;
+	cursor: pointer;
+	text-align: center;
+	text-decoration: none;
+	font: 10px/100% Arial, Helvetica, sans-serif;
+	padding: .5em 2em .55em;
+	text-shadow: 0 1px 1px rgba(0,0,0,.3);
+	-webkit-border-radius: .5em; 
+	-moz-border-radius: .5em;
+	border-radius: .5em;
+	-webkit-box-shadow: 0 1px 2px rgba(0,0,0,.2);
+	-moz-box-shadow: 0 1px 2px rgba(0,0,0,.2);
+	box-shadow: 0 1px 2px rgba(0,0,0,.2);
+    position: relative;
+    left: 124px;
+    transition: all 0.5s;
+    cursor: pointer;
+    margin: 5px;
+	}
+	
+.button-forgotPassword {
+    background-color: #4CAF50;
+	display: inline-block;
+	*display: inline;
+	vertical-align: baseline;
+	margin: 0 2px;
+	outline: none;
+	cursor: pointer;
+	text-align: center;
+	text-decoration: none;
+	font: 10px/100% Arial, Helvetica, sans-serif;
+	padding: .5em 2em .55em;
+	text-shadow: 0 1px 1px rgba(0,0,0,.3);
+	-webkit-border-radius: .5em; 
+	-moz-border-radius: .5em;
+	border-radius: .5em;
+	-webkit-box-shadow: 0 1px 2px rgba(0,0,0,.2);
+	-moz-box-shadow: 0 1px 2px rgba(0,0,0,.2);
+	box-shadow: 0 1px 2px rgba(0,0,0,.2);
+    position: relative;
+    left: 0px;
+    transition: all 0.5s;
+    cursor: pointer;
+    margin: 5px;
+	}	
+	
+.vbox{
+    border: 3px solid #73AD21;
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+}	
+
+.window{
+text-align:center; 
+ box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+}	
+
+.loginTab{
+    height : 300px;
+    position: relative;
+}
+
+.registerTab{
+    height : 0px;
+    left : 30px;
+    position: relative;
+}
+
+.text-font{
+font-weight: bold;
+font-family: Georgia; 
+color: #337B33;
+}
+
+.container {
+    top : 50px;
+    left : 300px;
+    position: relative;
+}
+
+.center {
+    position: absolute;
+    left: 0;
+    top: 50%;
+    width: 100%;
+    text-align: center;
+    font-size: 18px;
+}
+
+.text-box-forgotPassword{
+border-color : #32cf33;
+display: inline-block;
+	*display: inline;
+	vertical-align: baseline;
+	margin: 0 2px;
+	outline: none;
+	cursor: pointer;
+	text-align: center;
+	text-decoration: none;
+	font: 14px/100% Arial, Helvetica, sans-serif;
+	padding: .5em 2em .55em;
+	text-shadow: 0 1px 1px rgba(0,0,0,.3);
+	-webkit-border-radius: .5em; 
+	-moz-border-radius: .5em;
+	border-radius: .5em;
+	-webkit-box-shadow: 0 1px 2px rgba(0,0,0,.2);
+	-moz-box-shadow: 0 1px 2px rgba(0,0,0,.2);
+	box-shadow: 0 1px 2px rgba(0,0,0,.2);
+    position: relative;
+    left: -30px;
+    transition: all 0.5s;
+    cursor: text;
+    margin: 5px;
+}
+
+.text-box{
+border-color : #32cf33;
+display: inline-block;
+	*display: inline;
+	vertical-align: baseline;
+	margin: 0 2px;
+	outline: none;
+	cursor: pointer;
+	text-align: center;
+	text-decoration: none;
+	font: 14px/100% Arial, Helvetica, sans-serif;
+	padding: .5em 2em .55em;
+	text-shadow: 0 1px 1px rgba(0,0,0,.3);
+	-webkit-border-radius: .5em; 
+	-moz-border-radius: .5em;
+	border-radius: .5em;
+	-webkit-box-shadow: 0 1px 2px rgba(0,0,0,.2);
+	-moz-box-shadow: 0 1px 2px rgba(0,0,0,.2);
+	box-shadow: 0 1px 2px rgba(0,0,0,.2);
+    position: relative;
+    left: -70px;
+    transition: all 0.5s;
+    cursor: text;
+    margin: 5px;
+}
+
+.text-boxWrongValue{
+border-color : red;
+background-color: red;
+display: inline-block;
+	*display: inline;
+	vertical-align: baseline;
+	margin: 0 2px;
+	outline: none;
+	cursor: pointer;
+	text-align: center;
+	text-decoration: none;
+	font: 14px/100% Arial, Helvetica, sans-serif;
+	padding: .5em 2em .55em;
+	text-shadow: 0 1px 1px rgba(0,0,0,.3);
+	-webkit-border-radius: .5em; 
+	-moz-border-radius: .5em;
+	border-radius: .5em;
+	-webkit-box-shadow: 0 1px 2px rgba(0,0,0,.2);
+	-moz-box-shadow: 0 1px 2px rgba(0,0,0,.2);
+	box-shadow: 0 1px 2px rgba(0,0,0,.2);
+    position: relative;
+    left: -70px;
+    transition: all 0.5s;
+    cursor: text;
+    margin: 5px;
+}
+
+.nav_toolbar .z-toolbarbutton-content i { font-size: 20px;}
+        .nav_tabs .z-tabpanel { padding: 0; border-bottom: 0 none;}
+        .nav_tabs .z-tabpanels .z-toolbarbutton-content { padding: 4px;}
+        .nav_category { cursor:pointer; }
+        .nav_text { color: #696569; font-size : 24px; font-weight: bold;}
+        
+        .tabIcon{
+         text-align: center;
+    text-transform: uppercase;
+    color: #4CAF50;
+        }
+        
+        
+ .introHead{
+    resize: horizontal;
+    background-color: rgba(251, 160, 132, 0.71);
+    width: 1354px;
+    height: 60px;
+    padding: 25px;
+    margin: 25px;
+    position : absolute;
+    top : 370px; 
+    left : -30px; 
+ }
+ 
+ .logoHead{
+       position : absolute; border-radius: 60%;
+		            width : 50px;
+		            height : 50px;
+		            top : 7px;
+		            left : 10px; 
+ } 
+ 
+ .EFIMlogo{
+  font-family : "times new roman", times, calibri;
+  color : white;
+  position : absolute; 
+  font-size : 45px;
+  top : 7px;
+  left : 70px; 
+ }      
+ 
+ .subButtonHead1{
+  background-color: rgba(0, 0, 0, 0.5);
+ box-shadow : none;
+  font-family : "times new roman", times, calibri;
+    position : absolute;
+    height : 55px;
+    left : -146px;
+ }
+ 
+ .subButtonHead2{
+  background-color: rgba(0, 0, 0, 0.5);
+ box-shadow : none;
+  font-family : "times new roman", times, calibri;
+    position : absolute;
+    height : 55px;
+    left : -270px;
+ }
+ 
+ .subButtonHead3{
+  background-color: rgba(0, 0, 0, 0.5);
+ box-shadow : none;
+  font-family : "times new roman", times, calibri;
+    position : absolute;
+    height : 55px;
+    left : -380px;
+ }
+ 
+ .buttonHead{
+  position : absolute; 
+  font-size : 45px;
+  top : 3px;
+  right : 0px;
+ }
+ 
+ tr.odd td.gc,tr.odd,tr.z-listbox-odd,tr.z-grid-odd td.z-row-inner,tr.z-grid-odd
+	{
+	background-color: #FFFFFF ;
+}
+ 
+ .z-textbox { color: black; }
+.z-apply-mask,
+.z-modal-mask {
+    background: black;
+    opacity: 0.6;
+}
+ 
+ .regLoginBox{
+    background-color: rgba(0, 0, 0, 0.5);
+    width: 320px;
+    height: 280px;
+    padding: 25px;
+    margin: 25px;
+    position : absolute;
+    top : 130px; 
+    left : 485px; 
+ }
+ 
+ .regRegisterBox{
+ background-color: rgba(0, 0, 0, 0.5);
+    width: 680px;
+    height: 280px;
+    padding: 25px;
+    margin: 25px;
+    position : absolute;
+    top : 130px; 
+    left : 335px; 
+ }
+ 
+ .buttonRegBox2{
+ background-color: #3F3590;
+    width: 605px;
+    height: 50px;
+    position : relative;
+    top : 10px; 
+    left : -30px; 
+}
+ 
+ .regForgotBox{
+    background-color: rgba(0, 0, 0, 0.5);
+    width: 320px;
+    height: 180px;
+    padding: 25px;
+    margin: 25px;
+    position : absolute;
+    top : 180px; 
+    left : 485px; 
+ }
+ 
+ .buttonRegBox3{
+ background-color: #3F3590;
+   width: 280px;
+    height: 50px;
+    position : relative;
+    top : 10px; 
+    left : -5px; 
+}
+
+
+.panelButtonReg1{
+    width: 280px;
+    height: 50px;
+    position : relative;
+    top : -10px; 
+    left : 20px; 
+}
+
+.labelFile1{
+font-family : "Comic Sans MS", cursive, sans-serif;
+  position : relative;
+  top : 80px;
+  left : -80px;
+}
+
+.labelFile4{
+font-family : "Comic Sans MS", cursive, sans-serif;
+  position : relative;
+  top : 80px;
+  left : -70px;
+}
+
+.labelFile3{
+font-family : "Comic Sans MS", cursive, sans-serif;
+  position : relative;
+  top : 80px;
+  left : -115px;
+}
+
+.labelFile2{
+font-family : "Comic Sans MS", cursive, sans-serif;
+  position : relative;
+  top : 80px;
+  left : -120px;
+}
+
+.vboxLabelFile1{
+  position : relative;
+  top : 0px;
+  left : -100px;
+}
+
+.vboxLabelFile2{
+  position : relative;
+  top : 0px;
+  left :-30px;
+}
+
+.panelFile1{
+height: 80px; width : 80px ;
+}
+
+.panelFile2{
+height: 135px; width : 130px ; top : -20px; left : -20px; position : relative;
+}
+
+.hboxDokumen{
+position : absolute;
+left : 200px;
+top : 40px;
+overflow : hidden;
+border: 5px solid rgb(170, 180, 193);
+height : 250px;
+width : 250px;
+transition: all 0.5s;
+}
+
+.ocHboxDokumen{
+position : absolute;
+left : 0px;
+top : 0px;
+overflow : hidden;
+border: 5px solid rgb(170, 180, 193);
+height : 120px;
+width : 100px;
+transition: all 0.5s;
+
+}
+
+.omHboxDokumen{
+position : absolute;
+left : 200px;
+top : 40px;
+overflow : hidden;
+border: 5px solid hsla(179, 93%, 48%, 1);
+height : 300px;
+width : 300px;
+transition: all 0.5s;
+}
+
+.hboxGambar{
+position : absolute;
+right : -520px;
+top : 40px;
+overflow : hidden;
+border: 5px solid rgb(170, 180, 193);
+height : 250px;
+width : 250px;
+transition: all 0.5s;
+}
+
+.ocHboxGambar{
+position : absolute;
+right : 78%;
+top : 0%;
+overflow : hidden;
+border: 5px solid rgb(170, 180, 193);
+height : 120px;
+width : 100px;
+transition: all 0.5s;
+}
+
+.omHboxGambar{
+position : absolute;
+right : -520px;
+top : 40px;
+overflow : hidden;
+border: 5px solid hsla(179, 93%, 48%, 1);
+height : 300px;
+width : 300px;
+transition: all 0.5s;
+}
+
+
+.hboxVideo{
+position : absolute;
+left : 200px;
+bottom : -550px;
+overflow : hidden;
+border: 5px solid rgb(170, 180, 193);
+height : 250px;
+width : 250px;
+transition: all 0.5s;
+}
+
+.ocHboxVideo{
+position : absolute;
+left : 0px;
+bottom : -70px;
+overflow : hidden;
+border: 5px solid rgb(170, 180, 193);
+height :120px;
+width : 100px;
+transition: all 0.5s;
+}
+
+.omHboxVideo{
+position : absolute;
+left : 200px;
+bottom : -550px;
+overflow : hidden;
+border: 5px solid hsla(179, 93%, 48%, 1);
+height : 300px;
+width : 300px;
+transition: all 0.5s;
+}
+
+.hboxReBin{
+position : absolute;
+right : -520px;
+bottom : -550px;
+overflow : hidden;
+border: 5px solid rgb(170, 180, 193);
+height : 250px;
+width : 250px;
+transition: all 0.5s;
+}
+
+.ocHboxReBin{
+position : absolute;
+right : 190px;
+bottom : -70px;
+overflow : hidden;
+border: 5px solid rgb(170, 180, 193);
+height : 120px;
+width : 100px;
+transition: all 0.5s;
+}
+
+.omHboxReBin{
+position : absolute;
+right : -520px;
+bottom : -550px;
+overflow : hidden;
+border: 5px solid hsla(179, 93%, 48%, 1);
+height : 300px;
+width : 300px;
+transition: all 0.5s;
+}
+
+.divUsedSpace1{
+top : 10px; left : -60px; 
+width : 80px;
+position : relative;
+}
+
+.divUsedSpace2{
+top : 10px; left : -80px; 
+width : 80px;
+position : relative;
+}
+
+.divUsedSpace3{
+top : 10px; left : -100px; 
+width : 80px;
+position : relative;
+}
+
+
+ 
+</style>
+</zk>

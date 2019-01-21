@@ -1,0 +1,60 @@
+<?page title="" contentType="text/html;charset=UTF-8"?>
+<zk>
+
+<include src="/JavaScript/FormConstraintJs.zul"/>
+<include src="/StyleSheet/ss1.zul"/>
+
+<window title="" sclass="window"  border="normal"
+	apply="org.zkoss.bind.BindComposer" height="100%" width="100%"
+	viewModel="@id('vm') @init('vmd.forgot.ForgotVmd')">
+
+<div>	
+<image content="@load(vm.coolBackground) @converter('converter.ImageToZkImageConverter')"
+		   sclass="bg"/>	
+<div sclass="divContainer">	
+
+<image content="@load(vm.coolLogo) @converter('converter.ImageToZkImageConverter')"
+		   sclass="logo"/>
+
+
+<div sclass="regBox" visible="@load(vm.validEmail ne true)">
+<div sclass="subRegBox">
+<label style="font-family: calibri;" value="@bind(vm.label)">
+</label>
+</div>
+</div>  
+
+<div sclass="regLoginBox" visible="@load(vm.validEmail eq true)">
+<separator height="40px"/>
+<hbox>
+<separator height="57px"/> 
+<separator width="57px"/>
+<hbox>
+<textbox constraint="@load(vm.constrainForgotPassword)" id="newPassword" type="password" 
+value="@load(vm.newPassword) @save(vm.newPassword)"
+sclass = "text-box" placeholder="Password Baru" width="290px" />
+</hbox> 
+</hbox>
+<separator width="50px"/> 
+<hbox >
+<separator width="57px"/> 
+<hbox></hbox>
+<textbox  id="confirmPassword" type="password" 
+sclass = "text-box" width="290px" 
+placeholder="Konfirmasi Password" value="@bind(vm.konfirmasiPass)" />
+</hbox>
+<separator height="25px"/>
+<button label="Reset Password"
+ onClick="@command('reset')" sclass="buttonRegBox"/>
+</div> 
+
+</div>
+
+
+
+</div>
+
+
+
+</window>
+</zk>

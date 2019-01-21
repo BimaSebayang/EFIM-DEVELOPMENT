@@ -1,0 +1,88 @@
+<?page title="new page title" contentType="text/html;charset=UTF-8"?>
+<zk>
+
+	<window height="1000%" width="457%" border="normal"
+		apply="org.zkoss.bind.BindComposer"
+		viewModel="@id('vm') @init('vmd.beranda.transaksi.fileDetail.pictureVmd')">
+
+		<timer onTimer="@command('onRecruitPictureTime')" delay="1000"
+			repeats="true" running="@load(vm.moveTimer)" />
+
+		<div sclass="panelButtonReg1">
+			<div>
+				<div>
+					<textbox sclass="textSearch"
+						value="@bind(vm.search)" onOK="@command('searchOrClick')"
+						placeholder="Search..." />
+					<button iconSclass="z-icon-search-plus"
+						height="33px" width="33px" onClick="@command('searchOrClick')"
+						sclass="w3SearchButton" />
+					<combobox sclass="w3Filter" placeholder="filter" />
+				</div>
+				<separator height="15px" />
+				<div sclass="datablocker">
+
+					<vbox children="@load(vm.mapForColumns.keySet())">
+						<template name="children">
+
+							<hbox
+								children="@load(vm.mapForColumns.get(each).entrySet())">
+								<template name="children">
+
+									<separator width="20px" />
+
+					<panel border="normal" sclass="blocker" self="@load(each.getValue().tblEfimFileDbstorageDto.fileIdRef)">
+
+				         
+							<panelchildren sclass="blocker">
+								<div sclass="headerblocker">
+								<image content="@load(each.getValue().tblEfimFileDbstorageDto.fileStr) @converter('converter.ImageToZkImageConverter')"
+						        sclass="pictPanel" onMouseOver="@command('tester')">		
+						        
+						        
+						 <attribute name="onMouseOver">	 
+				         if(self.getSclass().equalsIgnoreCase("pictPanel")){
+				            self.setSclass("pictPanelMouse"); 
+				         }	         
+				         </attribute>
+				         <attribute name="onMouseOut" >        
+				         if(self.getSclass().equalsIgnoreCase("pictPanelMouse")){
+				            self.setSclass("pictPanel");
+				         }
+				         </attribute>
+						        				        
+						        </image>
+						        
+<!-- 						        <vbox sclass="vboxIconButtonPanel" > -->
+<!-- 								<hbox> -->
+<!-- 								<button iconSclass="z-icon-flag z-icon-100x" sclass="buttonAnxiousBlocker"/> -->
+<!-- 								<button iconSclass="z-icon-comment z-icon-100x" sclass="buttonAnxiousBlocker"/> -->
+<!-- 								</hbox> -->
+<!-- 								<hbox> -->
+<!-- 								<button iconSclass="z-icon-edit z-icon-100x" sclass="buttonAnxiousBlocker"/> -->
+<!-- 								<button iconSclass="z-icon-heart z-icon-100x" sclass="buttonAnxiousBlocker"/> -->
+<!-- 								</hbox> -->
+<!-- 								</vbox> -->
+						       
+						        
+						 		<div sclass="subtitleBlocker">		
+						        </div>        
+								<div sclass="activeblocker"><label value="@load(each.getValue().fileName)" style="position : absolute;bottom : 33px;left : 10px;font-family: Lato; font-size: 14px;"/></div>
+								<div sclass="middleblocker"><label value="@load(each.getValue().createdDate) @converter('converter.MyDateFormatConverter', format='dd/MM/yyyy')" style="position : absolute;bottom : 38px; right : 12px;font-family: Lato; font-size: 8px;"/></div>
+								<div sclass="lowerblocker"><label value="@load(each.getValue().createdDate) @converter('converter.MyDateFormatConverter', format='HH:mm:ss')" style="position : absolute;bottom : 30px;  right: 12px;font-family: Lato; font-size: 6px;"/></div>
+								</div>	
+								
+							</panelchildren>
+						</panel>
+					  </template>	
+				    </hbox>
+				  </template>
+				</vbox>	
+				</div>
+			</div>
+
+			<div></div>
+		</div>
+
+	</window>
+</zk>	

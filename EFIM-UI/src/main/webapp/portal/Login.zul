@@ -1,0 +1,112 @@
+<?page title="" contentType="text/html;charset=UTF-8"?>
+<zk>
+
+<include src="/StyleSheet/ss1.zul"/>
+<include src="/JavaScript/FormConstraintJs.zul"/>
+
+<window title="" sclass="window"  border="normal"
+	apply="org.zkoss.bind.BindComposer" height="100%" width="100%"
+	viewModel="@id('vm') @init('vmd.portal.LoginVmd')">
+	
+<div>
+
+<image content="@load(vm.coolBackground) @converter('converter.ImageToZkImageConverter')"
+		   sclass="bg"/>
+<div sclass="divContainer">	
+
+<!-- Header Start -->
+    <div sclass="introHead">
+    <image content="@load(vm.coolLogo) @converter('converter.ImageToZkImageConverter')"
+		   sclass="logoHead" />
+	<label value="E f i m" sclass="EFIMlogo"/>
+	<div sclass="buttonHead">
+	<button onClick="@command('headLogin')" label="Login" sclass="subButtonHead3"/>
+	<button onClick="@command('headRegister')" label="Register" sclass="subButtonHead2"/>
+	<button onClick="@command('headForgot')" label="Forgot Password" sclass="subButtonHead1"/>
+	</div>	   
+    </div>
+
+<div sclass="regLoginBox" visible="@bind(vm.onLogin)" action="show: slideIn; hide: slideOut">
+<separator height="40px"/>
+<hbox>
+<separator height="57px"/> 
+<separator width="57px"/> 
+<textbox id = "inputUser" constraint="@load(vm.constrainDataInputUserId)" value="@load(vm.inputUserId)
+@save(vm.inputUserId,before='login')" 
+sclass = "text-box" placeholder="Nama User" width="290px"/>
+</hbox>
+<separator width="50px"/> 
+<hbox >
+<separator width="57px"/> 
+<textbox id = "inputPassword" constraint="@load(vm.constrainDataInputUserPassword)" 
+value="@load(vm.inputPassword) @save(vm.inputPassword, before='login')"
+ type="password" sclass = "text-box"
+width="290px" placeholder="Password"/>
+</hbox>
+<separator height="25px"/>
+<button label="Log in" onClick="@command('login')" sclass="buttonRegBox"/>
+</div> 
+
+
+
+<div sclass="regRegisterBox" visible="@bind(vm.onRegister)" action="show: slideIn; hide: slideOut">
+<div sclass="registerTab">
+		   <vbox width="30px" height="30px"  >
+		   <separator height="30px"/> 
+		   <hbox>
+		   <separator width="40px"/> 
+	       <textbox id="registerUserName" constraint="@load(vm.constraintDataRegisterUserName)" 
+	          value="@load(vm.registerUserName) @save(vm.registerUserName, before='register')" 
+	          sclass = "text-box" placeholder="Nama User" width="300px"/>
+	          <textbox id="registerUserId" constraint="@load(vm.constraintDataRegisterUserId)"
+	          value="@load(vm.registerUserId) @save(vm.registerUserId, before='register')" 
+	          sclass = "text-box" placeholder="User Id" width="300px"/>
+	       </hbox>
+	       <hbox>
+		   <separator width="40px"/> 
+	       <textbox id="userMail" constraint="@load(vm.constraintDataEmail)"
+	          value="@load(vm.registerUserMail)@save(vm.registerUserMail, before='register')" 
+	          sclass = "text-box" placeholder="User Email" width="300px"/>
+	       <textbox id="userPhone" maxlength="20" constraint="@load(vm.constraintDataPhone)"
+	          value="@load(vm.registerUserPhone) @save(vm.registerUserPhone, before='register')" 
+	          sclass = "text-box" placeholder="User Telp." width="300px"/>
+	       </hbox>
+	       <hbox >
+	       <separator width="47px"/> 
+	       <textbox id="userPassword" constraint="@load(vm.constraintPassword)" value="@load(vm.registerUserPassword)
+	       @save(vm.registerUserPassword, before='register')" type="password" sclass = "text-box"
+	        width="300px" placeholder="Password"
+	       />
+	       <textbox id="confirmPassword" value="@bind(vm.confirmRegisterUserPassword)" 
+	        type="password" sclass = "text-box"
+	        width="300px" placeholder="Confirm Password"
+	       />
+	       </hbox>
+	       </vbox>
+	       <separator height="10px"/>
+           <button label="Register" onClick="@command('register')" sclass="buttonRegBox2"/>
+	       </div>  
+</div> 
+
+
+<div sclass="regForgotBox" visible="@bind(vm.onForgot)" action="show: slideIn; hide: slideOut">
+<hbox>
+<separator height="57px"/> 
+<separator width="57px"/> 
+<textbox  id="forgetUserId" constraint="@load(vm.constrainDataForgotInputUserId)" 
+value="@load(vm.forgetUserId) @save(vm.forgetUserId,before='forgot')" sclass = "text-box" placeholder="Nama User" width="290px"/>
+</hbox>
+<separator height="25px"/>
+<button label="Reset Password" onClick="@command('forgot')" sclass="buttonRegBox3"/>
+</div> 
+
+
+
+
+	
+</div>		
+
+</div>
+	
+</window>
+</zk>

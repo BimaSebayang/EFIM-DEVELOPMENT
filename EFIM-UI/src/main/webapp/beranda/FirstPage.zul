@@ -1,0 +1,43 @@
+<?page title="" contentType="text/html;charset=UTF-8"?>
+<zk>
+
+	<include src="/JavaScript/FormConstraintJs.zul" />
+	<include src="/StyleSheet/ss1.zul" />
+	<include src="/StyleSheet/boxFileStream.zul" />
+	<include src="/StyleSheet/customFontFamily.zul" />
+
+	<window title="" sclass="window" border="normal"
+		apply="org.zkoss.bind.BindComposer"
+		viewModel="@id('vm') @init('vmd.beranda.FirstPageVmd')">
+
+<timer onTimer="@command('onRecruitTime')" delay="1000" repeats="true" ></timer>
+
+		<div>
+			<image
+				content="@load(vm.coolBackground) @converter('converter.ImageToZkImageConverter')"
+				sclass="bg" />
+			<div sclass="divContainer">
+				<div sclass="box1fp">
+				<div sclass="boxSub1fp"/>
+				<image content="@load(vm.coolLogo) @converter('converter.ImageToZkImageConverter')"
+		        sclass="logoFp"/>
+		        <label value="E f i m" sclass="EFIMlogoFp"/>
+				
+				 <vbox sclass="vbox1fp">
+				 <button label="DASHBOARD" sclass="button1fp" iconSclass="z-icon-book" onClick="@command('dashboard')"/>
+				 <button label="FILE" sclass="button1fp" iconSclass="z-icon-file" onClick="@command('file')"/>
+				 <button label="NOTIFIKASI" sclass="button1fp" iconSclass="z-icon-bell" onClick="@command('notifikasi')"/>
+				 <button label="INBOX" sclass="button1fp" iconSclass="z-icon-inbox" onClick="@command('inbox')"/>
+				 <button label="KELUAR" sclass="button1fp" iconSclass="z-icon-sign-out" onClick="@command('keluar')"/>
+				 </vbox>
+				
+				</div>
+				<div sclass="box2fp">
+				<include src="@load(vm.menu)"/>
+				</div>
+		    </div>
+		    
+		</div>
+
+	</window>
+</zk>

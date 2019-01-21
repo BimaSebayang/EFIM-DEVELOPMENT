@@ -1,0 +1,32 @@
+<?page title="" contentType="text/html;charset=UTF-8"?>
+<zk>
+
+<include src="/StyleSheet/ss1.zul"/>
+
+<window title="" sclass="window" border="normal"
+	apply="org.zkoss.bind.BindComposer" height="100%" width="100%"
+	viewModel="@id('vm') @init('vmd.registeration.SuccessPrVmd')">
+
+
+<div>	
+<image content="@load(vm.coolBackground) @converter('converter.ImageToZkImageConverter')"
+		   sclass="bg"/>
+<div sclass="divContainer">	
+
+<image content="@load(vm.coolLogo) @converter('converter.ImageToZkImageConverter')"
+		   sclass="logo"/>
+
+<div sclass="regBox">
+<div sclass="subRegBox">
+<label style="font-family: calibri;" value="@bind(vm.label)">
+</label>
+</div>
+<button label="Log in" sclass="buttonRegBox" visible="@load(vm.buttonActive)"/>
+</div>    
+
+</div>
+</div>
+
+
+</window>
+</zk>
