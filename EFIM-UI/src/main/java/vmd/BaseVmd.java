@@ -2,16 +2,10 @@ package vmd;
 
 import java.io.Serializable;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
-import java.util.UUID;
 import java.util.Map.Entry;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
-import javax.ws.rs.core.MultivaluedMap;
-
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
@@ -19,20 +13,29 @@ import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
 import org.zkoss.bind.annotation.Init;
+import org.zkoss.zk.ui.Executions;
 import org.zkoss.zk.ui.select.annotation.VariableResolver;
 import org.zkoss.zk.ui.util.Clients;
 import org.zkoss.zul.Messagebox;
 import org.zkoss.zul.Messagebox.Button;
+import org.zkoss.zul.Window;
 
 import com.thoughtworks.xstream.core.util.Base64Encoder;
 
-import Constant.INFORMATION;
-import common.dto.master.TblCodeDto;
-import webservice.global.WsResponse;
-import webservice.lib.RestTemplateLib;
+import id.co.roxas.efim.common.common.dto.master.TblCodeDto;
+import id.co.roxas.efim.common.constant.INFORMATION;
+import id.co.roxas.efim.common.webservice.global.WsResponse;
+import id.co.roxas.efim.common.webservice.lib.RestTemplateLib;
+
 
 @VariableResolver(org.zkoss.zkplus.spring.DelegatingVariableResolver.class)
 public class BaseVmd extends BaseComponent implements Serializable {
+	protected final String DOCU = "DOCU";
+	protected final String VIDEO = "VIDEO";
+	protected final String BIN = "BIN";
+	protected final String PICT = "PICT";
+	
+	
 	protected static final String PROJECT = "EFIM";
 	public final Integer DIV = 4;
 	protected String search = "";
@@ -45,6 +48,19 @@ public class BaseVmd extends BaseComponent implements Serializable {
 	protected byte[] coolLogo;
 	protected RestTemplateLib restTemplateLib = new RestTemplateLib();
 
+	public void callLovVmd(String uri, Map<String, Object> informationSetter) {
+		Executions.getCurrent().setAttribute("information_setter", informationSetter);
+		Window window = (Window) Executions.createComponents(
+				uri, null,
+				null);
+		window.doModal();
+	}
+	
+	@SuppressWarnings("unchecked")
+	public Map<String, Object> getInformationForLov(){
+		return (Map<String, Object>) Executions.getCurrent().getAttributes().get("information_setter");
+	}
+	
 	public boolean toWelcomePage() {
 		if (getComponentUser() == null) {
 			sendMeToOtherPage("/");
@@ -124,7 +140,7 @@ public class BaseVmd extends BaseComponent implements Serializable {
 	}
 
 	protected void showWarningMessageBox(String argument) {
-		Map<String, String> params = new HashMap();
+		Map<String, String> params = new HashMap<>();
 		params.put("sclass", "myMessagebox");
 		Messagebox.show(argument, "Peringatan", new Button[] { Button.OK }, null, Messagebox.EXCLAMATION, null, null,
 				params);
@@ -132,7 +148,7 @@ public class BaseVmd extends BaseComponent implements Serializable {
 	}
 
 	protected void showInformationMessageBox(String argument) {
-		Map<String, String> params = new HashMap();
+		Map<String, String> params = new HashMap<>();
 		params.put("sclass", "myMessagebox");
 		Messagebox.show(argument, "Informasi", new Button[] { Button.OK }, null, Messagebox.INFORMATION, null, null,
 				params);
@@ -406,7 +422,14 @@ public class BaseVmd extends BaseComponent implements Serializable {
 		String s = "invalid_FormClass('" + idName + "','" + cssName + "')";
 		Clients.evalJavaScript(s);
 		String si = "valid_FormClass('" + idName + "','" + lastCss + "')";
+		Clients.evalJavaScript(si);
+	}
+	
+	public void ChangeIdSclass(String idName, String cssName, String lastCss) {
+		String s = "invalid_FormClass('" + idName + "','" + cssName + "')";
 		Clients.evalJavaScript(s);
+		String si = "valid_FormClass('" + idName + "','" + lastCss + "')";
+		Clients.evalJavaScript(si);
 	}
 
 	public void callConstraint(String idName) {

@@ -10,9 +10,10 @@ import org.zkoss.zk.ui.Sessions;
 import org.zkoss.zk.ui.select.annotation.VariableResolver;
 import org.zkoss.zk.ui.util.GenericForwardComposer;
 
-import common.dto.GlobalDesktopInitUser;
-import common.dto.UserPrivilegeCustom;
-import common.dto.headuser.TblEfimDbDto;
+import id.co.roxas.efim.common.common.dto.GlobalDesktopInitUser;
+import id.co.roxas.efim.common.common.dto.UserPrivilegeCustom;
+import id.co.roxas.efim.common.common.dto.headuser.TblEfimDbDto;
+
 
 @VariableResolver(org.zkoss.zkplus.spring.DelegatingVariableResolver.class)
 public class BaseComponent extends GenericForwardComposer {

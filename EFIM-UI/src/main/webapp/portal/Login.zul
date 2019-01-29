@@ -75,8 +75,7 @@ width="290px" placeholder="Password"/>
 	       <separator width="47px"/> 
 	       <textbox id="userPassword" constraint="@load(vm.constraintPassword)" value="@load(vm.registerUserPassword)
 	       @save(vm.registerUserPassword, before='register')" type="password" sclass = "text-box"
-	        width="300px" placeholder="Password"
-	       />
+	        width="300px" placeholder="Password"/>
 	       <textbox id="confirmPassword" value="@bind(vm.confirmRegisterUserPassword)" 
 	        type="password" sclass = "text-box"
 	        width="300px" placeholder="Confirm Password"

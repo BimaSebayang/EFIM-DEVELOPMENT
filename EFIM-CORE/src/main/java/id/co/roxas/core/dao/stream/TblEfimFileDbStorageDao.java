@@ -21,4 +21,9 @@ public interface TblEfimFileDbStorageDao extends JpaRepository<TblEfimFileDbstor
 	    		+ " and a.fileIdRef =:fileIdRef")
 	    public TblEfimFileDbstorage getFileStreamInCurrentReff(@Param("fileStrIdReff") String fileStrIdReff,
 	    		@Param("fileIdRef") String fileIdRef);
+	    
+	    
+	    //untuk keperlua solr
+	    @Query(" select a from TblEfimFileDbstorage a")
+	    public TblEfimFileDbstorage getFileStreamSolr();
 }

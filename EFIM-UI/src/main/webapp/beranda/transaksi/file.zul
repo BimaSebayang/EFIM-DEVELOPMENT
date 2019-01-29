@@ -11,6 +11,7 @@
 					<attribute name="onClick">
 				    idHbox1.setSclass("ocHboxDokumen");
 				    fileDetail.setSclass("boxFileDetail");
+				    buttonMasterFileDetail.setSclass("boxListButtonDetail");
 				    </attribute>
 				    <attribute name="onMouseOver">
 				    if(!idHbox1.getSclass().equalsIgnoreCase("ocHboxDokumen")){
@@ -33,7 +34,7 @@
 					<hbox>
 						<image 
 							content="@load(vm.coolDocument) @converter('converter.ImageToZkImageConverter')"
-							sclass="panelFile1" />
+							sclass="panelFile1" draggable="false"/>
 						<label sclass="labelFile1"
 							value="@load(vm.lblDocument)"/>
 						<div sclass="divUsedSpace1">
@@ -50,10 +51,10 @@
 
 				<div id= "idHbox2" sclass="hboxGambar" onClick="@command('showGambar')" 
 				visible="@load(vm.visCamera)">
-				
 					<attribute name="onClick">
 				      idHbox2.setSclass("ocHboxGambar");
 				      fileDetail.setSclass("boxFileDetail");
+				       buttonMasterFileDetail.setSclass("boxListButtonDetail");
 				    </attribute>
 				    <attribute name="onMouseOver">
 				     if(!idHbox2.getSclass().equalsIgnoreCase("ocHboxGambar")){
@@ -74,7 +75,7 @@
 					<hbox>
 						<image
 							content="@load(vm.coolCamera) @converter('converter.ImageToZkImageConverter')"
-							sclass="panelFile2" />
+							sclass="panelFile2" draggable="false"/>
 						<label sclass="labelFile2"
 							value="@load(vm.lblCamera)"/>
 							<div sclass="divUsedSpace3">
@@ -95,6 +96,7 @@
 				<attribute name="onClick">
 				    idHbox3.setSclass("ocHboxVideo");
 				      fileDetail.setSclass("boxFileDetail");
+				       buttonMasterFileDetail.setSclass("boxListButtonDetail");
 				    </attribute>
 				    <attribute name="onMouseOver">
 				    if(!idHbox3.getSclass().equalsIgnoreCase("ocHboxVideo")){
@@ -117,7 +119,7 @@
 					<hbox>
 						<image
 							content="@load(vm.coolVideo) @converter('converter.ImageToZkImageConverter')"
-							sclass="panelFile2" />
+							sclass="panelFile2" draggable="false"/>
 						<label sclass="labelFile3"
 							value="@load(vm.lblVideo)" />
 							<div sclass="divUsedSpace2">
@@ -138,6 +140,7 @@
 				<attribute name="onClick">
 				    idHbox4.setSclass("ocHboxReBin");
 				      fileDetail.setSclass("boxFileDetail");
+				       buttonMasterFileDetail.setSclass("boxListButtonDetail");
 				    </attribute>
 				    <attribute name="onMouseOver">
 				     if(!idHbox4.getSclass().equalsIgnoreCase("ocHboxReBin")){
@@ -159,7 +162,7 @@
 					<hbox>
 						<image
 							content="@load(vm.coolBin) @converter('converter.ImageToZkImageConverter')"
-							sclass="panelFile1" />
+							sclass="panelFile1" draggable="false" />
 						<label sclass="labelFile4"
 							value="@load(vm.lblBin)" />
 							<div sclass="divUsedSpace1">
@@ -172,6 +175,19 @@
 					</hbox>
 				</div>
 			</hbox>
+			
+			<div id="buttonMasterFileDetail" sclass="boxListButtonDetailBfr" >
+			<vbox>
+			<separator height="25px"/>
+			<button label="Tambah" iconSclass="z-icon-image" orient="vertical" style="width : 100px;" onClick="@command('tambahMaster')"/>
+			<separator height="25px"/>
+			<button label="Hapus" iconSclass="z-icon-trash" orient="vertical" style="width : 100px;" onClick="@command('hapusMaster')"/>
+			<separator height="25px"/>
+			<button label="Refresh" iconSclass="z-icon-undo" orient="vertical" style="width : 100px;" onClick="@command('refreshMaster')"/>
+			<separator height="25px"/>
+			<button label="Kembali" iconSclass="z-icon-arrow-left" orient="vertical" style="width : 100px;" onClick="@command('kembaliMaster')"/>
+			</vbox>
+			</div>
 			
 			<div id="fileDetail" sclass="boxFileDetailBfr">
 				<include src="@load(vm.fileDetail)"/>

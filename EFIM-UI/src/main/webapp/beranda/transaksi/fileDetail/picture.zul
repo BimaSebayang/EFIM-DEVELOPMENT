@@ -36,33 +36,37 @@
 				         
 							<panelchildren sclass="blocker">
 								<div sclass="headerblocker">
-								<image content="@load(each.getValue().tblEfimFileDbstorageDto.fileStr) @converter('converter.ImageToZkImageConverter')"
-						        sclass="pictPanel" onMouseOver="@command('tester')">		
-						        
-						        
-						 <attribute name="onMouseOver">	 
-				         if(self.getSclass().equalsIgnoreCase("pictPanel")){
-				            self.setSclass("pictPanelMouse"); 
-				         }	         
-				         </attribute>
-				         <attribute name="onMouseOut" >        
-				         if(self.getSclass().equalsIgnoreCase("pictPanelMouse")){
-				            self.setSclass("pictPanel");
-				         }
-				         </attribute>
+								<image id="${each.getValue().fileIdReff}" content="@load(each.getValue().tblEfimFileDbstorageDto.fileStr) @converter('converter.ImageToZkImageConverter')"
+						        sclass="pictPanel" onMouseOver="@command('mouseOverPict', imagePart = self.id)" onMouseOut = "@command('mouseOutPict', imagePart = self.id)">
+
+<!-- 						 <attribute name="onMouseOver">	  -->
+<!-- 				         if(self.getSclass().equalsIgnoreCase("pictPanel")){ -->
+<!-- 				            self.setSclass("pictPanelMouse");  -->
+<!-- 				         }	          -->
+<!-- 				         </attribute> -->
+<!-- 				         <attribute name="onMouseOut">    -->
+<!-- 				         if(self.getSclass().equalsIgnoreCase("pictPanelMouse")){ -->
+<!-- 				            self.setSclass("pictPanel"); -->
+<!-- 				         } -->
+<!-- 				         </attribute> -->
+
 						        				        
 						        </image>
 						        
-<!-- 						        <vbox sclass="vboxIconButtonPanel" > -->
-<!-- 								<hbox> -->
-<!-- 								<button iconSclass="z-icon-flag z-icon-100x" sclass="buttonAnxiousBlocker"/> -->
-<!-- 								<button iconSclass="z-icon-comment z-icon-100x" sclass="buttonAnxiousBlocker"/> -->
-<!-- 								</hbox> -->
-<!-- 								<hbox> -->
-<!-- 								<button iconSclass="z-icon-edit z-icon-100x" sclass="buttonAnxiousBlocker"/> -->
-<!-- 								<button iconSclass="z-icon-heart z-icon-100x" sclass="buttonAnxiousBlocker"/> -->
-<!-- 								</hbox> -->
-<!-- 								</vbox> -->
+						        <vbox sclass="vboxIconButtonPanel" visible="@load(each.getValue().fileIdReff eq vm.selectedPict)">
+								<hbox>
+								<button iconSclass="z-icon-flag z-icon-100x" sclass="buttonAnxiousBlocker"
+								onMouseOver="@command('mouseOverButtonFlag', comp = each.getValue().fileIdReff)" onMouseOut = "@command('mouseOutButtonFlag', comp = each.getValue().fileIdReff)"/>
+								<button iconSclass="z-icon-comment z-icon-100x" sclass="buttonAnxiousBlocker"
+								onMouseOver="@command('mouseOverButtonComment', comp = each.getValue().fileIdReff)" onMouseOut = "@command('mouseOutButtonComment', comp = each.getValue().fileIdReff)"/>
+								</hbox>
+								<hbox>
+								<button iconSclass="z-icon-edit z-icon-100x" sclass="buttonAnxiousBlocker"
+								onMouseOver="@command('mouseOverButtonEdit', comp = each.getValue().fileIdReff)" onMouseOut = "@command('mouseOutButtonEdit', comp = each.getValue().fileIdReff)"/>
+								<button iconSclass="z-icon-heart z-icon-100x" sclass="buttonAnxiousBlocker"
+								onMouseOver="@command('mouseOverButtonHeart', comp = each.getValue().fileIdReff)" onMouseOut = "@command('mouseOutButtonHeart', comp = each.getValue().fileIdReff)"/>
+								</hbox>
+								</vbox>
 						       
 						        
 						 		<div sclass="subtitleBlocker">		

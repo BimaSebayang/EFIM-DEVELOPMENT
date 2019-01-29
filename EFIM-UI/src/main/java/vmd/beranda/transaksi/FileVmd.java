@@ -2,6 +2,7 @@ package vmd.beranda.transaksi;
 
 import java.io.Serializable;
 import java.util.HashMap;
+import java.util.Map;
 
 import org.zkoss.bind.BindUtils;
 import org.zkoss.bind.annotation.Command;
@@ -22,6 +23,7 @@ public class FileVmd extends BaseVmd implements Serializable {
 	private String lblCamera;
 	private String lblDocument;
 	private String lblVideo;
+	private String selectedFile;
 	private boolean visDocument = true;
 	private boolean visVideo = true;
 	private boolean visCamera = true;
@@ -53,6 +55,8 @@ public class FileVmd extends BaseVmd implements Serializable {
 		visCamera = false;
 		visBin = false;
 		fileDetail = "/beranda/transaksi/fileDetail/document.zul";
+		selectedFile = DOCU;
+		BindUtils.postNotifyChange(null, null, this, "selectedFile");
 		BindUtils.postNotifyChange(null, null, this, "visVideo");
 		BindUtils.postNotifyChange(null, null, this, "visCamera");
 		BindUtils.postNotifyChange(null, null, this, "visBin");
@@ -65,6 +69,8 @@ public class FileVmd extends BaseVmd implements Serializable {
 		visDocument = false;
 		visBin = false;
 		fileDetail = "/beranda/transaksi/fileDetail/picture.zul";
+		selectedFile = PICT;
+		BindUtils.postNotifyChange(null, null, this, "selectedFile");
 		BindUtils.postNotifyChange(null, null, this, "fileDetail");
 		BindUtils.postNotifyChange(null, null, this, "visVideo");
 		BindUtils.postNotifyChange(null, null, this, "visDocument");
@@ -77,6 +83,8 @@ public class FileVmd extends BaseVmd implements Serializable {
 		visDocument = false;
 		visBin = false;
 		fileDetail = "/beranda/transaksi/fileDetail/video.zul";
+		selectedFile = VIDEO;
+		BindUtils.postNotifyChange(null, null, this, "selectedFile");
 		BindUtils.postNotifyChange(null, null, this, "fileDetail");
 		BindUtils.postNotifyChange(null, null, this, "visCamera");
 		BindUtils.postNotifyChange(null, null, this, "visDocument");
@@ -89,12 +97,36 @@ public class FileVmd extends BaseVmd implements Serializable {
 		visDocument = false;
 		visVideo = false;
 		fileDetail = "/beranda/transaksi/fileDetail/bin.zul";
+		selectedFile = BIN;
+		BindUtils.postNotifyChange(null, null, this, "selectedFile");
 		BindUtils.postNotifyChange(null, null, this, "fileDetail");
 		BindUtils.postNotifyChange(null, null, this, "visCamera");
 		BindUtils.postNotifyChange(null, null, this, "visDocument");
 		BindUtils.postNotifyChange(null, null, this, "visVideo");
 	}
 
+	@Command("tambahMaster")
+	public void tambahMaster() {
+		Map<String, Object> informationSetter = new HashMap<>();
+		informationSetter.put("file_type", selectedFile);
+		callLovVmd( "/lov/TambahLov.zul", informationSetter);
+	}
+	
+	@Command("hapusMaster")
+	public void hapusMaster() {
+		
+	}
+	
+	@Command("refreshMaster")
+	public void refreshMaster() {
+		
+	}
+	
+	@Command("kembaliMaster")
+	public void kembaliMaster() {
+		
+	}
+	
 	public boolean isVisDocument() {
 		return visDocument;
 	}
@@ -205,6 +237,14 @@ public class FileVmd extends BaseVmd implements Serializable {
 
 	public void setFileDetail(String fileDetail) {
 		this.fileDetail = fileDetail;
+	}
+
+	public String getSelectedFile() {
+		return selectedFile;
+	}
+
+	public void setSelectedFile(String selectedFile) {
+		this.selectedFile = selectedFile;
 	}
 
 }

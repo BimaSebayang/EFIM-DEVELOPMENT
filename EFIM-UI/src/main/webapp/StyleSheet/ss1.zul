@@ -133,6 +133,19 @@ position : absolute; border-radius: 60%;
     
 }
 
+.boxListButtonDetailBfr{
+ position : absolute;
+ top : 130px;
+ left : 1000%;  
+}
+
+.boxListButtonDetail{
+    position : absolute;
+    top : 130px; 
+    left : -12%; 
+    transition: all 0.7s;
+}
+
 .boxFileDetail{
     transition-delay: 2s;
     border-radius: 5px;

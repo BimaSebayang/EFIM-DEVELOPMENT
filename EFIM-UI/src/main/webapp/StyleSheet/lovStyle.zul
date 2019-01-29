@@ -1,0 +1,15 @@
+<?page title="new page title" contentType="text/html;charset=UTF-8"?>
+<zk>
+<style>
+
+.popupWindow{
+width : 40%;
+height : 90%;
+ background-color : #73AD21;
+   border-radius: 4% / 4%;
+     text-align: center;
+  text-indent: .1em;
+  }
+
+</style>
+</zk>

@@ -1,0 +1,8 @@
+<?page title="new page title" contentType="text/html;charset=UTF-8"?>
+<zk>
+<window title="" border="normal" sclass="popupWindow" 
+apply="org.zkoss.bind.BindComposer"  id="lov" mode="popup" 
+viewModel="@id('vm') @init('vmd.beranda.transaksi.share.lov.TambahLovVmd')">
+Tesk masuk
+</window>
+</zk>

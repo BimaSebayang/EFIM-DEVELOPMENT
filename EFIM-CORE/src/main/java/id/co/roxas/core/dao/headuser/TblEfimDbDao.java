@@ -22,4 +22,12 @@ public interface TblEfimDbDao extends JpaRepository<TblEfimDb, TblEfimDbPk>{
 	(@Param("fileOwner") String fileOwner, @Param("projectCode") String projectCode,
 			@Param("listIdReff") List<String> listIdReff );
 	
+	
+	
+	
+	//Semua untuk keperluan Solr
+	
+	@Query("select a from TblEfimDb a where a.fileIdReff not in :listIdReff and a.projectCode = :projectCode ")
+	public List<TblEfimDb> getAllDataBySolr
+	(@Param("listIdReff") List<String> listIdReff,@Param("projectCode") String projectCode );
 }

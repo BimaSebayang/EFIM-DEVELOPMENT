@@ -10,9 +10,10 @@ import org.zkoss.bind.BindUtils;
 import org.zkoss.bind.annotation.Command;
 import org.zkoss.bind.annotation.Init;
 
-import common.dto.headuser.TblEfimDbDto;
+import id.co.roxas.efim.common.common.dto.headuser.TblEfimDbDto;
+import id.co.roxas.efim.common.webservice.global.WsResponse;
 import vmd.BaseVmd;
-import webservice.global.WsResponse;
+
 
 @Init(superclass = true)
 public class FirstPageVmd extends BaseVmd implements Serializable {
@@ -21,7 +22,8 @@ public class FirstPageVmd extends BaseVmd implements Serializable {
 	private List<TblEfimDbDto> tblEfimDbDtos = new ArrayList<>();
 	private String menu = "";
 	private boolean moveTimer = true;
-
+    
+	
 	@Command("onRecruitTime")
 	public void onRecruitTime() {
 		Map<String, Object> mapp = new HashMap<>();

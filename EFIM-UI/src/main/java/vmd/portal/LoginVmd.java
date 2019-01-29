@@ -15,12 +15,13 @@ import org.zkoss.zk.ui.WrongValueException;
 import org.zkoss.zul.Constraint;
 import org.zkoss.zul.Messagebox;
 
-import Constant.INFORMATION;
-import common.dto.UserPrivilegeCustom;
-import common.dto.headuser.TblDataUserDto;
-import common.lib.EmailPr;
+import id.co.roxas.efim.common.common.dto.UserPrivilegeCustom;
+import id.co.roxas.efim.common.common.dto.headuser.TblDataUserDto;
+import id.co.roxas.efim.common.common.lib.EmailPr;
+import id.co.roxas.efim.common.constant.INFORMATION;
+import id.co.roxas.efim.common.webservice.global.WsResponse;
 import vmd.BaseVmd;
-import webservice.global.WsResponse;
+
 
 @Init(superclass = true)
 public class LoginVmd extends BaseVmd {

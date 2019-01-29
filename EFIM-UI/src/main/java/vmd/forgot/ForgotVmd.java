@@ -16,8 +16,8 @@ import org.zkoss.zk.ui.WrongValueException;
 import org.zkoss.zul.Constraint;
 import org.zkoss.zul.Messagebox;
 
+import id.co.roxas.efim.common.webservice.global.WsResponse;
 import vmd.BaseVmd;
-import webservice.global.WsResponse;
 
 @Init(superclass = true)
 public class ForgotVmd extends BaseVmd{

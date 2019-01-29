@@ -8,8 +8,8 @@ import org.zkoss.bind.annotation.Init;
 import org.zkoss.bind.impl.BinderUtil;
 import org.zkoss.zk.ui.Executions;
 
+import id.co.roxas.efim.common.webservice.global.WsResponse;
 import vmd.BaseVmd;
-import webservice.global.WsResponse;
 
 @Init(superclass=true)
 public class SuccessPrVmd extends BaseVmd{
