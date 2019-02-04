@@ -8,7 +8,9 @@ import org.zkoss.bind.BindUtils;
 import org.zkoss.bind.annotation.Command;
 import org.zkoss.bind.annotation.Init;
 
+import id.co.roxas.efim.common.common.dto.MapperLovInformation;
 import vmd.BaseVmd;
+
 
 @Init(superclass = true)
 public class FileVmd extends BaseVmd implements Serializable {
@@ -108,8 +110,7 @@ public class FileVmd extends BaseVmd implements Serializable {
 	@Command("tambahMaster")
 	public void tambahMaster() {
 		Map<String, Object> informationSetter = new HashMap<>();
-		informationSetter.put("file_type", selectedFile);
-		callLovVmd( "/lov/TambahLov.zul", informationSetter);
+		callLovVmd( "/lov/TambahLov.zul", new MapperLovInformation("file_type", selectedFile));
 	}
 	
 	@Command("hapusMaster")

@@ -3,14 +3,90 @@
 <style>
 
 .popupWindow{
+  background-color: rgba(0, 0, 0, 0.01);
   text-align: center;
   text-indent: .1em;
-  width : 55%;
-  height : 65%;
+  width : 100%;
+  height : 100%;
   position : absolute;
   top : 50%;
   left : 50%;
   }
+
+.z-window-content{
+ background-color: rgba(0, 0, 0, 0.01);
+}
+
+
+.return-button{
+  position : absolute;
+  top : 20%;
+  left : 3%;
+  display:block;
+  height: 50px;
+  width: 120px;
+  transition: all 0.5s;
+}
+
+.upload-button{
+  position : absolute;
+  top : 30%;
+  left : 3%;
+  display:block;
+  height: 50px;
+  width: 120px;
+  transition: all 0.5s;
+}
+
+.save-button{
+  position : absolute;
+  top : 40%;
+  left : 3%;
+  display:block;
+  height: 50px;
+  width: 120px;
+  transition: all 0.5s;
+}
+
+.save-button-after-upload{
+  position : absolute;
+  top :  40%;
+  left : -20%;
+  display:block;
+  height: 50px;
+  width: 120px;
+  transition: all 0.5s;
+}
+
+.save-button-before-upload{
+  position : absolute;
+  top :  40%;
+  left : -20%;
+  display:block;
+  height: 50px;
+  width: 120px;
+  transition: all 0.5s;
+}
+
+.return-button-after-upload{
+  position : absolute;
+  top :  20%;
+  left : -20%;
+  display:block;
+  height: 50px;
+  width: 120px;
+  transition: all 0.5s;
+}
+
+.upload-button-after-upload{
+  position : absolute;
+  top :  30%;
+  left : -20%;
+  display:block;
+  height: 50px;
+  width: 120px;
+  transition: all 0.5s;
+}
   
 .bgLov{
 position : absolute;  height: 100%; width : 100% ; left : 0px; top : 0px;

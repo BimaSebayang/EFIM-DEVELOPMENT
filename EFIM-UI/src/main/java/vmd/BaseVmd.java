@@ -6,6 +6,9 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
+import javax.validation.constraints.NotNull;
+
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
@@ -13,7 +16,9 @@ import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
 import org.zkoss.bind.annotation.Init;
+import org.zkoss.lang.Strings;
 import org.zkoss.zk.ui.Executions;
+import org.zkoss.zk.ui.Sessions;
 import org.zkoss.zk.ui.select.annotation.VariableResolver;
 import org.zkoss.zk.ui.util.Clients;
 import org.zkoss.zul.Messagebox;
@@ -22,11 +27,11 @@ import org.zkoss.zul.Window;
 
 import com.thoughtworks.xstream.core.util.Base64Encoder;
 
+import id.co.roxas.efim.common.common.dto.MapperLovInformation;
 import id.co.roxas.efim.common.common.dto.master.TblCodeDto;
 import id.co.roxas.efim.common.constant.INFORMATION;
 import id.co.roxas.efim.common.webservice.global.WsResponse;
 import id.co.roxas.efim.common.webservice.lib.RestTemplateLib;
-
 
 @VariableResolver(org.zkoss.zkplus.spring.DelegatingVariableResolver.class)
 public class BaseVmd extends BaseComponent implements Serializable {
@@ -34,8 +39,7 @@ public class BaseVmd extends BaseComponent implements Serializable {
 	protected final String VIDEO = "VIDEO";
 	protected final String BIN = "BIN";
 	protected final String PICT = "PICT";
-	
-	
+
 	protected static final String PROJECT = "EFIM";
 	public final Integer DIV = 4;
 	protected String search = "";
@@ -49,19 +53,108 @@ public class BaseVmd extends BaseComponent implements Serializable {
 	protected byte[] coolBgTambah;
 	protected RestTemplateLib restTemplateLib = new RestTemplateLib();
 
-	public void callLovVmd(String uri, Map<String, Object> informationSetter) {
-		Executions.getCurrent().setAttribute("information_setter", informationSetter);
-		Window window = (Window) Executions.createComponents(
-				uri, null,
-				null);
-		window.doModal();
+	public void callLovVmd(String uri, MapperLovInformation... mappers) {
+		Map<String, Object> informationSetter = new HashMap<>();
+		if (isMapperNotNull(mappers)) {
+			if (isAllMapperKeyNotNull(mappers)) {
+				if (isMapperHaveUniqueKey(mappers)) {
+					for (MapperLovInformation mapper : mappers) {
+						informationSetter.put(mapper.getKey(), mapper.getValue());
+					}
+					Sessions.getCurrent().setAttribute("lov_information", informationSetter);
+					Window window = (Window) Executions.createComponents(uri, null, null);
+					window.doModal();
+				}
+			}
+		}
 	}
-	
+
+	private boolean isAllMapperKeyNotNull(MapperLovInformation... lov) {
+		for (MapperLovInformation mli : lov) {
+			if (Strings.isEmpty(mli.getKey())) {
+				showErrorMessageBox("mohon maaf MapperLovInformation tidak dapat menerima key yang kosong");
+				System.err.println("mohon maaf MapperLovInformation tidak dapat menerima key yang kosong");
+				return false;
+			}
+		}
+		return true;
+	}
+
+	private boolean isMapperNotNull(MapperLovInformation... lov) {
+		if (lov == null) {
+			showErrorMessageBox("mohon maaf MapperLovInformation tidak boleh kosong");
+			System.err.println("mohon maaf MapperLovInformation tidak boleh kosong");
+			return false;
+		} else if (lov.length == 0) {
+			showErrorMessageBox("mohon maaf MapperLovInformation tidak boleh kosong");
+			System.err.println("mohon maaf MapperLovInformation tidak boleh kosong");
+			return false;
+		} else {
+			return true;
+		}
+	}
+
+	private boolean isMapperHaveUniqueKey(MapperLovInformation... lov) {
+
+		String temp = "";
+		int whole = lov.length;
+		boolean continu = true;
+		while (continu) {
+			temp = lov[whole - 1].getKey();
+
+			for (int i = 0; i <= whole - 1; i++) {
+				if (temp.equals(lov[i].getKey()) && i != whole - 1) {
+					showErrorMessageBox("Pemetaan [" + lov[whole - 1].getKey() + "," + lov[whole - 1].getValue() + "]"
+							+ " memiliki key yang sama dengan pemetaan [" + lov[i].getKey() + "," + lov[i].getValue()
+							+ "]");
+					System.err.println("Pemetaan [" + lov[whole - 1].getKey() + "," + lov[whole - 1].getValue() + "]"
+							+ " memiliki key yang sama dengan pemetaan [" + lov[i].getKey() + "," + lov[i].getValue()
+							+ "]");
+					continu = false;
+					return false;
+				}
+			}
+
+			whole--;
+			if (whole == 0) {
+				System.err.println("tidak ada yang sama");
+				continu = false;
+			}
+		}
+
+		return true;
+
+	}
+
 	@SuppressWarnings("unchecked")
-	public Map<String, Object> getInformationForLov(){
-		return (Map<String, Object>) Executions.getCurrent().getAttributes().get("information_setter");
+	@NotNull
+	public MapperLovInformation getInformationForLov(String key) {
+		Map<String, Object> mappo = (Map<String, Object>) Sessions.getCurrent().getAttributes()
+				.get("lov_information");
+		return new MapperLovInformation(key, mappo.get(key));
 	}
-	
+
+	public void removeAllLovInformation() {
+		Sessions.getCurrent().removeAttribute("lov_information");
+	}
+
+	@SuppressWarnings("unchecked")
+	public void removeCurrentLovInformation(String... infos) {
+		Map<String, Object> mappo = (Map<String, Object>) Sessions.getCurrent().getAttributes()
+				.get("lov_information");
+		for (String info : infos) {
+			mappo.remove(info);
+		}
+		if(mappo.size()==0) {
+			removeAllLovInformation();
+			System.err.println("mappo habis");
+		}
+		else {
+			Sessions.getCurrent().setAttribute("lov_information", mappo);
+		}
+		
+	}
+
 	public boolean toWelcomePage() {
 		if (getComponentUser() == null) {
 			sendMeToOtherPage("/");
@@ -73,21 +166,21 @@ public class BaseVmd extends BaseComponent implements Serializable {
 	public String[] paramPaging(String projectCode, Integer page, String sort, String orderBy) {
 		String[] paging = new String[] {};
 		try {
-		if (projectCode == null) {
-			projectCode = PROJECT;
-		}
-		if (page == null) {
-			page = new Integer(1);
-		}
-		if (sort == null) {
-			sort = SORT;
-		}
-		if (orderBy == null) {
-			orderBy = ORDERBY;
-		}
-		paging = new String[] { "projectCode=" + projectCode, "page=" + page.intValue(), "direction=" + sort,
-				"orderBy=" + orderBy };
-		}catch(NullPointerException nep) {
+			if (projectCode == null) {
+				projectCode = PROJECT;
+			}
+			if (page == null) {
+				page = new Integer(1);
+			}
+			if (sort == null) {
+				sort = SORT;
+			}
+			if (orderBy == null) {
+				orderBy = ORDERBY;
+			}
+			paging = new String[] { "projectCode=" + projectCode, "page=" + page.intValue(), "direction=" + sort,
+					"orderBy=" + orderBy };
+		} catch (NullPointerException nep) {
 			nep.printStackTrace();
 		}
 		return paging;
@@ -118,7 +211,7 @@ public class BaseVmd extends BaseComponent implements Serializable {
 				"projectCode=" + PROJECT);
 		coolLogo = getTheFileFileStream("/PictureCtl/GetTheBackgroundPicture", new HashMap<>(), "EFIMLOGO.png",
 				"projectCode=" + PROJECT);
-		coolBgTambah =  getTheFileFileStream("/PictureCtl/GetTheBackgroundPicture", new HashMap<>(), "photobook.png",
+		coolBgTambah = getTheFileFileStream("/PictureCtl/GetTheBackgroundPicture", new HashMap<>(), "photobook.png",
 				"projectCode=" + PROJECT);
 		// coolLogo = getTheFile("\\BG", "EFIMLOGO.png", "jpg");
 		// coolBackground = getTheFile("\\BG", "EFIMBG.png", "jpg");
@@ -419,7 +512,7 @@ public class BaseVmd extends BaseComponent implements Serializable {
 	public void InValidFormClass(String idName, String cssName) {
 		String si = "valid_FormClass('" + idName + "','" + cssName + "')";
 		Clients.evalJavaScript(si);
-		
+
 	}
 
 	public void ValidFormClass(String idName, String cssName, String lastCss) {
@@ -428,7 +521,7 @@ public class BaseVmd extends BaseComponent implements Serializable {
 		String si = "valid_FormClass('" + idName + "','" + lastCss + "')";
 		Clients.evalJavaScript(si);
 	}
-	
+
 	public void ChangeIdSclass(String idName, String cssName, String lastCss) {
 		String s = "invalid_FormClass('" + idName + "','" + cssName + "')";
 		Clients.evalJavaScript(s);
@@ -440,14 +533,13 @@ public class BaseVmd extends BaseComponent implements Serializable {
 		String s = "call_constraint('" + idName + "')";
 		Clients.evalJavaScript(s);
 	}
-	
+
 	public void changeDisplayCss(String id, String width, String height) {
-		int ml = (int) (Integer.parseInt(width)*0.5);
-		int mt = (int) (Integer.parseInt(height)*0.5);
-		String s = "changeDisplayCss('" + id + "','"+height+"','"+width+"','"+ml+"','"+mt+"')";
+		int ml = (int) (Integer.parseInt(width) * 0.5);
+		int mt = (int) (Integer.parseInt(height) * 0.5);
+		String s = "changeDisplayCss('" + id + "','" + height + "','" + width + "','" + ml + "','" + mt + "')";
 		Clients.evalJavaScript(s);
 	}
-	
 
 	public byte[] getCoolBackground() {
 		return coolBackground;

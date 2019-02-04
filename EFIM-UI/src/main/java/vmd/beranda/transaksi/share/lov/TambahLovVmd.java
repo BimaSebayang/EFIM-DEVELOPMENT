@@ -15,6 +15,8 @@ import org.zkoss.bind.annotation.Init;
 import org.zkoss.util.media.Media;
 import org.zkoss.zhtml.Messagebox;
 import org.zkoss.zk.ui.event.UploadEvent;
+import org.zkoss.zul.Image;
+import org.zkoss.zul.Window;
 
 import com.google.protobuf.Message;
 
@@ -69,6 +71,7 @@ public class TambahLovVmd extends BaseVmd implements Serializable {
 				}
 
 				try {
+					//Messagebox.show("panjang x lebar : " + processSizeWidth + " " + proccessSizeHeight );
 					initPic = overlay2d.bufferedImageToByte(
 							overlay2d.resizingImage(getImage.getByte(), processSizeWidth, proccessSizeHeight));
 				} catch (ImageReadException | IOException e) {
@@ -76,6 +79,9 @@ public class TambahLovVmd extends BaseVmd implements Serializable {
 				}
 				//changeDisplayCss("imageT", Integer.toString(processSizeWidth), Integer.toString(proccessSizeHeight));
 				onUpload = false;
+				InValidFormClass("uploadLov", "upload-button-after-upload");
+				InValidFormClass("backLov", "return-button-after-upload");
+				InValidFormClass("saveLov", "upload-button-after-upload");
 				BindUtils.postNotifyChange(null, null, this, "onUpload");
 				BindUtils.postNotifyChange(null, null, this, "initPic");
 				BindUtils.postNotifyChange(null, null, this, "getImage");
@@ -84,12 +90,36 @@ public class TambahLovVmd extends BaseVmd implements Serializable {
 			}
 		}
 	}
+	
+	@Command("mouseOverPicture")
+	public void mouseOverPicture(@BindingParam("imfo") Image image,@ContextParam(ContextType.BIND_CONTEXT) BindContext ctx){
+		//InValidFormClass("uploadLov", "pictPanelMouse");
+		ValidFormClass("backLov", "return-button-after-upload","return-button");
+		ValidFormClass("uploadLov", "upload-button-after-upload","upload-button");
+		ValidFormClass("saveLov", "upload-button-after-upload","upload-button");
+		//InValidFormClass("saveLov", "pictPanelMouse");
+	}
+	
+	@Command("mouseOutPicture")
+	public void mouseOutPicture(@BindingParam("imfo") Image image,@ContextParam(ContextType.BIND_CONTEXT) BindContext ctx){
+		InValidFormClass("backLov", "return-button-after-upload");
+		InValidFormClass("uploadLov", "upload-button-after-upload");
+//		InValidFormClass("backLov", "pictPanelMouse");
+//		InValidFormClass("saveLov", "pictPanelMouse");
+	}
+	
+	
+	@Command("kembali")
+	public void pilih(@BindingParam("destroy")  Window lov){
+		removeCurrentLovInformation("file_type");
+		//showErrorMessageBox("nilai : " + getInformationForLov("file_type").getValue());
+		lov.detach();
+	}
 
 	@Override
 	public void loadList() {
 		super.loadList();
 		BindUtils.postNotifyChange(null, null, this, "getImage");
-		// showErrorMessageBox("nilai : " + getInformationForLov().get("file_type"));
 	}
 
 	public byte[] getInitPic() {

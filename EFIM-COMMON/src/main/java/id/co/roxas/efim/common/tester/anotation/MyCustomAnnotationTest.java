@@ -30,6 +30,7 @@ public class MyCustomAnnotationTest {
 		
 		Class c = m.getClass();
 		Method met = c.getMethod("myString");
+		
 		MyCustomAnnotation man = met.getAnnotation(MyCustomAnnotation.class);
 		System.out.println(man.idLicense());
 	}
