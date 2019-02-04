@@ -8,7 +8,7 @@
 	<include src="/StyleSheet/lovStyle.zul" />
 
 	<window title="" sclass="window" border="normal"
-		apply="org.zkoss.bind.BindComposer"
+		apply="org.zkoss.bind.BindComposer" id="firstPage"
 		viewModel="@id('vm') @init('vmd.beranda.FirstPageVmd')">
 
 <timer onTimer="@command('onRecruitTime')" delay="1000" repeats="@load(vm.moveTimer)" ></timer>

@@ -1,8 +1,29 @@
 <?page title="new page title" contentType="text/html;charset=UTF-8"?>
 <zk>
-<window title="" border="normal" sclass="popupWindow" 
-apply="org.zkoss.bind.BindComposer"  id="lov" mode="popup" 
-viewModel="@id('vm') @init('vmd.beranda.transaksi.share.lov.TambahLovVmd')">
-Tesk masuk
-</window>
+	<window title="" border="normal" sclass="popupWindow"
+		apply="org.zkoss.bind.BindComposer" id="lov"
+		viewModel="@id('vm') @init('vmd.beranda.transaksi.share.lov.TambahLovVmd')"
+		defaultActionOnShow="slideDown">
+		<image
+			content="@load(vm.coolBgTambah) @converter('converter.ImageToZkImageConverter')"
+			sclass="bgLov" />
+
+		<div sclass="bg">
+			<div
+				style="background-color :transparent; width : 100%; height : 100%;
+                       position : absolute; top : 0px; left : 0px; display: flex; 
+                       align-items: center; overflow:auto; cursor: pointer; 
+                       justify-content: center;">
+				<button upload="true,maxsize=-1,native"
+					onUpload="@command('onPhotoUpload')" label="UPLOAD PHOTO"
+					iconSclass="z-icon-photo" orient="vertical" height="100px" visible="@load(vm.onUpload)"/>
+					
+			    <image id = "imageT" content="@load(vm.initPic) @converter('converter.ImageToZkImageConverter')"/>
+			</div>
+			
+		
+		</div>
+		
+		
+	</window>
 </zk>

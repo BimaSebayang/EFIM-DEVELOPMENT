@@ -2,11 +2,11 @@
 <zk>
 
 	<window height="1000%" width="457%" border="normal"
-		apply="org.zkoss.bind.BindComposer"
+		apply="org.zkoss.bind.BindComposer" 
 		viewModel="@id('vm') @init('vmd.beranda.transaksi.fileDetail.pictureVmd')">
 
-		<timer onTimer="@command('onRecruitPictureTime')" delay="1000"
-			repeats="true" running="@load(vm.moveTimer)" />
+<!-- 		<timer onTimer="@command('onRecruitPictureTime')" delay="1000" -->
+<!-- 			repeats="true" running="@load(vm.moveTimer)" /> -->
 
 		<div sclass="panelButtonReg1">
 			<div>

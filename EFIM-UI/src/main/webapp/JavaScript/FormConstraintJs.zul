@@ -9,6 +9,10 @@
                 jq('$' + id1).addClass(class1);
     }
     
+    function changeDisplayCss(id,height,width,ml,mt){
+               jq('$'+id).css({'height' : height,'width' : width,'position' : 'absolute','top' : '0px','left' : '0px' ,'display' : 'flex', 'flex-direction': 'column','align-items': 'center','justify-content':'center'});
+    }
+    
     function call_constraint(id1){
          var p = $("text-boxWrongValue");
          var position = p.position();

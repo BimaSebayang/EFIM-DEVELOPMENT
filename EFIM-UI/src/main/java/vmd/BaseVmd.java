@@ -46,6 +46,7 @@ public class BaseVmd extends BaseComponent implements Serializable {
 	private final String VARIABLE = "http://localhost:8080/EFIM-CORE/";
 	protected byte[] coolBackground;
 	protected byte[] coolLogo;
+	protected byte[] coolBgTambah;
 	protected RestTemplateLib restTemplateLib = new RestTemplateLib();
 
 	public void callLovVmd(String uri, Map<String, Object> informationSetter) {
@@ -116,6 +117,8 @@ public class BaseVmd extends BaseComponent implements Serializable {
 		coolBackground = getTheFileFileStream("/PictureCtl/GetTheBackgroundPicture", new HashMap<>(), "EFIMBG.png",
 				"projectCode=" + PROJECT);
 		coolLogo = getTheFileFileStream("/PictureCtl/GetTheBackgroundPicture", new HashMap<>(), "EFIMLOGO.png",
+				"projectCode=" + PROJECT);
+		coolBgTambah =  getTheFileFileStream("/PictureCtl/GetTheBackgroundPicture", new HashMap<>(), "photobook.png",
 				"projectCode=" + PROJECT);
 		// coolLogo = getTheFile("\\BG", "EFIMLOGO.png", "jpg");
 		// coolBackground = getTheFile("\\BG", "EFIMBG.png", "jpg");
@@ -416,6 +419,7 @@ public class BaseVmd extends BaseComponent implements Serializable {
 	public void InValidFormClass(String idName, String cssName) {
 		String si = "valid_FormClass('" + idName + "','" + cssName + "')";
 		Clients.evalJavaScript(si);
+		
 	}
 
 	public void ValidFormClass(String idName, String cssName, String lastCss) {
@@ -436,6 +440,14 @@ public class BaseVmd extends BaseComponent implements Serializable {
 		String s = "call_constraint('" + idName + "')";
 		Clients.evalJavaScript(s);
 	}
+	
+	public void changeDisplayCss(String id, String width, String height) {
+		int ml = (int) (Integer.parseInt(width)*0.5);
+		int mt = (int) (Integer.parseInt(height)*0.5);
+		String s = "changeDisplayCss('" + id + "','"+height+"','"+width+"','"+ml+"','"+mt+"')";
+		Clients.evalJavaScript(s);
+	}
+	
 
 	public byte[] getCoolBackground() {
 		return coolBackground;
@@ -459,6 +471,14 @@ public class BaseVmd extends BaseComponent implements Serializable {
 
 	public void setSearch(String search) {
 		this.search = search;
+	}
+
+	public byte[] getCoolBgTambah() {
+		return coolBgTambah;
+	}
+
+	public void setCoolBgTambah(byte[] coolBgTambah) {
+		this.coolBgTambah = coolBgTambah;
 	}
 
 }
