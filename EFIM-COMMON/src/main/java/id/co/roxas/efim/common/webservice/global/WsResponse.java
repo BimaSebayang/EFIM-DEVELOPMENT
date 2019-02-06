@@ -7,7 +7,7 @@ import com.google.gson.Gson;
 public class WsResponse implements Serializable{
 	private static final long serialVersionUID = 5631412733795499376L;
 	private String  wsContent;
-	private String  message = "Success";
+	private String  message = "Error Web Service";
     private Integer totalContent;
     private Boolean isPaging;
     private Integer page;

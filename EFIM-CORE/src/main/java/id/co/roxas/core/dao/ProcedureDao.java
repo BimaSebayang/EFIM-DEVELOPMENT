@@ -1,5 +1,6 @@
 package id.co.roxas.core.dao;
 
+import java.math.BigDecimal;
 import java.math.BigInteger;
 
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -33,7 +34,10 @@ public interface ProcedureDao extends JpaRepository<ProcInformation, ProcInforma
     		String createdDate ,BigInteger expiredTime, String projectCode);
     
     @Procedure(procedureName="SECURITY.SP_CHECK_EMAIL_IS_VALID")
-    public String  spCheckEmailIsValid(String emailNo, String projectCode);
+    public String spCheckEmailIsValid(String emailNo, String projectCode);
     
+    @Procedure(procedureName="MASTER.SP_CREATE_EFIM_DB")
+    public String spCreateEfimDb(String fileName, Double fileSize, String fileStrIdReff, String owner, String projectCode, 
+    		String fileType, String createdDate, String actualfileName, byte[] fileStr);
 
 }

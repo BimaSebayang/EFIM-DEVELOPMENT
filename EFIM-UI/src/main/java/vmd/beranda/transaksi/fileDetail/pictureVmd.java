@@ -51,31 +51,7 @@ public class pictureVmd extends BaseVmd implements Serializable {
 	
 	@Command("onRecruitPictureTime")
 	public void onRecruitPictureTime() {
-		// http://localhost:8080/EFIM-CORE/UserEfimDbCompCtl/FileStream?projectCode=EFIM&fileStrIdRef=GBOLAAHQWCCDAHKLCCLV&fileIdRef=TED000000001
-
-//		if(!mapForColumns.isEmpty()) {
-//		
-//			
-//			WsResponse response = restTemplateLib.getResultWs("/UserEfimDbCompCtl/FileStream", null, "get",
-//					"projectCode=" + PROJECT, "fileStrIdRef=" + "GBOLAAHQWCCDAHKLCCLV",
-//					"fileIdRef=" + "TED000000001");
-//					
-//			TblEfimFileDbstorageDto tblEfimFileDbstorageDto = new TblEfimFileDbstorageDto();
-//					try {
-//						tblEfimFileDbstorageDto = restTemplateLib.mapperJsonToSingleDto(response.getWsContent(), TblEfimFileDbstorageDto.class);
-//					} catch (Exception e) {
-//						e.printStackTrace();
-//					}
-//					
-//				fileStr = tblEfimFileDbstorageDto.getFileStr();
-//				BindUtils.postNotifyChange(null, null, this, "fileStr");
-//				moveTimer = false;
-//				BindUtils.postNotifyChange(null, null, this, "moveTimer");
-//		}
-		
 		if (!mapForColumns.isEmpty()) {
-			
-			
 			if (timeCounter <= mapForColumns.size()) {
 				Map<Integer, TblEfimDbDto> tempTblEfim = mapForColumns.get(timeCounter);
 				for (Entry<Integer, TblEfimDbDto> b : mapForColumns.get(timeCounter).entrySet()) {
@@ -99,7 +75,6 @@ public class pictureVmd extends BaseVmd implements Serializable {
 				moveTimer = false;
 				BindUtils.postNotifyChange(null, null, this, "moveTimer");
 			}
-
 		}
 	}
 

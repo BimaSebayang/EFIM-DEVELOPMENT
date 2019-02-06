@@ -37,8 +37,8 @@ public class MapperWs implements Serializable{
 		 try {
 			finalMap =  mapper.readValue(result, new TypeReference<HashMap<String, Object>>(){});
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
+			finalMap.put("error_method", e.getMessage());
 		}
 	     return finalMap;
 	 }
