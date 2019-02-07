@@ -1,9 +1,15 @@
-package vmd.beranda.transaksi.share.lov;
+package vmd.beranda.transaksi.shareLov;
 
 import java.awt.Dimension;
 import java.awt.Toolkit;
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.Serializable;
+import java.util.HashMap;
+import java.util.Map;
+
+import org.apache.commons.io.FileUtils;
 import org.apache.sanselan.ImageReadException;
 import org.zkoss.bind.BindContext;
 import org.zkoss.bind.BindUtils;
@@ -21,7 +27,11 @@ import org.zkoss.zul.Window;
 import com.google.protobuf.Message;
 
 import id.co.roxas.efim.common.common.dto.ImageCaptureDto;
+import id.co.roxas.efim.common.common.dto.headuser.TblEfimDbDto;
+import id.co.roxas.efim.common.common.dto.stream.TblEfimFileDbstorageDto;
 import id.co.roxas.efim.common.common.lib.GraphicOverlay2D;
+import id.co.roxas.efim.common.webservice.global.WsResponse;
+import id.co.roxas.efim.common.webservice.lib.RestTemplateLib;
 import vmd.BaseVmd;
 
 @Init(superclass = true)
@@ -30,7 +40,7 @@ public class TambahLovVmd extends BaseVmd implements Serializable {
 	private static final long serialVersionUID = 3276365232009484683L;
 	private byte[] initPic = null;
 	private ImageCaptureDto getImage = new ImageCaptureDto();
-	private boolean onUpload = true;  
+	private boolean onUpload = true;
 
 	@Command("onPhotoUpload")
 	public void onPhotoUpload(@ContextParam(ContextType.BIND_CONTEXT) BindContext ctx) {
@@ -54,30 +64,28 @@ public class TambahLovVmd extends BaseVmd implements Serializable {
 				int processSizeWidth = 0;
 				if (szHeight >= height) {
 					if (szWidth >= width) {
-                         proccessSizeHeight = height;
-                         processSizeWidth = width;
+						proccessSizeHeight = height;
+						processSizeWidth = width;
 					} else {
 						proccessSizeHeight = height;
-                        processSizeWidth = szWidth;
+						processSizeWidth = szWidth;
 					}
 				} else {
 					if (szWidth >= width) {
 						proccessSizeHeight = szHeight;
-                        processSizeWidth = width;
+						processSizeWidth = width;
 					} else {
 						proccessSizeHeight = szHeight;
-                        processSizeWidth = szWidth;
+						processSizeWidth = szWidth;
 					}
 				}
 
 				try {
-					//Messagebox.show("panjang x lebar : " + processSizeWidth + " " + proccessSizeHeight );
 					initPic = overlay2d.bufferedImageToByte(
 							overlay2d.resizingImage(getImage.getByte(), processSizeWidth, proccessSizeHeight));
 				} catch (ImageReadException | IOException e) {
 					e.printStackTrace();
 				}
-				//changeDisplayCss("imageT", Integer.toString(processSizeWidth), Integer.toString(proccessSizeHeight));
 				onUpload = false;
 				InValidFormClass("uploadLov", "upload-button-after-upload");
 				InValidFormClass("backLov", "return-button-after-upload");
@@ -90,30 +98,69 @@ public class TambahLovVmd extends BaseVmd implements Serializable {
 			}
 		}
 	}
-	
+
 	@Command("mouseOverPicture")
-	public void mouseOverPicture(@BindingParam("imfo") Image image,@ContextParam(ContextType.BIND_CONTEXT) BindContext ctx){
-		//InValidFormClass("uploadLov", "pictPanelMouse");
-		ValidFormClass("backLov", "return-button-after-upload","return-button");
-		ValidFormClass("uploadLov", "upload-button-after-upload","upload-button");
-		ValidFormClass("saveLov", "upload-button-after-upload","upload-button");
-		//InValidFormClass("saveLov", "pictPanelMouse");
+	public void mouseOverPicture(@BindingParam("imfo") Image image,
+			@ContextParam(ContextType.BIND_CONTEXT) BindContext ctx) {
+		// InValidFormClass("uploadLov", "pictPanelMouse");
+		ValidFormClass("backLov", "return-button-after-upload", "return-button");
+		ValidFormClass("uploadLov", "upload-button-after-upload", "upload-button");
+		ValidFormClass("saveLov", "upload-button-after-upload", "upload-button");
+		// InValidFormClass("saveLov", "pictPanelMouse");
 	}
-	
+
 	@Command("mouseOutPicture")
-	public void mouseOutPicture(@BindingParam("imfo") Image image,@ContextParam(ContextType.BIND_CONTEXT) BindContext ctx){
+	public void mouseOutPicture(@BindingParam("imfo") Image image,
+			@ContextParam(ContextType.BIND_CONTEXT) BindContext ctx) {
 		InValidFormClass("backLov", "return-button-after-upload");
 		InValidFormClass("uploadLov", "upload-button-after-upload");
-//		InValidFormClass("backLov", "pictPanelMouse");
-//		InValidFormClass("saveLov", "pictPanelMouse");
 	}
-	
-	
+
 	@Command("kembali")
-	public void pilih(@BindingParam("destroy")  Window lov){
+	public void kembali(@BindingParam("destroy") Window lov) {
 		removeCurrentLovInformation("file_type");
-		//showErrorMessageBox("nilai : " + getInformationForLov("file_type").getValue());
+		// showErrorMessageBox("nilai : " +
+		// getInformationForLov("file_type").getValue());
 		lov.detach();
+	}
+
+	@Command("savePict")
+	public void savePict(@BindingParam("destroy") Window lov) {
+		TblEfimDbDto tblEfimDbDto = new TblEfimDbDto();
+		TblEfimFileDbstorageDto tblEfimFileDbstorageDto = new TblEfimFileDbstorageDto();
+		tblEfimFileDbstorageDto.setFileStr(getImage.getByte());
+		tblEfimDbDto.setFileName(getImage.getImageTitle());
+		tblEfimDbDto.setFileSize(getImage.getFileSize("kilobyte"));
+		tblEfimDbDto.setFileStrIdReff(getComponentUser().getUserSessionCode());
+		tblEfimDbDto.setFileOwner(getComponentUser().getUserId());
+		tblEfimDbDto.setProjectCode(getComponentUser().getProjectCode());
+		tblEfimDbDto.setFileType((String) getInformationForLov("file_type").getValue());
+		tblEfimDbDto.setTblEfimFileDbstorageDto(tblEfimFileDbstorageDto);
+		WsResponse wsResponse = new RestTemplateLib().getResultWs("/TambahCompCtl/Save", tblEfimDbDto, "post", null);
+		if (!wsResponse.getIsErrorSvc().booleanValue()) {
+			Map<String, Object> mapper = new RestTemplateLib().mapperJsonToHashMap(wsResponse.getWsContent());
+			boolean result;
+			if (mapper != null) {
+				result = (boolean) mapper.get("result");
+
+				if (result) {
+					Map<String, Object> args = new HashMap<>();
+					args.put("success", true);
+					BindUtils.postGlobalCommand(null, null, "TambahLov", args);
+				} else {
+					showErrorMessageBox("message : " + mapper.get("error"));
+				}
+			} else {
+				showErrorMessageBox("cannot retrieve wsContent");
+			}
+		}
+		else {
+			showErrorMessageBox("error : " + wsResponse.getErrorCmd());
+		}
+		
+	
+		
+        lov.detach();
 	}
 
 	@Override

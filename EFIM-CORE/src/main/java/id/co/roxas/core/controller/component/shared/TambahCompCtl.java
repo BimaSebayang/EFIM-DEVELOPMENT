@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.google.gson.Gson;
 
 import id.co.roxas.core.dao.ProcedureDao;
+import id.co.roxas.efim.common.common.dto.headuser.TblEfimDbDto;
 import id.co.roxas.efim.common.common.lib.CommonDateLibPr;
 import id.co.roxas.efim.common.constant.CommonConstant;
 import id.co.roxas.efim.common.webservice.global.WsResponse;
@@ -25,7 +26,7 @@ public class TambahCompCtl extends CommonConstant {
 	private ProcedureDao procedureDao;
 
 	@RequestMapping(value = "/Save", method = RequestMethod.POST)
-	public WsResponse saveEfimDb(@RequestBody Map<String, Object> saveBody) {
+	public WsResponse saveEfimDb(@RequestBody TblEfimDbDto saveBody) {
 
 		if (saveBody == null) {
 			WsResponse response = new WsResponse();
@@ -43,19 +44,19 @@ public class TambahCompCtl extends CommonConstant {
 		String actualFileName = "";
 		byte[] fileStr = null;
 		try {
-			fileName = (String) saveBody.get("file_name");
+			fileName = saveBody.getFileName();
 			try {
-				fileSize = (double) saveBody.get("file_size");
+				fileSize = (double) saveBody.getFileSize();
 			} catch (ClassCastException cce) {
-				int fileSizeInInteger = (int) saveBody.get("file_size");
+				int fileSizeInInteger = (int) saveBody.getFileSize().doubleValue();
 				fileSize = fileSizeInInteger;
 			}
-			fileStrIdReff = (String) saveBody.get("file_str_id_reff");
-			owner = (String) saveBody.get("owner");
-			projectCode = (String) saveBody.get("project_code");
-			fileType = (String) saveBody.get("file_type");
-			actualFileName = (String) saveBody.get("actual_file_name");
-			fileStr = (byte[]) saveBody.get("file_str");
+			fileStrIdReff = saveBody.getFileStrIdReff();
+			owner = saveBody.getFileOwner();
+			projectCode = saveBody.getProjectCode();
+			fileType = saveBody.getFileType();
+			actualFileName = saveBody.getFileName();
+			fileStr = saveBody.getTblEfimFileDbstorageDto().getFileStr();
 		} catch (Exception exp) {
 			exp.printStackTrace();
 			WsResponse response = new WsResponse();

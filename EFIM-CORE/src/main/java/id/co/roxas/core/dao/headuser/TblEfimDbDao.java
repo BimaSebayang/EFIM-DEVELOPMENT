@@ -16,11 +16,9 @@ import entity.stream.TblPictureFrontEnd;
 
 public interface TblEfimDbDao extends JpaRepository<TblEfimDb, TblEfimDbPk>{
 
-	@Query("select a from TblEfimDb a where a.fileOwner = :fileOwner and a.projectCode = :projectCode "
-			+ " and a.fileIdReff not in :listIdReff")
-	public List<TblEfimDb> getAllDataAndFileOwner
-	(@Param("fileOwner") String fileOwner, @Param("projectCode") String projectCode,
-			@Param("listIdReff") List<String> listIdReff );
+	@Query("select a from TblEfimDb a where a.fileOwner = :fileOwner and a.projectCode = :projectCode and a.fileType = :fileType")
+	public Page<TblEfimDb> getAllDataAndFileOwner
+	(@Param("fileOwner") String fileOwner, @Param("fileType") String fileType,@Param("projectCode") String projectCode, Pageable pageable );
 	
 	//Semua untuk keperluan Solr
 	

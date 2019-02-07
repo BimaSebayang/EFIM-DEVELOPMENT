@@ -55,9 +55,9 @@ public class UserEfimDbCompCtl extends CommonConstant{
 		   return wsResponse;
 	}
 	
-	@RequestMapping(value = "/UserEfim", method = RequestMethod.POST, params = { "projectCode"})
+	@RequestMapping(value = "/UserEfim", method = RequestMethod.POST, params = { "projectCode","page"})
 	public WsResponse checkAllUserEfim(@RequestBody Map<String, Object> mapperRequest, 
-			@RequestParam String projectCode) {
+			@RequestParam String projectCode, @RequestParam int page) {
 		
 	        if(mapperRequest!=null) {
 	        	mapperRequest.put("projectCode", projectCode);
@@ -65,11 +65,11 @@ public class UserEfimDbCompCtl extends CommonConstant{
 	        
 	        WsResponse wsResponse = new WsResponse();
 	        
-		    Map<String, Object> mapperResult = tblEfimDbSvc.getAllDataAndFileOwner(mapperRequest);
+		    Map<String, Object> mapperResult = tblEfimDbSvc.getAllDataAndFileOwner(mapperRequest,page);
 		    try {
 			if(((String)mapperResult.get("error")).equalsIgnoreCase(COMMONNOERROR)) {
 				wsResponse = new WsResponse(mapperResult.get("content"), 
-						(int)mapperResult.get("count"), false, null,(int) mapperResult.get("size"));
+						(int)mapperResult.get("count"), true, page,(int) mapperResult.get("size"));
 				wsResponse.setIsErrorSvc(false);
 			}
 			else if(((String)mapperResult.get("error")).equalsIgnoreCase(COMMONNODATA)) {

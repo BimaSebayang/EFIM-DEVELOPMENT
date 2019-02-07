@@ -1,6 +1,6 @@
 <zk>
 	<window sclass="popupWindow" apply="org.zkoss.bind.BindComposer" id="lov" 
-		viewModel="@id('vm') @init('vmd.beranda.transaksi.share.lov.TambahLovVmd')">
+		viewModel="@id('vm') @init('vmd.beranda.transaksi.shareLov.TambahLovVmd')">
 		
 		<image
 			content="@load(vm.coolBgTambah) @converter('converter.ImageToZkImageConverter')"

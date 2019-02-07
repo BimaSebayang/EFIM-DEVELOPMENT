@@ -13,11 +13,13 @@ import org.zkoss.bind.annotation.BindingParam;
 import org.zkoss.bind.annotation.Command;
 import org.zkoss.bind.annotation.ContextParam;
 import org.zkoss.bind.annotation.ContextType;
+import org.zkoss.bind.annotation.GlobalCommand;
 import org.zkoss.bind.annotation.Init;
 
 import id.co.roxas.efim.common.common.dto.headuser.TblEfimDbDto;
 import id.co.roxas.efim.common.common.dto.stream.TblEfimFileDbstorageDto;
 import id.co.roxas.efim.common.webservice.global.WsResponse;
+import id.co.roxas.efim.common.webservice.lib.RestTemplateLib;
 import vmd.BaseVmd;
 
 
@@ -46,37 +48,34 @@ public class pictureVmd extends BaseVmd implements Serializable {
 		}
 		return tempTblEfimDbDtos;
 	}
-
-//	onMouseOver="@command('tester')"
 	
-	@Command("onRecruitPictureTime")
-	public void onRecruitPictureTime() {
-		if (!mapForColumns.isEmpty()) {
-			if (timeCounter <= mapForColumns.size()) {
-				Map<Integer, TblEfimDbDto> tempTblEfim = mapForColumns.get(timeCounter);
-				for (Entry<Integer, TblEfimDbDto> b : mapForColumns.get(timeCounter).entrySet()) {
-					WsResponse response = restTemplateLib.getResultWs("/UserEfimDbCompCtl/FileStream", null, "get",
-							"projectCode=" + PROJECT, "fileStrIdRef=" + b.getValue().getFileStrIdReff(),
-							"fileIdRef=" + b.getValue().getFileIdReff());
-					
-					TblEfimDbDto efimDbDto = b.getValue();
-					try {
-						efimDbDto.setTblEfimFileDbstorageDto(restTemplateLib
-								.mapperJsonToSingleDto(response.getWsContent(), TblEfimFileDbstorageDto.class));
-					} catch (Exception e) {
-						e.printStackTrace();
-					}
-					tempTblEfim.put(b.getKey(), efimDbDto);
-				}
-				mapForColumns.put(timeCounter, tempTblEfim);
-				BindUtils.postNotifyChange(null, null, this, "mapForColumns");
-				timeCounter++;
-			} else {
-				moveTimer = false;
-				BindUtils.postNotifyChange(null, null, this, "moveTimer");
-			}
-		}
-	}
+//	@Command("onRecruitPictureTime")
+//	public void onRecruitPictureTime() {
+//		if (!mapForColumns.isEmpty()) {
+//			if (timeCounter <= mapForColumns.size()) {
+//				Map<Integer, TblEfimDbDto> tempTblEfim = mapForColumns.get(timeCounter);
+//				for (Entry<Integer, TblEfimDbDto> b : mapForColumns.get(timeCounter).entrySet()) {
+//					WsResponse response = restTemplateLib.getResultWs("/UserEfimDbCompCtl/FileStream", null, "get",
+//							"projectCode=" + PROJECT, "fileStrIdRef=" + b.getValue().getFileStrIdReff(),
+//							"fileIdRef=" + b.getValue().getFileIdReff());
+//					TblEfimDbDto efimDbDto = b.getValue();
+//					try {
+//						efimDbDto.setTblEfimFileDbstorageDto(restTemplateLib
+//								.mapperJsonToSingleDto(response.getWsContent(), TblEfimFileDbstorageDto.class));
+//					} catch (Exception e) {
+//						e.printStackTrace();
+//					}
+//					tempTblEfim.put(b.getKey(), efimDbDto);
+//				}
+//				mapForColumns.put(timeCounter, tempTblEfim);
+//				BindUtils.postNotifyChange(null, null, this, "mapForColumns");
+//				timeCounter++;
+//			} else {
+//				moveTimer = false;
+//				BindUtils.postNotifyChange(null, null, this, "moveTimer");
+//			}
+//		}
+//	}
 
 	public boolean isMoveTimer() {
 		return moveTimer;
@@ -165,10 +164,28 @@ public class pictureVmd extends BaseVmd implements Serializable {
 		BindUtils.postNotifyChange(null, null, this, "selectedPict");
 	}
 	
+	@GlobalCommand("TambahLov")
+    public void tambahLov(@BindingParam("success") boolean success) {
+		if(success) {
+		loadList();
+		}
+	}
+	
 	@Override
 	public void loadList() {
 		super.loadList();
-		List<TblEfimDbDto> tblEfimDbDtos = getRegisterDbUserInCurrentFile(getComponentUser().getUserId(), "PICT");
+		Map<String, Object> tempTblEfim = new HashMap<>();
+		tempTblEfim.put("userId", getComponentUser().getUserId());
+		tempTblEfim.put("projectCode", getComponentUser().getProjectCode());
+		tempTblEfim.put("fileType", PICT);
+			WsResponse response = restTemplateLib.getResultWs("/UserEfimDbCompCtl/UserEfim", tempTblEfim, "post",
+					"projectCode=" + PROJECT, "page=1");
+		List<TblEfimDbDto> tblEfimDbDtos = new ArrayList<>();
+		try {
+			tblEfimDbDtos = new RestTemplateLib().mapperJsonToListDto(response.getWsContent(), TblEfimDbDto.class);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		try {
 			int counterpart = 0;
 			int counterColumn = 0;

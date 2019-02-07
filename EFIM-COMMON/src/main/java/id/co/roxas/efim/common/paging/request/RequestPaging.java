@@ -24,7 +24,7 @@ public  class RequestPaging implements Serializable, Pageable{
 		else if(direction.equals("DESC")) {
 			sort = Sort.Direction.DESC;
 		}
-		PageRequest pr = new PageRequest(page-1, 10,sort,splliterOrder);
+		PageRequest pr = new PageRequest(page-1, 16,sort,splliterOrder);
 		return pr;
 	}
 	

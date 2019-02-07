@@ -24,35 +24,35 @@ public class FirstPageVmd extends BaseVmd implements Serializable {
 	private boolean moveTimer = true;
     
 	
-	@Command("onRecruitTime")
-	public void onRecruitTime() {
-		Map<String, Object> mapp = new HashMap<>();
-		mapp.put("userId", getComponentUser().getUserId());
-		if (getRegisterDbUserInCurrentAttributeFile(getComponentUser().getUserId()) != null) {
-			List<String> arraysStr = new ArrayList<>();
-			for (TblEfimDbDto dto : getRegisterDbUserInCurrentAttributeFile(getComponentUser().getUserId())) {
-				arraysStr.add(dto.getFileIdReff());
-			}
-			mapp.put("idReffs", arraysStr);
-		}
-		WsResponse response = restTemplateLib.getResultWs("/UserEfimDbCompCtl/UserEfim",mapp,"post",
-				"projectCode=" + PROJECT);
-
-		boolean isErrorSvc = response.getIsErrorSvc();
-		if (!isErrorSvc) {
-			try {
-				tblEfimDbDtos = restTemplateLib.mapperJsonToListDto(response.getWsContent(), TblEfimDbDto.class);
-				registerDbUserToDesktop(getComponentUser().getUserId(), tblEfimDbDtos);
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-		}
-		else {
-			moveTimer = false;
-			BindUtils.postNotifyChange(null, null, this, "moveTimer");
-		}
-		BindUtils.postNotifyChange(null, null, this, "tblEfimDbDtos");
-	}
+//	@Command("onRecruitTime")
+//	public void onRecruitTime() {
+//		Map<String, Object> mapp = new HashMap<>();
+//		mapp.put("userId", getComponentUser().getUserId());
+//		if (getRegisterDbUserInCurrentAttributeFile(getComponentUser().getUserId()) != null) {
+//			List<String> arraysStr = new ArrayList<>();
+//			for (TblEfimDbDto dto : getRegisterDbUserInCurrentAttributeFile(getComponentUser().getUserId())) {
+//				arraysStr.add(dto.getFileIdReff());
+//			}
+//			mapp.put("idReffs", arraysStr);
+//		}
+//		WsResponse response = restTemplateLib.getResultWs("/UserEfimDbCompCtl/UserEfim",mapp,"post",
+//				"projectCode=" + PROJECT);
+//
+//		boolean isErrorSvc = response.getIsErrorSvc();
+//		if (!isErrorSvc) {
+//			try {
+//				tblEfimDbDtos = restTemplateLib.mapperJsonToListDto(response.getWsContent(), TblEfimDbDto.class);
+//				registerDbUserToDesktop(getComponentUser().getUserId(), tblEfimDbDtos);
+//			} catch (Exception e) {
+//				e.printStackTrace();
+//			}
+//		}
+//		else {
+//			moveTimer = false;
+//			BindUtils.postNotifyChange(null, null, this, "moveTimer");
+//		}
+//		BindUtils.postNotifyChange(null, null, this, "tblEfimDbDtos");
+//	}
 
 	@Override
 	public void loadList() {

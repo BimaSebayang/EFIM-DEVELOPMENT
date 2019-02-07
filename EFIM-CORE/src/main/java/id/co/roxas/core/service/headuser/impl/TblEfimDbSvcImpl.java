@@ -21,6 +21,7 @@ import id.co.roxas.core.service.headuser.TblEfimDbSvc;
 import id.co.roxas.efim.common.common.dto.UserPrivilegeCustom;
 import id.co.roxas.efim.common.common.dto.headuser.TblEfimDbDto;
 import id.co.roxas.efim.common.constant.CommonConstant;
+import id.co.roxas.efim.common.paging.request.RequestPaging;
 import ma.glasnost.orika.MapperFacade;
 import ma.glasnost.orika.impl.DefaultMapperFactory;
 
@@ -67,7 +68,7 @@ public class TblEfimDbSvcImpl extends CommonConstant implements TblEfimDbSvc{
 	}
 
 	@Override
-	public Map<String, Object> getAllDataAndFileOwner(Map<String, Object> mapResult) {
+	public Map<String, Object> getAllDataAndFileOwner(Map<String, Object> mapResult,int page) {
 
 		Map<String, Object> mapper = new HashMap<>();
 		List<String> listReff = (List<String>) mapResult.get("idReffs");
@@ -80,7 +81,10 @@ public class TblEfimDbSvcImpl extends CommonConstant implements TblEfimDbSvc{
 		try {
 		String fileOwner = (String) mapResult.get("userId");
 		String projectCode = (String) mapResult.get("projectCode");
-		List<TblEfimDb> pageTed = tblEfimDbDao.getAllDataAndFileOwner(fileOwner, projectCode, listReff);
+		String fileType = (String) mapResult.get("fileType");
+		RequestPaging paging = new RequestPaging();
+		Page<TblEfimDb> pager= tblEfimDbDao.getAllDataAndFileOwner(fileOwner, fileType,projectCode, paging.createRequestPage(page, "DESC", "createdDate"));
+		List<TblEfimDb> pageTed = pager.getContent();
 		if(pageTed.size()!=0) {
 			List<TblEfimDbDto> tblEfimDbDtos = new ArrayList<>();
 			for (TblEfimDb tblEfimDb : pageTed) {

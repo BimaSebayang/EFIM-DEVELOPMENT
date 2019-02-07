@@ -14,15 +14,13 @@ import id.co.roxas.efim.common.common.dto.GlobalDesktopInitUser;
 import id.co.roxas.efim.common.common.dto.UserPrivilegeCustom;
 import id.co.roxas.efim.common.common.dto.headuser.TblEfimDbDto;
 
-
 @VariableResolver(org.zkoss.zkplus.spring.DelegatingVariableResolver.class)
 public class BaseComponent extends GenericForwardComposer {
 	private static final long serialVersionUID = -116133037662167662L;
 	protected Desktop chatDesktop;
 	private GlobalDesktopInitUser globalDesktopInitUser = new GlobalDesktopInitUser();
 
-	
-	//tester
+	// tester
 	@Init
 	public Desktop initDesktop() {
 		return Executions.getCurrent().getDesktop();
@@ -31,14 +29,13 @@ public class BaseComponent extends GenericForwardComposer {
 	private GlobalDesktopInitUser getPrivateDesktopInitUser(String userId) {
 		GlobalDesktopInitUser gdiu = new GlobalDesktopInitUser();
 		gdiu = (GlobalDesktopInitUser) initDesktop().getWebApp().getAttribute(userId);
-		if(gdiu==null) {
+		if (gdiu == null) {
 			return new GlobalDesktopInitUser();
-		}
-		else {
-		return gdiu;
+		} else {
+			return gdiu;
 		}
 	}
-	
+
 	public UserPrivilegeCustom getComponentUser() {
 		// ini hanya digunakan jika langsung directed ke firstpage.zul
 		UserPrivilegeCustom upc = new UserPrivilegeCustom();
@@ -46,6 +43,7 @@ public class BaseComponent extends GenericForwardComposer {
 		upc.setUserName("Bima Satrya Sebayang");
 		upc.setUserPhoto(null);
 		upc.setUserSessionCode("GBOLAAHQWCCDAHKLCCLV");
+		upc.setProjectCode("EFIM");
 		registerUserToDesktop("Roxas0309", upc);
 		// ini hanya digunakan jika langsung directed ke firstpage.zul
 		String user = (String) Sessions.getCurrent().getAttribute("user");
@@ -55,31 +53,33 @@ public class BaseComponent extends GenericForwardComposer {
 		}
 		return ((GlobalDesktopInitUser) initDesktop().getWebApp().getAttribute(user)).getUserPrivilegeCustom();
 	}
-	
+
 	public void registerDbUserToDesktop(String userId, List<TblEfimDbDto> tblEfimDbDtos) {
-	   globalDesktopInitUser = getPrivateDesktopInitUser(userId);
-	   globalDesktopInitUser.setTblEfimDbDtos(tblEfimDbDtos);
-	  //System.err.println("mendaftarkan user " + userId + " sebanyak " + tblEfimDbDtos.size());
-	   initDesktop().getWebApp().setAttribute(userId, globalDesktopInitUser);	
+		globalDesktopInitUser = getPrivateDesktopInitUser(userId);
+		globalDesktopInitUser.setTblEfimDbDtos(tblEfimDbDtos);
+		initDesktop().getWebApp().setAttribute(userId, globalDesktopInitUser);
 	}
-	
-	
+
 	@SuppressWarnings("unchecked")
-	public List<TblEfimDbDto> getRegisterDbUserInCurrentFile(String userId, String fileType){
+	public List<TblEfimDbDto> getRegisterDbUserInCurrentFile(String userId, String fileType) {
 		List<TblEfimDbDto> tblEfimDbDtos = new ArrayList<>();
-		//System.err.println("user yang ingin diambil adalah " + userId);
-		List<TblEfimDbDto> tblEfimDbDtosTemp = ((GlobalDesktopInitUser) initDesktop().getWebApp().getAttribute(userId)).getTblEfimDbDtos();
-		for (TblEfimDbDto tblEfimDbDto : tblEfimDbDtosTemp) {
-			if(tblEfimDbDto.getFileType().equalsIgnoreCase(fileType)) {
-				tblEfimDbDtos.add(tblEfimDbDto);
+		try {
+			List<TblEfimDbDto> tblEfimDbDtosTemp = ((GlobalDesktopInitUser) initDesktop().getWebApp()
+					.getAttribute(userId)).getTblEfimDbDtos();
+			for (TblEfimDbDto tblEfimDbDto : tblEfimDbDtosTemp) {
+				if (tblEfimDbDto.getFileType().equalsIgnoreCase(fileType)) {
+					tblEfimDbDtos.add(tblEfimDbDto);
+				}
 			}
+		} catch (NullPointerException npe) {
+           npe.printStackTrace();
 		}
 		return tblEfimDbDtos;
 	}
-	
+
 	@SuppressWarnings("unchecked")
-	public List<TblEfimDbDto> getRegisterDbUserInCurrentAttributeFile(String userId){
-	 return ((GlobalDesktopInitUser) initDesktop().getWebApp().getAttribute(userId)).getTblEfimDbDtos();
+	public List<TblEfimDbDto> getRegisterDbUserInCurrentAttributeFile(String userId) {
+		return ((GlobalDesktopInitUser) initDesktop().getWebApp().getAttribute(userId)).getTblEfimDbDtos();
 	}
 
 	public void sendMeToOtherPage(String url) {

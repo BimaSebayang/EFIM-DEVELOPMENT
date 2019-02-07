@@ -9,6 +9,7 @@ public class UserPrivilegeCustom implements Serializable{
 	private String userName;
 	private String userSessionCode;
 	private byte[] userPhoto;
+	private String projectCode;
 	
 	public String getUserId() {
 		return userId;
@@ -33,6 +34,12 @@ public class UserPrivilegeCustom implements Serializable{
 	}
 	public void setUserPhoto(byte[] userPhoto) {
 		this.userPhoto = userPhoto;
+	}
+	public String getProjectCode() {
+		return projectCode;
+	}
+	public void setProjectCode(String projectCode) {
+		this.projectCode = projectCode;
 	}
 
 }
