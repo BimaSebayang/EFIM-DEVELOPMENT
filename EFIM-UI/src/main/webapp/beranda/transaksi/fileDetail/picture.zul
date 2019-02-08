@@ -5,8 +5,8 @@
 		apply="org.zkoss.bind.BindComposer" 
 		viewModel="@id('vm') @init('vmd.beranda.transaksi.fileDetail.pictureVmd')">
 
-<!-- 		<timer onTimer="@command('onRecruitPictureTime')" delay="1000" -->
-<!-- 			repeats="true" running="@load(vm.moveTimer)" /> -->
+		<timer onTimer="@command('onRecruitPictureTime')" delay="10000"
+			repeats="true" running="@load(vm.moveTimer)" />
 
 		<div sclass="panelButtonReg1">
 			<div>
@@ -36,21 +36,9 @@
 				         
 							<panelchildren sclass="blocker">
 								<div sclass="headerblocker">
-								<image id="${each.getValue().fileIdReff}" content="@load(each.getValue().tblEfimFileDbstorageDto.fileStr) @converter('converter.ImageToZkImageConverter')"
-						        sclass="pictPanel" onMouseOver="@command('mouseOverPict', imagePart = self.id)" onMouseOut = "@command('mouseOutPict', imagePart = self.id)">
-
-<!-- 						 <attribute name="onMouseOver">	  -->
-<!-- 				         if(self.getSclass().equalsIgnoreCase("pictPanel")){ -->
-<!-- 				            self.setSclass("pictPanelMouse");  -->
-<!-- 				         }	          -->
-<!-- 				         </attribute> -->
-<!-- 				         <attribute name="onMouseOut">    -->
-<!-- 				         if(self.getSclass().equalsIgnoreCase("pictPanelMouse")){ -->
-<!-- 				            self.setSclass("pictPanel"); -->
-<!-- 				         } -->
-<!-- 				         </attribute> -->
-
-						        				        
+								<image id="${each.getValue().fileIdReff}" content="@load(vm.mapPictures.get(each.getValue().fileIdReff) eq null? vm.coolLoading : 
+								vm.mapPictures.get(each.getValue().fileIdReff)) @converter('converter.ImageToZkImageConverter')"
+						        sclass="pictPanel" onMouseOver="@command('mouseOverPict', imagePart = self.id)" onMouseOut = "@command('mouseOutPict', imagePart = self.id)">						        				        
 						        </image>
 						        
 						        <vbox sclass="vboxIconButtonPanel" visible="@load(each.getValue().fileIdReff eq vm.selectedPict)">

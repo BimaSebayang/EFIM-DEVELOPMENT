@@ -22,7 +22,6 @@ import id.co.roxas.efim.common.webservice.global.WsResponse;
 import id.co.roxas.efim.common.webservice.lib.RestTemplateLib;
 import vmd.BaseVmd;
 
-
 @Init(superclass = true)
 public class pictureVmd extends BaseVmd implements Serializable {
 
@@ -30,6 +29,7 @@ public class pictureVmd extends BaseVmd implements Serializable {
 	private List<TblEfimDbDto> tblEfimDbDtos1 = new ArrayList<>(); // untuk menampung data di bagian atas
 	private List<TblEfimDbDto> tblEfimDbDtos2 = new ArrayList<>(); // untuk menampung data di bagian bawah
 	private Map<Integer, Map<Integer, TblEfimDbDto>> mapForColumns = new HashMap<>();
+	private Map<String, byte[]> mapPictures = new HashMap<>();
 	private TblEfimDbDto tblEfimDbDto = new TblEfimDbDto();
 	private boolean enoughTop = false;
 	private boolean enoughBottom = false;
@@ -48,34 +48,11 @@ public class pictureVmd extends BaseVmd implements Serializable {
 		}
 		return tempTblEfimDbDtos;
 	}
-	
-//	@Command("onRecruitPictureTime")
-//	public void onRecruitPictureTime() {
-//		if (!mapForColumns.isEmpty()) {
-//			if (timeCounter <= mapForColumns.size()) {
-//				Map<Integer, TblEfimDbDto> tempTblEfim = mapForColumns.get(timeCounter);
-//				for (Entry<Integer, TblEfimDbDto> b : mapForColumns.get(timeCounter).entrySet()) {
-//					WsResponse response = restTemplateLib.getResultWs("/UserEfimDbCompCtl/FileStream", null, "get",
-//							"projectCode=" + PROJECT, "fileStrIdRef=" + b.getValue().getFileStrIdReff(),
-//							"fileIdRef=" + b.getValue().getFileIdReff());
-//					TblEfimDbDto efimDbDto = b.getValue();
-//					try {
-//						efimDbDto.setTblEfimFileDbstorageDto(restTemplateLib
-//								.mapperJsonToSingleDto(response.getWsContent(), TblEfimFileDbstorageDto.class));
-//					} catch (Exception e) {
-//						e.printStackTrace();
-//					}
-//					tempTblEfim.put(b.getKey(), efimDbDto);
-//				}
-//				mapForColumns.put(timeCounter, tempTblEfim);
-//				BindUtils.postNotifyChange(null, null, this, "mapForColumns");
-//				timeCounter++;
-//			} else {
-//				moveTimer = false;
-//				BindUtils.postNotifyChange(null, null, this, "moveTimer");
-//			}
-//		}
-//	}
+
+	@Command("onRecruitPictureTime")
+	public void onRecruitPictureTime() {
+		BindUtils.postNotifyChange(null, null, this, "mapPictures");
+	}
 
 	public boolean isMoveTimer() {
 		return moveTimer;
@@ -86,7 +63,7 @@ public class pictureVmd extends BaseVmd implements Serializable {
 	}
 
 	private boolean activator = false;
-	
+
 	public boolean isActivator() {
 		return activator;
 	}
@@ -96,81 +73,94 @@ public class pictureVmd extends BaseVmd implements Serializable {
 	}
 
 	@Command("mouseOverPict")
-	public void mouseOverPict(@BindingParam("imagePart") String imagePart, @ContextParam(ContextType.BIND_CONTEXT) BindContext ctx) {
+	public void mouseOverPict(@BindingParam("imagePart") String imagePart,
+			@ContextParam(ContextType.BIND_CONTEXT) BindContext ctx) {
 		InValidFormClass(imagePart, "pictPanelMouse");
 		selectedPict = imagePart;
 		BindUtils.postNotifyChange(null, null, this, "selectedPict");
 	}
-	
+
 	@Command("mouseOutPict")
-	public void mouseOutPict(@BindingParam("imagePart") String imagePart, @ContextParam(ContextType.BIND_CONTEXT) BindContext ctx) {
-		ValidFormClass(imagePart, "pictPanelMouse","pictPanel");
+	public void mouseOutPict(@BindingParam("imagePart") String imagePart,
+			@ContextParam(ContextType.BIND_CONTEXT) BindContext ctx) {
+		ValidFormClass(imagePart, "pictPanelMouse", "pictPanel");
 		selectedPict = "";
 		BindUtils.postNotifyChange(null, null, this, "selectedPict");
 	}
+
 	@Command("mouseOverButtonFlag")
-	public void mouseOverButtonFlag(@BindingParam("comp") String comp, @ContextParam(ContextType.BIND_CONTEXT) BindContext ctx) {
+	public void mouseOverButtonFlag(@BindingParam("comp") String comp,
+			@ContextParam(ContextType.BIND_CONTEXT) BindContext ctx) {
 		InValidFormClass(comp, "pictPanelMouse");
 		selectedPict = comp;
 		BindUtils.postNotifyChange(null, null, this, "selectedPict");
 	}
-	
+
 	@Command("mouseOutButtonFlag")
-	public void mouseOutButtonFlag(@BindingParam("comp") String comp, @ContextParam(ContextType.BIND_CONTEXT) BindContext ctx) {
-		ValidFormClass(comp, "pictPanelMouse","pictPanel");
+	public void mouseOutButtonFlag(@BindingParam("comp") String comp,
+			@ContextParam(ContextType.BIND_CONTEXT) BindContext ctx) {
+		ValidFormClass(comp, "pictPanelMouse", "pictPanel");
 		selectedPict = "";
 		BindUtils.postNotifyChange(null, null, this, "selectedPict");
 	}
-	
+
 	@Command("mouseOverButtonComment")
-	public void mouseOverButtonComment(@BindingParam("comp") String comp, @ContextParam(ContextType.BIND_CONTEXT) BindContext ctx) {
+	public void mouseOverButtonComment(@BindingParam("comp") String comp,
+			@ContextParam(ContextType.BIND_CONTEXT) BindContext ctx) {
 		InValidFormClass(comp, "pictPanelMouse");
 		selectedPict = comp;
 		BindUtils.postNotifyChange(null, null, this, "selectedPict");
 	}
-	
+
 	@Command("mouseOutButtonComment")
-	public void mouseOutButtonComment(@BindingParam("comp") String comp, @ContextParam(ContextType.BIND_CONTEXT) BindContext ctx) {
-		ValidFormClass(comp, "pictPanelMouse","pictPanel");
+	public void mouseOutButtonComment(@BindingParam("comp") String comp,
+			@ContextParam(ContextType.BIND_CONTEXT) BindContext ctx) {
+		ValidFormClass(comp, "pictPanelMouse", "pictPanel");
 		selectedPict = "";
 		BindUtils.postNotifyChange(null, null, this, "selectedPict");
 	}
-	
+
 	@Command("mouseOverButtonEdit")
-	public void mouseOverButtonEdit(@BindingParam("comp") String comp, @ContextParam(ContextType.BIND_CONTEXT) BindContext ctx) {
+	public void mouseOverButtonEdit(@BindingParam("comp") String comp,
+			@ContextParam(ContextType.BIND_CONTEXT) BindContext ctx) {
 		InValidFormClass(comp, "pictPanelMouse");
 		selectedPict = comp;
 		BindUtils.postNotifyChange(null, null, this, "selectedPict");
 	}
-	
+
 	@Command("mouseOutButtonEdit")
-	public void mouseOutButtonEdit(@BindingParam("comp") String comp, @ContextParam(ContextType.BIND_CONTEXT) BindContext ctx) {
-		ValidFormClass(comp, "pictPanelMouse","pictPanel");
+	public void mouseOutButtonEdit(@BindingParam("comp") String comp,
+			@ContextParam(ContextType.BIND_CONTEXT) BindContext ctx) {
+		ValidFormClass(comp, "pictPanelMouse", "pictPanel");
 		selectedPict = "";
 		BindUtils.postNotifyChange(null, null, this, "selectedPict");
 	}
-	
+
 	@Command("mouseOverButtonHeart")
-	public void mouseOverButtonHeart(@BindingParam("comp") String comp, @ContextParam(ContextType.BIND_CONTEXT) BindContext ctx) {
+	public void mouseOverButtonHeart(@BindingParam("comp") String comp,
+			@ContextParam(ContextType.BIND_CONTEXT) BindContext ctx) {
 		InValidFormClass(comp, "pictPanelMouse");
 		selectedPict = comp;
 		BindUtils.postNotifyChange(null, null, this, "selectedPict");
 	}
-	
+
 	@Command("mouseOutButtonHeart")
-	public void mouseOutButtonHeart(@BindingParam("comp") String comp, @ContextParam(ContextType.BIND_CONTEXT) BindContext ctx) {
-		ValidFormClass(comp, "pictPanelMouse","pictPanel");
+	public void mouseOutButtonHeart(@BindingParam("comp") String comp,
+			@ContextParam(ContextType.BIND_CONTEXT) BindContext ctx) {
+		ValidFormClass(comp, "pictPanelMouse", "pictPanel");
 		selectedPict = "";
 		BindUtils.postNotifyChange(null, null, this, "selectedPict");
 	}
-	
+
 	@GlobalCommand("TambahLov")
-    public void tambahLov(@BindingParam("success") boolean success) {
-		if(success) {
-		loadList();
+	public void tambahLov(@BindingParam("success") boolean success) {
+		if (success) {
+			loadList();
+			moveTimer = true;
+			BindUtils.postNotifyChange(null, null, this, "moveTimer");
 		}
 	}
-	
+
 	@Override
 	public void loadList() {
 		super.loadList();
@@ -178,8 +168,8 @@ public class pictureVmd extends BaseVmd implements Serializable {
 		tempTblEfim.put("userId", getComponentUser().getUserId());
 		tempTblEfim.put("projectCode", getComponentUser().getProjectCode());
 		tempTblEfim.put("fileType", PICT);
-			WsResponse response = restTemplateLib.getResultWs("/UserEfimDbCompCtl/UserEfim", tempTblEfim, "post",
-					"projectCode=" + PROJECT, "page=1");
+		WsResponse response = restTemplateLib.getResultWs("/UserEfimDbCompCtl/UserEfim", tempTblEfim, "post",
+				"projectCode=" + PROJECT, "page=1");
 		List<TblEfimDbDto> tblEfimDbDtos = new ArrayList<>();
 		try {
 			tblEfimDbDtos = new RestTemplateLib().mapperJsonToListDto(response.getWsContent(), TblEfimDbDto.class);
@@ -192,6 +182,7 @@ public class pictureVmd extends BaseVmd implements Serializable {
 			int counterService = 0;
 			Map<Integer, TblEfimDbDto> mapTempTbl = new HashMap<>();
 			for (TblEfimDbDto tblEfimDbDto : tblEfimDbDtos) {
+				mapPictures.put(tblEfimDbDto.getFileIdReff(), null);
 				counterpart++;
 				counterService++;
 				mapTempTbl.put(counterService, tblEfimDbDto);
@@ -210,6 +201,44 @@ public class pictureVmd extends BaseVmd implements Serializable {
 			npe.printStackTrace();
 		}
 		BindUtils.postNotifyChange(null, null, this, "mapForColumns");
+		// BindUtils.postNotifyChange(null, null, this, "mapPictures");
+
+		new Thread(new Runnable() {
+			public void run() {
+				boolean cont = true;
+				while (cont) {
+					if (!mapForColumns.isEmpty()) {
+						if (timeCounter <= mapForColumns.size()) {
+							// Map<Integer, TblEfimDbDto> tempTblEfim = mapForColumns.get(timeCounter);
+							for (Entry<Integer, TblEfimDbDto> b : mapForColumns.get(timeCounter).entrySet()) {
+								WsResponse response = restTemplateLib.getResultWs("/UserEfimDbCompCtl/FileStream", null,
+										"get", "projectCode=" + PROJECT,
+										"fileStrIdRef=" + b.getValue().getFileStrIdReff(),
+										"fileIdRef=" + b.getValue().getFileIdReff());
+								TblEfimDbDto efimDbDto = b.getValue();
+								TblEfimFileDbstorageDto tblEfimFileDbstorageDto = new TblEfimFileDbstorageDto();
+								try {
+									tblEfimFileDbstorageDto = restTemplateLib.mapperJsonToSingleDto(
+											response.getWsContent(), TblEfimFileDbstorageDto.class);
+									efimDbDto.setTblEfimFileDbstorageDto(restTemplateLib.mapperJsonToSingleDto(
+											response.getWsContent(), TblEfimFileDbstorageDto.class));
+									mapPictures.put(tblEfimFileDbstorageDto.getFileIdRef(),
+											tblEfimFileDbstorageDto.getFileStr());
+								} catch (Exception e) {
+									e.printStackTrace();
+								}
+								// tempTblEfim.put(b.getKey(), efimDbDto);
+							}
+							// mapForColumns.put(timeCounter, tempTblEfim);
+							timeCounter++;
+						}
+					} else {
+						cont = false;
+					}
+				}
+			}
+		}).start();
+
 	}
 
 	public List<TblEfimDbDto> getTblEfimDbDtos1() {
@@ -274,6 +303,14 @@ public class pictureVmd extends BaseVmd implements Serializable {
 
 	public void setSelectedPict(String selectedPict) {
 		this.selectedPict = selectedPict;
+	}
+
+	public Map<String, byte[]> getMapPictures() {
+		return mapPictures;
+	}
+
+	public void setMapPictures(Map<String, byte[]> mapPictures) {
+		this.mapPictures = mapPictures;
 	}
 
 }

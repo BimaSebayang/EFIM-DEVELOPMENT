@@ -51,6 +51,7 @@ public class BaseVmd extends BaseComponent implements Serializable {
 	protected byte[] coolBackground;
 	protected byte[] coolLogo;
 	protected byte[] coolBgTambah;
+	protected byte[] coolLoading;
 	protected RestTemplateLib restTemplateLib = new RestTemplateLib();
 
 	public void callLovVmd(String uri, MapperLovInformation... mappers) {
@@ -206,7 +207,7 @@ public class BaseVmd extends BaseComponent implements Serializable {
 
 	@Init(superclass = true)
 	public void loadList() {
-
+        coolLoading = getTheFileFileStream("/PictureCtl/GetTheBackgroundPicture", new HashMap<>(),"loading1.gif", "projectCode=" + PROJECT);
 		coolBackground = getTheFileFileStream("/PictureCtl/GetTheBackgroundPicture", new HashMap<>(), "EFIMBG.png",
 				"projectCode=" + PROJECT);
 		coolLogo = getTheFileFileStream("/PictureCtl/GetTheBackgroundPicture", new HashMap<>(), "EFIMLOGO.png",
@@ -571,6 +572,14 @@ public class BaseVmd extends BaseComponent implements Serializable {
 
 	public void setCoolBgTambah(byte[] coolBgTambah) {
 		this.coolBgTambah = coolBgTambah;
+	}
+
+	public byte[] getCoolLoading() {
+		return coolLoading;
+	}
+
+	public void setCoolLoading(byte[] coolLoading) {
+		this.coolLoading = coolLoading;
 	}
 
 }
