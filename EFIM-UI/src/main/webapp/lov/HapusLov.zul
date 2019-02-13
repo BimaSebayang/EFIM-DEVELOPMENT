@@ -1,0 +1,44 @@
+<?page title="new page title" contentType="text/html;charset=UTF-8"?>
+<zk>
+<window sclass="popupWindow" apply="org.zkoss.bind.BindComposer" id="lov" 
+		viewModel="@id('vm') @init('vmd.beranda.transaksi.shareLov.HapusLovVmd')">
+		
+		<div sclass="bg">
+			<div
+				style="background-color :transparent; width : 38%; height : 78%;
+                      position : absolute; top : 9%; left : 11%; display: flex; 
+                      align-items: center; overflow:hidden; cursor: pointer;  
+                      justify-content: center;">
+			
+			<image
+			content="@load(vm.coolLoading) @converter('converter.ImageToZkImageConverter')" />
+			</div>
+			
+			<div
+				style="background-color :white; width : 38%; height : 78%;
+                      position : absolute; top : 9%; left : 52%; display: flex; 
+                      align-items: center; overflow:hidden; cursor: pointer;  
+                      justify-content: center;">
+                      
+            <image style = "position : absolute; top : 0%; left :30%; width : 40%; height : 40%;"
+			content="@load(vm.coolQuestionMark) @converter('converter.ImageToZkImageConverter')" />         
+            
+            <vbox style = "position : absolute; top :50%; left :7%;" >
+            <label style = "font-size : 23px; font-family:Comic Sans MS; " value="Apakah Anda Ingin Menghapus Gambar ini?" />
+            
+            <separator height="60px"/>
+            
+            <hbox>
+            <button zclass="yesLovButton" label="Iya"/>
+             <separator width="50px"/>
+            <button zclass="noLovButton" label="Tidak"/>
+            </hbox>
+            
+            </vbox>    
+            
+            </div>
+			
+		</div>
+		
+</window>
+</zk>

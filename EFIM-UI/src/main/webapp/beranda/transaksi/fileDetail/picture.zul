@@ -5,8 +5,8 @@
 		apply="org.zkoss.bind.BindComposer" 
 		viewModel="@id('vm') @init('vmd.beranda.transaksi.fileDetail.pictureVmd')">
 
-		<timer onTimer="@command('onRecruitPictureTime')" delay="10000"
-			repeats="true" running="@load(vm.moveTimer)" />
+<!-- 		<timer onTimer="@command('onRecruitPictureTime')" delay="10000" -->
+<!-- 			repeats="true"/> -->
 
 		<div sclass="panelButtonReg1">
 			<div>
@@ -21,45 +21,35 @@
 				</div>
 				<separator height="15px" />
 				<div sclass="datablocker">
-
 					<vbox children="@load(vm.mapForColumns.keySet())">
 						<template name="children">
-
-							<hbox
-								children="@load(vm.mapForColumns.get(each).entrySet())">
+							<hbox children="@load(vm.mapForColumns.get(each).entrySet())">
 								<template name="children">
-
 									<separator width="20px" />
-
-					<panel border="normal" sclass="blocker" self="@load(each.getValue().tblEfimFileDbstorageDto.fileIdRef)">
-
-				         
-							<panelchildren sclass="blocker">
+					<panel border="normal" sclass="blocker" self="@load(each.getValue().tblEfimFileDbstorageDto.fileIdRef)" >
+							<panelchildren sclass="blocker" >
 								<div sclass="headerblocker">
 								<image id="${each.getValue().fileIdReff}" content="@load(vm.mapPictures.get(each.getValue().fileIdReff) eq null? vm.coolLoading : 
 								vm.mapPictures.get(each.getValue().fileIdReff)) @converter('converter.ImageToZkImageConverter')"
 						        sclass="pictPanel" onMouseOver="@command('mouseOverPict', imagePart = self.id)" onMouseOut = "@command('mouseOutPict', imagePart = self.id)">						        				        
 						        </image>
-						        
 						        <vbox sclass="vboxIconButtonPanel" visible="@load(each.getValue().fileIdReff eq vm.selectedPict)">
 								<hbox>
 								<button iconSclass="z-icon-flag z-icon-100x" sclass="buttonAnxiousBlocker"
 								onMouseOver="@command('mouseOverButtonFlag', comp = each.getValue().fileIdReff)" onMouseOut = "@command('mouseOutButtonFlag', comp = each.getValue().fileIdReff)"/>
-								<button iconSclass="z-icon-comment z-icon-100x" sclass="buttonAnxiousBlocker"
-								onMouseOver="@command('mouseOverButtonComment', comp = each.getValue().fileIdReff)" onMouseOut = "@command('mouseOutButtonComment', comp = each.getValue().fileIdReff)"/>
-								</hbox>
+								<button iconSclass="z-icon-trash z-icon-100x" sclass="buttonAnxiousBlocker" onClick="@command('hapus', comp = each.getValue().fileIdReff)"
+								onMouseOver="@command('mouseOverButtonTrash', comp = each.getValue().fileIdReff)" onMouseOut = "@command('mouseOutButtonTrash', comp = each.getValue().fileIdReff)"/>
+								</hbox>	
 								<hbox>
-								<button iconSclass="z-icon-edit z-icon-100x" sclass="buttonAnxiousBlocker"
+								<button  iconSclass="z-icon-edit z-icon-100x" sclass="buttonAnxiousBlocker"
 								onMouseOver="@command('mouseOverButtonEdit', comp = each.getValue().fileIdReff)" onMouseOut = "@command('mouseOutButtonEdit', comp = each.getValue().fileIdReff)"/>
-								<button iconSclass="z-icon-heart z-icon-100x" sclass="buttonAnxiousBlocker"
-								onMouseOver="@command('mouseOverButtonHeart', comp = each.getValue().fileIdReff)" onMouseOut = "@command('mouseOutButtonHeart', comp = each.getValue().fileIdReff)"/>
+								<button iconSclass="z-icon-eye z-icon-100x" sclass="buttonAnxiousBlocker"
+								onMouseOver="@command('mouseOverButtoneye', comp = each.getValue().fileIdReff)" onMouseOut = "@command('mouseOutButtoneye', comp = each.getValue().fileIdReff)"/>
 								</hbox>
 								</vbox>
-						       
-						        
 						 		<div sclass="subtitleBlocker">		
 						        </div>        
-								<div sclass="activeblocker"><label value="@load(each.getValue().fileName)" style="position : absolute;bottom : 33px;left : 10px;font-family: Lato; font-size: 14px;"/></div>
+								<div sclass="activeblocker"><label value="@load(each.getValue().fileName)" hover="@load(each.getValue().fileName)" style="position : absolute;bottom : 32px;left : 10px;font-family: Lato; font-size: 14px; width : 120px; height :21px; overflow : hidden;"/></div>
 								<div sclass="middleblocker"><label value="@load(each.getValue().createdDate) @converter('converter.MyDateFormatConverter', format='dd/MM/yyyy')" style="position : absolute;bottom : 38px; right : 12px;font-family: Lato; font-size: 8px;"/></div>
 								<div sclass="lowerblocker"><label value="@load(each.getValue().createdDate) @converter('converter.MyDateFormatConverter', format='HH:mm:ss')" style="position : absolute;bottom : 30px;  right: 12px;font-family: Lato; font-size: 6px;"/></div>
 								</div>	

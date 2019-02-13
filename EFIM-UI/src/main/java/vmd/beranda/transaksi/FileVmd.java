@@ -109,7 +109,6 @@ public class FileVmd extends BaseVmd implements Serializable {
 
 	@Command("tambahMaster")
 	public void tambahMaster() {
-		Map<String, Object> informationSetter = new HashMap<>();
 		callLovVmd( "/lov/TambahLov.zul", new MapperLovInformation("file_type", selectedFile));
 	}
 	

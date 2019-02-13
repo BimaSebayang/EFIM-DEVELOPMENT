@@ -106,6 +106,6 @@ public class TblEfimDbDto implements Serializable{
 	public void setTblEfimFileDbstorageDto(TblEfimFileDbstorageDto tblEfimFileDbstorageDto) {
 		this.tblEfimFileDbstorageDto = tblEfimFileDbstorageDto;
 	}
-	
+
 	
 }

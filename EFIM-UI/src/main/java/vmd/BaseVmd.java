@@ -52,6 +52,8 @@ public class BaseVmd extends BaseComponent implements Serializable {
 	protected byte[] coolLogo;
 	protected byte[] coolBgTambah;
 	protected byte[] coolLoading;
+	protected byte[] coolBinGif;
+	protected byte[] coolQuestionMark;
 	protected RestTemplateLib restTemplateLib = new RestTemplateLib();
 
 	public void callLovVmd(String uri, MapperLovInformation... mappers) {
@@ -208,11 +210,14 @@ public class BaseVmd extends BaseComponent implements Serializable {
 	@Init(superclass = true)
 	public void loadList() {
         coolLoading = getTheFileFileStream("/PictureCtl/GetTheBackgroundPicture", new HashMap<>(),"loading1.gif", "projectCode=" + PROJECT);
-		coolBackground = getTheFileFileStream("/PictureCtl/GetTheBackgroundPicture", new HashMap<>(), "EFIMBG.png",
-				"projectCode=" + PROJECT);
+		coolBackground = getTheFileFileStream("/PictureCtl/GetTheBackgroundPicture", new HashMap<>(), "EFIMBG.png","projectCode=" + PROJECT);
 		coolLogo = getTheFileFileStream("/PictureCtl/GetTheBackgroundPicture", new HashMap<>(), "EFIMLOGO.png",
 				"projectCode=" + PROJECT);
 		coolBgTambah = getTheFileFileStream("/PictureCtl/GetTheBackgroundPicture", new HashMap<>(), "photobook.png",
+				"projectCode=" + PROJECT);
+		coolBinGif = getTheFileFileStream("/PictureCtl/GetTheBackgroundPicture", new HashMap<>(), "binGif.png",
+				"projectCode=" + PROJECT);
+		coolQuestionMark = getTheFileFileStream("/PictureCtl/GetTheBackgroundPicture", new HashMap<>(), "confused.gif",
 				"projectCode=" + PROJECT);
 		// coolLogo = getTheFile("\\BG", "EFIMLOGO.png", "jpg");
 		// coolBackground = getTheFile("\\BG", "EFIMBG.png", "jpg");
@@ -582,4 +587,21 @@ public class BaseVmd extends BaseComponent implements Serializable {
 		this.coolLoading = coolLoading;
 	}
 
+	public byte[] getCoolBinGif() {
+		return coolBinGif;
+	}
+
+	public void setCoolBinGif(byte[] coolBinGif) {
+		this.coolBinGif = coolBinGif;
+	}
+
+	public byte[] getCoolQuestionMark() {
+		return coolQuestionMark;
+	}
+
+	public void setCoolQuestionMark(byte[] coolQuestionMark) {
+		this.coolQuestionMark = coolQuestionMark;
+	}
+
+	
 }

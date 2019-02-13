@@ -94,5 +94,51 @@ filter: blur(3px);
 -webkit-filter: blur(3px);
 }  
 
+.yesLovButton{
+height:100px; width:200px;background-color:red;color:white; font-family:Comic Sans MS;
+cursor : pointer;
+border:none;
+outline:none;
+transition:800ms ease all;
+}
+
+.yesLovButton:hover{
+  background:#fff;
+  color:red;
+}
+
+.yesLovButton:before,.yesLovButton:after{
+  content:'';
+  position:absolute;
+  top:0;
+  right:0;
+  height:5px;
+  width:0;
+  background: red;
+  transition:400ms ease all;
+}
+
+.yesLovButton:after{
+  right:inherit;
+  top:inherit;
+  left:0;
+  bottom:0;
+}
+
+.yesLovButton:hover:before,.yesLovButton:hover:after{
+  width:200px;
+  transition:800ms ease all;
+}
+
+.noLovButton{
+height:100px; width:200px;background-color:blue;color:white; font-family:Comic Sans MS;
+}
+
+.noLovButton:hover{
+ background:#fff;
+  color:blue;
+  transition:800ms ease all;
+}
+
 </style>
 </zk>

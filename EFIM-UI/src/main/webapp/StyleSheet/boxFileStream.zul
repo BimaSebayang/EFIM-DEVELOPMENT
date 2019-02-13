@@ -13,7 +13,7 @@ left: -10%;
 
 .subtitleBlocker{
 position : relative;
-border-color : rgba(154, 14, 66, 1);
+border-color : rgba(17, 2, 18, 1);
 width : 240px;
 height : 250px;
 left : -5%;
@@ -22,7 +22,7 @@ top : 88%;
 
 .blocker{
 position : relative;
-border-color : rgba(154, 14, 66, 1);
+border-color : rgba(17, 2, 18, 1);
 width : 200px;
 height : 220px;
 left : 0%;

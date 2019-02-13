@@ -21,8 +21,6 @@ public class ImageCaptureDto {
 		this.imageByte = imageByte;
 		this.imageTitle = imageTitle;
 	}
-	
-	
 
 	public byte[] getByte() {
 		return imageByte;
@@ -34,36 +32,28 @@ public class ImageCaptureDto {
 		} catch (IOException e1) {
 			e1.printStackTrace();
 		}
-		File file = new File("pathname");	
+		File file = new File("pathname");
 		Long specificSize = file.length();
-		
 		double bytes = specificSize;
-		
 		double kilobytes = (bytes / 1024);
 		double megabytes = (kilobytes / 1024);
 		double gigabytes = (megabytes / 1024);
 		double terabytes = (gigabytes / 1024);
-		
-		if(powerConversion.equalsIgnoreCase("byte")) {
+		if (powerConversion.equalsIgnoreCase("byte")) {
 			return bytes;
-		}
-		else if(powerConversion.equalsIgnoreCase("kilobyte")) {
+		} else if (powerConversion.equalsIgnoreCase("kilobyte")) {
 			return kilobytes;
-		}
-		else if(powerConversion.equalsIgnoreCase("megabyte")) {
+		} else if (powerConversion.equalsIgnoreCase("megabyte")) {
 			return megabytes;
-		}
-		else if(powerConversion.equalsIgnoreCase("gigabyte")) {
+		} else if (powerConversion.equalsIgnoreCase("gigabyte")) {
 			return gigabytes;
-		}
-		else if(powerConversion.equalsIgnoreCase("terabyte")) {
+		} else if (powerConversion.equalsIgnoreCase("terabyte")) {
 			return terabytes;
-		}
-		else {
+		} else {
 			return 0.0;
 		}
 	}
-	
+
 	public int getHeight() {
 		try {
 			ByteArrayInputStream bisImage = new ByteArrayInputStream(imageByte);
@@ -114,8 +104,5 @@ public class ImageCaptureDto {
 	public String getImageTitle() {
 		return imageTitle;
 	}
-
-	
-
 
 }

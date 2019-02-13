@@ -181,10 +181,6 @@
 			<separator height="25px"/>
 			<button label="Tambah" iconSclass="z-icon-image" orient="vertical" style="width : 100px;" onClick="@command('tambahMaster')"/>
 			<separator height="25px"/>
-			<button label="Hapus" iconSclass="z-icon-trash" orient="vertical" style="width : 100px;" onClick="@command('hapusMaster')"/>
-			<separator height="25px"/>
-			<button label="Refresh" iconSclass="z-icon-undo" orient="vertical" style="width : 100px;" onClick="@command('refreshMaster')"/>
-			<separator height="25px"/>
 			<button label="Kembali" iconSclass="z-icon-arrow-left" orient="vertical" style="width : 100px;" onClick="@command('kembaliMaster')"/>
 			</vbox>
 			</div>
