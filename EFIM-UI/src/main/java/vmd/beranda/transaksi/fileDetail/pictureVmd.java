@@ -36,6 +36,7 @@ public class pictureVmd extends BaseVmd implements Serializable {
 	private boolean enoughTop = false;
 	private boolean enoughBottom = false;
 	private boolean moveTimer = true;
+	private String changeName = new String();
 	private Integer timeCounter = 1;
 	private byte[] fileStr = null;
 	private String selectedPict = new String();
@@ -161,7 +162,54 @@ public class pictureVmd extends BaseVmd implements Serializable {
 		forLov(comp,"/lov/HapusLov.zul");
 	}
 	
+	@Command("changeFlag")
+	public void changeFlag(@BindingParam("comp") String comp) {
+		Map<String, Object> bodyRequest = new HashMap<>(); 
+		bodyRequest.put("file_id_reff", comp);
+		bodyRequest.put("file_str_id_reff", getComponentUser().getUserSessionCode());
+		WsResponse wsResponse = new RestTemplateLib().getResultWs("/PictureCtl/SaveFlagChange", bodyRequest, "Post", "projectCode="+getComponentUser().getProjectCode());
+		if(!wsResponse.getIsErrorSvc().booleanValue()) {
+			Map<String, Object> mapper = new RestTemplateLib().mapperJsonToHashMap(wsResponse.getWsContent());
+			boolean result;
+			if (mapper != null) {
+				result = (boolean) mapper.get("result");
+				if (result) {
+					loadList();
+				} else {
+					showErrorMessageBox("message : " + mapper.get("error"));
+				}
+			} else {
+				showErrorMessageBox("cannot retrieve wsContent");
+			}
+		}
+	}
 	
+	@Command("saveTitleChange")
+	public void saveTitleChange(@BindingParam("comp") String comp) {
+		Map<String, Object> bodyRequest = new HashMap<>(); 
+		bodyRequest.put("file_id_reff", comp);
+		bodyRequest.put("new_file_name", changeName);
+		bodyRequest.put("file_str_id_reff", getComponentUser().getUserSessionCode());
+		WsResponse wsResponse = new RestTemplateLib().getResultWs("/PictureCtl/SaveTitleChange", bodyRequest, "Post", "projectCode="+getComponentUser().getProjectCode());
+		if(!wsResponse.getIsErrorSvc().booleanValue()) {
+			Map<String, Object> mapper = new RestTemplateLib().mapperJsonToHashMap(wsResponse.getWsContent());
+			boolean result;
+			if (mapper != null) {
+				result = (boolean) mapper.get("result");
+				if (result) {
+					loadList();
+					changeName = "";
+					visibleEdit = false;
+					BindUtils.postNotifyChange(null, null, this, "changeName");
+					BindUtils.postNotifyChange(null, null, this, "visibleEdit");
+				} else {
+					showErrorMessageBox("message : " + mapper.get("error"));
+				}
+			} else {
+				showErrorMessageBox("cannot retrieve wsContent");
+			}
+		}
+	}
 	
 	@Command("edit")
 	public void edit(@BindingParam("comp") String comp) {
@@ -170,6 +218,8 @@ public class pictureVmd extends BaseVmd implements Serializable {
 		BindUtils.postNotifyChange(null, null, this, "visibleEdit");
 		BindUtils.postNotifyChange(null, null, this, "selectedFileIdReff");
 	}
+	
+	
 	
 	
 	public void forLov(String comp, String url) {
@@ -362,5 +412,15 @@ public class pictureVmd extends BaseVmd implements Serializable {
 	public void setVisibleEdit(boolean visibleEdit) {
 		this.visibleEdit = visibleEdit;
 	}
+
+	public String getChangeName() {
+		return changeName;
+	}
+
+	public void setChangeName(String changeName) {
+		this.changeName = changeName;
+	}
+	
+	
 
 }

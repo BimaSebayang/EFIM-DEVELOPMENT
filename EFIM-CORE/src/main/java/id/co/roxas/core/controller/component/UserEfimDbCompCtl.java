@@ -1,5 +1,6 @@
 package id.co.roxas.core.controller.component;
 
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +17,7 @@ import org.zkoss.lang.Strings;
 
 import id.co.roxas.core.service.headuser.TblEfimDbSvc;
 import id.co.roxas.core.service.stream.TblEfimFileDbstorageSvc;
+import id.co.roxas.efim.common.common.dto.headuser.TblEfimDbDto;
 import id.co.roxas.efim.common.common.dto.stream.TblEfimFileDbstorageDto;
 import id.co.roxas.efim.common.constant.CommonConstant;
 import id.co.roxas.efim.common.webservice.global.WsResponse;
@@ -29,6 +31,8 @@ public class UserEfimDbCompCtl extends CommonConstant{
 	
 	@Autowired
 	private TblEfimFileDbstorageSvc tblEfimFileDbstorageSvc;
+	
+	
 	
 	@RequestMapping(value = "/EfimStr", method = RequestMethod.POST)
 	public ResponseEntity<byte[]> getAllEfimStreamData(@RequestBody String fileStrIdReff) {
@@ -53,6 +57,20 @@ public class UserEfimDbCompCtl extends CommonConstant{
 				   (fileStrIdRef, fileIdRef);
 		   WsResponse wsResponse = new WsResponse(tblEfimFileDbstorageDto,1);
 		   return wsResponse;
+	}
+	
+	@SuppressWarnings("unchecked")
+	@RequestMapping(value = "/SensitiveSearch", method = RequestMethod.POST, params = {"projectCode","fileStrIdReff","page"})
+	public WsResponse searchFileDataWithSensitiveCtl(@RequestParam String projectCode,
+			@RequestParam String fileStrIdReff,
+			@RequestParam int page,
+			@RequestBody Map<String, Object> requestBody) {
+		String search = (String) requestBody.get("search");
+		Map<String, Object> mapper = tblEfimDbSvc.searchFileDataWithSensitive(search, fileStrIdReff, projectCode, page);
+		int total = (int) mapper.get("count");
+		List<TblEfimDbDto> tblEfimDbDtos = (List<TblEfimDbDto>) mapper.get("content");
+		WsResponse wsResponse = new WsResponse(tblEfimDbDtos, total, true, page, total);
+		return wsResponse;
 	}
 	
 	@RequestMapping(value = "/UserEfim", method = RequestMethod.POST, params = { "projectCode","page"})

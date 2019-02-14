@@ -22,7 +22,15 @@ top : 88%;
 
 .blocker{
 position : relative;
-border-color : rgba(17, 2, 18, 1);
+border-color : rgba(178, 4, 1, 1);
+width : 200px;
+height : 220px;
+left : 0%;
+}
+
+.blockerFlag{
+position : relative;
+border-color : rgba(19, 0, 143, 1);
 width : 200px;
 height : 220px;
 left : 0%;

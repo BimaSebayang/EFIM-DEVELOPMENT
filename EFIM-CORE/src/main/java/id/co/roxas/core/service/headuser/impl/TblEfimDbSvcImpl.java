@@ -1,6 +1,7 @@
 package id.co.roxas.core.service.headuser.impl;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -9,19 +10,24 @@ import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.zkoss.lang.Strings;
 
 import entity.headuser.TblDataUser;
 import entity.headuser.TblEfimDb;
+import id.co.roxas.core.dao.SearchProcedureDao;
 import id.co.roxas.core.dao.headuser.TblDataUserDao;
 import id.co.roxas.core.dao.headuser.TblEfimDbDao;
 import id.co.roxas.core.dao.stream.TblUserPictureProfileDao;
 import id.co.roxas.core.service.headuser.TblEfimDbSvc;
 import id.co.roxas.efim.common.common.dto.UserPrivilegeCustom;
 import id.co.roxas.efim.common.common.dto.headuser.TblEfimDbDto;
+import id.co.roxas.efim.common.common.lib.CommonDateLibPr;
 import id.co.roxas.efim.common.constant.CommonConstant;
 import id.co.roxas.efim.common.paging.request.RequestPaging;
+import id.co.roxas.efim.common.webservice.lib.RestTemplateLib;
 import ma.glasnost.orika.MapperFacade;
 import ma.glasnost.orika.impl.DefaultMapperFactory;
 
@@ -37,6 +43,9 @@ public class TblEfimDbSvcImpl extends CommonConstant implements TblEfimDbSvc{
 	
 	@Autowired
 	private TblEfimDbDao tblEfimDbDao;
+	
+	@Autowired
+	private SearchProcedureDao searchProcedureDao;
 	
 	private MapperFacade mapperFacade = new DefaultMapperFactory.Builder().build().getMapperFacade();
 	
@@ -113,6 +122,25 @@ public class TblEfimDbSvcImpl extends CommonConstant implements TblEfimDbSvc{
 			mapper.put("error", exp.getMessage());
 		}
 		
+		return mapper;
+	}
+
+	@Override
+	public Map<String, Object> searchFileDataWithSensitive(String search, String fileStrIdReff,String projectCode, int page) {
+		String createdDate = CommonDateLibPr.formattingDateToString(new Date());
+		List<TblEfimDb> tblEfimDbs = new ArrayList<>();
+		System.err.println("page : " + page);
+		try {
+			tblEfimDbs = new RestTemplateLib().mapperJsonToListDto(searchProcedureDao.getAllSearch(fileStrIdReff, search, projectCode, createdDate,"true",page),
+					TblEfimDb.class);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+	
+		Map<String, Object> mapper = new HashMap<>();
+		mapper.put("count",tblEfimDbs.size());
+		mapper.put("content", tblEfimDbs);	
 		return mapper;
 	}
 

@@ -26,8 +26,8 @@
 							<hbox children="@load(vm.mapForColumns.get(each).entrySet())">
 								<template name="children">
 									<separator width="20px" />
-					<panel border="normal" sclass="blocker" self="@load(each.getValue().tblEfimFileDbstorageDto.fileIdRef)" >
-							<panelchildren sclass="blocker" >
+					<panel border="normal" sclass="@load(each.getValue().hiddenFileCode eq '1' ? 'blockerFlag' : 'blocker')" self="@load(each.getValue().tblEfimFileDbstorageDto.fileIdRef)" >
+							<panelchildren sclass="@load(each.getValue().hiddenFileCode eq '1' ? 'blockerFlag' : 'blocker')"  >
 								<div sclass="headerblocker">
 								<image id="${each.getValue().fileIdReff}" content="@load(vm.mapPictures.get(each.getValue().fileIdReff) eq null? vm.coolLoading : 
 								vm.mapPictures.get(each.getValue().fileIdReff)) @converter('converter.ImageToZkImageConverter')"
@@ -35,7 +35,7 @@
 						        </image>
 						        <vbox sclass="vboxIconButtonPanel" visible="@load(each.getValue().fileIdReff eq vm.selectedPict)">
 								<hbox>
-								<button iconSclass="z-icon-flag z-icon-100x" sclass="buttonAnxiousBlocker"
+								<button iconSclass="z-icon-flag z-icon-100x" sclass="buttonAnxiousBlocker" onClick="@command('changeFlag', comp = each.getValue().fileIdReff)"
 								onMouseOver="@command('mouseOverButtonFlag', comp = each.getValue().fileIdReff)" onMouseOut = "@command('mouseOutButtonFlag', comp = each.getValue().fileIdReff)"/>
 								<button iconSclass="z-icon-trash z-icon-100x" sclass="buttonAnxiousBlocker" onClick="@command('hapus', comp = each.getValue().fileIdReff)"
 								onMouseOver="@command('mouseOverButtonTrash', comp = each.getValue().fileIdReff)" onMouseOut = "@command('mouseOutButtonTrash', comp = each.getValue().fileIdReff)"/>
@@ -51,14 +51,16 @@
 						        </div>        
 								<div sclass="activeblocker">
 								<label 
-								 value="@load(each.getValue().fileName)" tooltiptext="@load(each.getValue().fileName)" 
+								value="@load(each.getValue().fileName)" tooltiptext="@load(each.getValue().fileName)" 
 								style="position : absolute;bottom : 32px;left : 10px;font-family: Lato; 
 								font-size: 14px; width : 120px; height :21px; overflow : hidden;"/>
-								<textbox visible="@load(vm.selectedFileIdReff eq each.getValue().fileIdReff and vm.visibleEdit)" style="position : absolute;bottom : 32px;left : 10px;font-family: Lato; 
+								<textbox value="@save(vm.changeName)" visible="@load(vm.selectedFileIdReff eq each.getValue().fileIdReff and vm.visibleEdit)" style="position : absolute;bottom : 32px;left : 10px;font-family: Lato; 
 								font-size: 14px; width : 120px; height :21px; overflow : hidden; border-color : black;"/>
 								</div>
 								<div sclass="middleblocker"><label value="@load(each.getValue().createdDate) @converter('converter.MyDateFormatConverter', format='dd/MM/yyyy')" style="position : absolute;bottom : 38px; right : 12px;font-family: Lato; font-size: 8px;"/></div>
 								<div sclass="lowerblocker"><label value="@load(each.getValue().createdDate) @converter('converter.MyDateFormatConverter', format='HH:mm:ss')" style="position : absolute;bottom : 30px;  right: 12px;font-family: Lato; font-size: 6px;"/></div>
+								<button tooltiptext="Simpan" onClick="@command('saveTitleChange', comp = each.getValue().fileIdReff)" visible="@load(vm.selectedFileIdReff eq each.getValue().fileIdReff and vm.visibleEdit)" 
+								style="position : absolute;bottom : 30.5px;width : 45px; height : 21px;right : 12px;font-family: Lato; font-size: 8px;text-align:justify;"/>
 								</div>	
 								
 							</panelchildren>
