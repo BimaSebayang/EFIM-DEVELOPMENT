@@ -39,8 +39,7 @@ public class BaseVmd extends BaseComponent implements Serializable {
 	protected final String VIDEO = "VIDEO";
 	protected final String BIN = "BIN";
 	protected final String PICT = "PICT";
-
-	protected static final String PROJECT = "EFIM";
+    protected final String PROJECT = "EFIM";
 	public final Integer DIV = 4;
 	protected String search = "";
 	protected static int PAGE = 1;
@@ -170,7 +169,7 @@ public class BaseVmd extends BaseComponent implements Serializable {
 		String[] paging = new String[] {};
 		try {
 			if (projectCode == null) {
-				projectCode = PROJECT;
+				projectCode = getComponentUser().getProjectCode();
 			}
 			if (page == null) {
 				page = new Integer(1);
@@ -209,16 +208,16 @@ public class BaseVmd extends BaseComponent implements Serializable {
 
 	@Init(superclass = true)
 	public void loadList() {
-        coolLoading = getTheFileFileStream("/PictureCtl/GetTheBackgroundPicture", new HashMap<>(),"loading1.gif", "projectCode=" + PROJECT);
-		coolBackground = getTheFileFileStream("/PictureCtl/GetTheBackgroundPicture", new HashMap<>(), "EFIMBG.png","projectCode=" + PROJECT);
+        coolLoading = getTheFileFileStream("/PictureCtl/GetTheBackgroundPicture", new HashMap<>(),"loading1.gif", "projectCode=" + getComponentUser().getProjectCode());
+		coolBackground = getTheFileFileStream("/PictureCtl/GetTheBackgroundPicture", new HashMap<>(), "EFIMBG.png","projectCode=" + getComponentUser().getProjectCode());
 		coolLogo = getTheFileFileStream("/PictureCtl/GetTheBackgroundPicture", new HashMap<>(), "EFIMLOGO.png",
-				"projectCode=" + PROJECT);
+				"projectCode=" + getComponentUser().getProjectCode());
 		coolBgTambah = getTheFileFileStream("/PictureCtl/GetTheBackgroundPicture", new HashMap<>(), "photobook.png",
-				"projectCode=" + PROJECT);
+				"projectCode=" + getComponentUser().getProjectCode());
 		coolBinGif = getTheFileFileStream("/PictureCtl/GetTheBackgroundPicture", new HashMap<>(), "binGif.png",
-				"projectCode=" + PROJECT);
+				"projectCode=" + getComponentUser().getProjectCode());
 		coolQuestionMark = getTheFileFileStream("/PictureCtl/GetTheBackgroundPicture", new HashMap<>(), "confused.gif",
-				"projectCode=" + PROJECT);
+				"projectCode=" + getComponentUser().getProjectCode());
 		// coolLogo = getTheFile("\\BG", "EFIMLOGO.png", "jpg");
 		// coolBackground = getTheFile("\\BG", "EFIMBG.png", "jpg");
 	}

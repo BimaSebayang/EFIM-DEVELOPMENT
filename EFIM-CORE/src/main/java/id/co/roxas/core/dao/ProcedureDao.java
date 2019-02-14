@@ -40,4 +40,7 @@ public interface ProcedureDao extends JpaRepository<ProcInformation, ProcInforma
     public String spCreateEfimDb(String fileName, Double fileSize, String fileStrIdReff, String owner, String projectCode, 
     		String fileType, String createdDate, String actualfileName, byte[] fileStr);
 
+    
+    @Procedure(procedureName="MASTER.SP_DELETE_EFIM_DB_TEMPORARY")
+    public String spDeleteEfimDbTemporary(String fileIdReff, String fileType, String projectCode, String fileStrIdReff, String createdDate);
 }

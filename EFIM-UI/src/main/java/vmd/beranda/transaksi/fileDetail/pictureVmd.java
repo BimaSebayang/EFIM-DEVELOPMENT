@@ -39,7 +39,9 @@ public class pictureVmd extends BaseVmd implements Serializable {
 	private Integer timeCounter = 1;
 	private byte[] fileStr = null;
 	private String selectedPict = new String();
-
+	private String selectedFileIdReff = new String();
+    private boolean visibleEdit = false;
+	
 	private List<TblEfimDbDto> getTempEfimDbDtos(List<TblEfimDbDto> tblEfimDbDtos) {
 		List<TblEfimDbDto> tempTblEfimDbDtos = new ArrayList<>();
 		for (TblEfimDbDto tblEfimDbDto : tblEfimDbDtos) {
@@ -156,8 +158,23 @@ public class pictureVmd extends BaseVmd implements Serializable {
 
 	@Command("hapus")
 	public void hapus(@BindingParam("comp") String comp) {
-		TblEfimDbDto dbDto = mapTblEfimDbDto.get(comp);
-		callLovVmd( "/lov/HapusLov.zul", new MapperLovInformation("file_id_reff", comp), new MapperLovInformation("file_type", PICT));
+		forLov(comp,"/lov/HapusLov.zul");
+	}
+	
+	
+	
+	@Command("edit")
+	public void edit(@BindingParam("comp") String comp) {
+		visibleEdit = true;
+		selectedFileIdReff = comp;
+		BindUtils.postNotifyChange(null, null, this, "visibleEdit");
+		BindUtils.postNotifyChange(null, null, this, "selectedFileIdReff");
+	}
+	
+	
+	public void forLov(String comp, String url) {
+		callLovVmd(url , new MapperLovInformation("file_id_reff", comp), new MapperLovInformation("file_type", PICT)
+				, new MapperLovInformation("file_str_id_reff", getComponentUser().getUserSessionCode()));
 	}
 	
 	@GlobalCommand("TambahLov")
@@ -166,6 +183,12 @@ public class pictureVmd extends BaseVmd implements Serializable {
 			loadList();
 		}
 	}
+	
+	@GlobalCommand("HapusLov")
+	public void hapusLov(@BindingParam("success") boolean success) {
+			loadList();
+	}
+
 
 	@Override
 	public void loadList() {
@@ -175,7 +198,7 @@ public class pictureVmd extends BaseVmd implements Serializable {
 		tempTblEfim.put("projectCode", getComponentUser().getProjectCode());
 		tempTblEfim.put("fileType", PICT);
 		WsResponse response = restTemplateLib.getResultWs("/UserEfimDbCompCtl/UserEfim", tempTblEfim, "post",
-				"projectCode=" + PROJECT, "page=1");
+				"projectCode=" + getComponentUser().getProjectCode(), "page=1");
 		List<TblEfimDbDto> tblEfimDbDtos = new ArrayList<>();
 		try {
 			tblEfimDbDtos = new RestTemplateLib().mapperJsonToListDto(response.getWsContent(), TblEfimDbDto.class);
@@ -322,6 +345,22 @@ public class pictureVmd extends BaseVmd implements Serializable {
 
 	public void setMapPictures(Map<String, byte[]> mapPictures) {
 		this.mapPictures = mapPictures;
+	}
+
+	public String getSelectedFileIdReff() {
+		return selectedFileIdReff;
+	}
+
+	public void setSelectedFileIdReff(String selectedFileIdReff) {
+		this.selectedFileIdReff = selectedFileIdReff;
+	}
+
+	public boolean isVisibleEdit() {
+		return visibleEdit;
+	}
+
+	public void setVisibleEdit(boolean visibleEdit) {
+		this.visibleEdit = visibleEdit;
 	}
 
 }

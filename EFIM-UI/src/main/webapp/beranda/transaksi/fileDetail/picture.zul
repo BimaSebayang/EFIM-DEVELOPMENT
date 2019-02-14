@@ -41,7 +41,7 @@
 								onMouseOver="@command('mouseOverButtonTrash', comp = each.getValue().fileIdReff)" onMouseOut = "@command('mouseOutButtonTrash', comp = each.getValue().fileIdReff)"/>
 								</hbox>	
 								<hbox>
-								<button  iconSclass="z-icon-edit z-icon-100x" sclass="buttonAnxiousBlocker"
+								<button  iconSclass="z-icon-edit z-icon-100x" sclass="buttonAnxiousBlocker"  onClick="@command('edit', comp = each.getValue().fileIdReff)"
 								onMouseOver="@command('mouseOverButtonEdit', comp = each.getValue().fileIdReff)" onMouseOut = "@command('mouseOutButtonEdit', comp = each.getValue().fileIdReff)"/>
 								<button iconSclass="z-icon-eye z-icon-100x" sclass="buttonAnxiousBlocker"
 								onMouseOver="@command('mouseOverButtoneye', comp = each.getValue().fileIdReff)" onMouseOut = "@command('mouseOutButtoneye', comp = each.getValue().fileIdReff)"/>
@@ -49,7 +49,14 @@
 								</vbox>
 						 		<div sclass="subtitleBlocker">		
 						        </div>        
-								<div sclass="activeblocker"><label value="@load(each.getValue().fileName)" hover="@load(each.getValue().fileName)" style="position : absolute;bottom : 32px;left : 10px;font-family: Lato; font-size: 14px; width : 120px; height :21px; overflow : hidden;"/></div>
+								<div sclass="activeblocker">
+								<label 
+								 value="@load(each.getValue().fileName)" tooltiptext="@load(each.getValue().fileName)" 
+								style="position : absolute;bottom : 32px;left : 10px;font-family: Lato; 
+								font-size: 14px; width : 120px; height :21px; overflow : hidden;"/>
+								<textbox visible="@load(vm.selectedFileIdReff eq each.getValue().fileIdReff and vm.visibleEdit)" style="position : absolute;bottom : 32px;left : 10px;font-family: Lato; 
+								font-size: 14px; width : 120px; height :21px; overflow : hidden; border-color : black;"/>
+								</div>
 								<div sclass="middleblocker"><label value="@load(each.getValue().createdDate) @converter('converter.MyDateFormatConverter', format='dd/MM/yyyy')" style="position : absolute;bottom : 38px; right : 12px;font-family: Lato; font-size: 8px;"/></div>
 								<div sclass="lowerblocker"><label value="@load(each.getValue().createdDate) @converter('converter.MyDateFormatConverter', format='HH:mm:ss')" style="position : absolute;bottom : 30px;  right: 12px;font-family: Lato; font-size: 6px;"/></div>
 								</div>	

@@ -157,9 +157,6 @@ public class TambahLovVmd extends BaseVmd implements Serializable {
 		else {
 			showErrorMessageBox("error : " + wsResponse.getErrorCmd());
 		}
-		
-	
-		
         lov.detach();
 	}
 

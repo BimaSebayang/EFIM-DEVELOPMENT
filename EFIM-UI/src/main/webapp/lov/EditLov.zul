@@ -1,11 +1,9 @@
-<?page title="new page title" contentType="text/html;charset=UTF-8"?>
+<?page title="" contentType="text/html;charset=UTF-8"?>
 <zk>
 <window sclass="popupWindow" apply="org.zkoss.bind.BindComposer" id="lov" 
-		viewModel="@id('vm') @init('vmd.beranda.transaksi.shareLov.HapusLovVmd')">
-		
-		<timer onTimer="@command('timerStartup', destroy = lov)" delay="10000" repeats="@load(vm.timerStart)"/>
-		
-		<div sclass="bg">
+		viewModel="@id('vm') @init('vmd.beranda.transaksi.shareLov.EditLovVmd')">
+
+        <div sclass="bg">
 			<div
 				style="background-color :transparent; width : 38%; height : 78%;
                       position : absolute; top : 9%; left : 11%; display: flex; 
@@ -26,12 +24,13 @@
 			content="@load(vm.coolQuestionMark) @converter('converter.ImageToZkImageConverter')" />         
             
             <vbox style = "position : absolute; top :50%; left :7%;" >
-            <label style = "font-size : 23px; font-family:Comic Sans MS; " value="Apakah Anda Ingin Menghapus Gambar ini?" />
+            <label style = "font-size : 23px; font-family:Comic Sans MS; " value="Silahkan Ganti Nama Diatas, Lalu Tekan Tombol Iya. 
+            Tekan Tidak Jika Ingin Membatalkan." />
             
             <separator height="60px"/>
             
             <hbox>
-            <button zclass="yesLovButton" label="Iya" onClick="@command('yesDelete', destroy = lov)">
+            <button zclass="yesLovButton" label="Iya" onClick="@command('yesEdit', destroy = lov)">
             <attribute name="onClick">
             String ciStyle = "background-color :transparent; width : 38%; height : 78%;"
                           +    "position : absolute; top : 9%; left : 30%; display: flex; "
@@ -42,7 +41,7 @@
             </attribute>
             </button>
              <separator width="50px"/>
-            <button zclass="noLovButton" label="Tidak" onClick="@command('noDelete', destroy = lov)"/>
+            <button zclass="noLovButton" label="Tidak" onClick="@command('noEdit', destroy = lov)"/>
             </hbox>
             
             </vbox>    
@@ -51,5 +50,6 @@
 			
 		</div>
 		
+
 </window>
 </zk>

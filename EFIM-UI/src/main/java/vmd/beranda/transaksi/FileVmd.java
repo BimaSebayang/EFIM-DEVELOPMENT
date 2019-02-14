@@ -36,15 +36,15 @@ public class FileVmd extends BaseVmd implements Serializable {
 	public void loadList() {
 		super.loadList();
 		coolBin = getTheFileFileStream("/PictureCtl/GetTheBackgroundPicture", new HashMap<>(), "bin.png",
-				"projectCode=" + PROJECT);
+				"projectCode=" + getComponentUser().getProjectCode());
 		coolCamera = getTheFileFileStream("/PictureCtl/GetTheBackgroundPicture", new HashMap<>(), "camera.jpg",
-				"projectCode=" + PROJECT);
+				"projectCode=" + getComponentUser().getProjectCode());
 		coolDocument = getTheFileFileStream("/PictureCtl/GetTheBackgroundPicture", new HashMap<>(), "document.jpg",
-				"projectCode=" + PROJECT);
+				"projectCode=" + getComponentUser().getProjectCode());
 		coolSize = getTheFileFileStream("/PictureCtl/GetTheBackgroundPicture", new HashMap<>(), "size.jpg",
-				"projectCode=" + PROJECT);
+				"projectCode=" + getComponentUser().getProjectCode());
 		coolVideo = getTheFileFileStream("/PictureCtl/GetTheBackgroundPicture", new HashMap<>(), "video.jpg",
-				"projectCode=" + PROJECT);
+				"projectCode=" + getComponentUser().getProjectCode());
 		lblBin = getCodeInformationInRequest("/Request/MstCodeType", "BIN").getMstCodeTypeName();
 		lblCamera = getCodeInformationInRequest("/Request/MstCodeType", "PICT").getMstCodeTypeName();
 		lblDocument = getCodeInformationInRequest("/Request/MstCodeType", "DOCU").getMstCodeTypeName();
