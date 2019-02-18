@@ -4,6 +4,7 @@ import java.util.Date;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -26,8 +27,9 @@ public class HapusCompCtl extends CommonConstant {
 	private ProcedureDao procedureDao;
 	private Map<String, Object> mapper;
 
-	@RequestMapping(value = "/Delete", params = {"projectCode"}, method = RequestMethod.POST)
-	public WsResponse saveEfimDb(@RequestBody Map<String, Object> bodyRequest, @RequestParam String projectCode) {
+	@RequestMapping(value = "/Delete/{TypeDeleted}", params = {"projectCode"}, method = RequestMethod.POST)
+	public WsResponse saveEfimDb(@PathVariable String TypeDeleted,
+			@RequestBody Map<String, Object> bodyRequest, @RequestParam String projectCode) {
 
 		if (bodyRequest == null) {
 			WsResponse response = new WsResponse();
@@ -56,8 +58,20 @@ public class HapusCompCtl extends CommonConstant {
 		String result = "";
 		mapper = null;
 		try {
+			if(TypeDeleted.equalsIgnoreCase("temporary")) {
 			result = procedureDao.spDeleteEfimDbTemporary(fileIdReff, fileType, projectCode, fileStrIdReff,
 					createdDate);
+			}
+			else if(TypeDeleted.equalsIgnoreCase("permanent")) {
+				result = procedureDao.spDeleteEfimDbPermanent(fileIdReff, fileType, projectCode, fileStrIdReff,
+						createdDate);
+			}
+			else {
+				WsResponse response = new WsResponse();
+				response.setIsErrorSvc(true);
+				response.setErrorCmd("Header TypeDeleted doesn't find right way to delete");
+				return response;	
+			}
 			mapper = new MapperWs().mapperJsonToHashMap(result);
 		} catch (Exception exp) {
 			exp.printStackTrace();

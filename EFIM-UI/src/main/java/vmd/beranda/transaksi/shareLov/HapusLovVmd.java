@@ -48,7 +48,16 @@ public class HapusLovVmd extends BaseVmd implements Serializable {
 		bodyRequest.put("file_id_reff", getInformationForLov("file_id_reff").getValue());
 		bodyRequest.put("file_type", getInformationForLov("file_type").getValue());
 		bodyRequest.put("file_str_id_reff", getInformationForLov("file_str_id_reff").getValue());
-		WsResponse wsResponse = new RestTemplateLib().getResultWs("/HapusCompCtl/Delete", bodyRequest, "post", "projectCode="+getComponentUser().getProjectCode());
+		
+		String deleteType = "";
+		if(((String)getInformationForLov("file_type").getValue()).equalsIgnoreCase(BIN)) {
+			deleteType = "permanent";
+		}
+		else {
+			deleteType = "temporary";
+		}
+		
+		WsResponse wsResponse = new RestTemplateLib().getResultWs("/HapusCompCtl/Delete/"+deleteType, bodyRequest, "post", "projectCode="+getComponentUser().getProjectCode());
 		if(!wsResponse.getIsErrorSvc().booleanValue()) {
 			Map<String, Object> mapper = new RestTemplateLib().mapperJsonToHashMap(wsResponse.getWsContent());
 			boolean result;

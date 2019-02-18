@@ -29,8 +29,6 @@
 				    idHbox4.setSclass("hboxReBin");
 				    }
 				    </attribute>
-				    
-				
 					<hbox>
 						<image 
 							content="@load(vm.coolDocument) @converter('converter.ImageToZkImageConverter')"
@@ -52,8 +50,8 @@
 				<div id= "idHbox2" sclass="hboxGambar" onClick="@command('showGambar')" 
 				visible="@load(vm.visCamera)">
 					<attribute name="onClick">
-				      idHbox2.setSclass("ocHboxGambar");
-				      fileDetail.setSclass("boxFileDetail");
+				       idHbox2.setSclass("ocHboxGambar");
+				       fileDetail.setSclass("boxFileDetail");
 				       buttonMasterFileDetail.setSclass("boxListButtonDetail");
 				    </attribute>
 				    <attribute name="onMouseOver">

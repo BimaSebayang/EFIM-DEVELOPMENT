@@ -16,7 +16,8 @@ import entity.stream.TblPictureFrontEnd;
 
 public interface TblEfimDbDao extends JpaRepository<TblEfimDb, TblEfimDbPk>{
 
-	@Query("select a from TblEfimDb a where a.fileOwner = :fileOwner and a.projectCode = :projectCode and a.fileType = :fileType")
+	@Query("select a from TblEfimDb a where a.fileOwner = :fileOwner and a.projectCode = :projectCode "
+			+ " and a.fileType = :fileType and a.fileStatus != '0'")
 	public Page<TblEfimDb> getAllDataAndFileOwner
 	(@Param("fileOwner") String fileOwner, @Param("fileType") String fileType,@Param("projectCode") String projectCode, Pageable pageable );
 	

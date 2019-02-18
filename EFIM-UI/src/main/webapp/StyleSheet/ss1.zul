@@ -586,7 +586,7 @@ transition: all 0.5s;
 
 .ocHboxDokumen{
 position : absolute;
-left : 0px;
+left : -13.6%;
 top : 0px;
 overflow : hidden;
 border: 5px solid rgb(170, 180, 193);

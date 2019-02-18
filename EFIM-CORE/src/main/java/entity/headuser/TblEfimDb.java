@@ -30,6 +30,7 @@ public class TblEfimDb implements Serializable{
 	private String fileStatus;
 	private String projectCode;
 	private String fileType;
+	private String fileTypeInBin;
 	
 
 	@Id
@@ -135,6 +136,14 @@ public class TblEfimDb implements Serializable{
 	}
 	public void setFileType(String fileType) {
 		this.fileType = fileType;
+	}
+	
+	@Column(name = "FILE_TYPE_IN_BIN")
+	public String getFileTypeInBin() {
+		return fileTypeInBin;
+	}
+	public void setFileTypeInBin(String fileTypeInBin) {
+		this.fileTypeInBin = fileTypeInBin;
 	}
 	
 	

@@ -12,5 +12,5 @@ import entity.procacclaim.pk.ProcInformationPk;
 public interface SearchProcedureDao extends JpaRepository<ProcInformation, ProcInformationPk>{
     
 	@Procedure(procedureName="MASTER.SP_SEARCH_DATA_IN_SENSITIVE")
-	public String getAllSearch(String fileStrIdReff, String search, String projectCode, String createdDate, String caseSensitive, int page);
+	public String getAllSearch(String fileStrIdReff, String search, String projectCode, String createdDate, String caseSensitive,String fileType,Integer page);
 }

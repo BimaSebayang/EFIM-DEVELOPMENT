@@ -3,6 +3,124 @@
 <window height="1000%" width="457%" border="normal"
 		apply="org.zkoss.bind.BindComposer"
 		viewModel="@id('vm') @init('vmd.beranda.transaksi.fileDetail.documentVmd')">
-
+<div sclass="panelButtonReg1">
+			<div>
+				<div>
+					<textbox sclass="textSearch" value="@bind(vm.search)"
+						onOK="@command('searchOrClick')" placeholder="Search..." />
+					<button iconSclass="z-icon-search-plus"
+						height="33px" width="33px" onClick="@command('searchOrClick')"
+						sclass="w3SearchButton" />
+					<radiogroup sclass="radioSearch">
+						<hbox>
+							<radio label="Sensitive"
+								style="font-size : 10px; font-family:corbel,sans-serif;"
+								onCheck="@command('caseChange', caseMethod = 'true')" />
+							<separator width="30px" />
+							<radio label="Closest"
+								style="font-size : 10px; font-family:corbel,sans-serif;"
+								onCheck="@command('caseChange', caseMethod = 'false')" />
+						</hbox>
+					</radiogroup>
+					<combobox sclass="w3Filter" placeholder="filter" />
+				</div>
+				<separator height="15px" />
+				<div sclass="datablocker">
+					<vbox children="@load(vm.mapForColumns.keySet())">
+						<template name="children">
+							<hbox
+								children="@load(vm.mapForColumns.get(each).entrySet())">
+								<template name="children">
+									<separator width="20px" />
+									<panel border="normal"
+										sclass="@load(each.getValue().hiddenFileCode eq '1' ? 'blockerFlag' : 'blocker')"
+										self="@load(each.getValue().tblEfimFileDbstorageDto.fileIdRef)">
+										<panelchildren
+											sclass="@load(each.getValue().hiddenFileCode eq '1' ? 'blockerFlag' : 'blocker')">
+											<div
+												sclass="headerblocker">
+												<image
+													id="${each.getValue().fileIdReff}"
+													content="@load(vm.mapPictures.get(each.getValue().fileIdReff) eq null? vm.coolLoading : 
+								vm.mapPictures.get(each.getValue().fileIdReff)) @converter('converter.ImageToZkImageConverter')"
+													sclass="pictPanel"
+													onMouseOver="@command('mouseOverPict', imagePart = self.id)"
+													onMouseOut="@command('mouseOutPict', imagePart = self.id)">
+												</image>
+												<vbox
+													sclass="vboxIconButtonPanel"
+													visible="@load(each.getValue().fileIdReff eq vm.selectedPict)">
+													<hbox>
+														<button
+															iconSclass="z-icon-flag z-icon-100x"
+															sclass="buttonAnxiousBlocker"
+															onClick="@command('changeFlag', comp = each.getValue().fileIdReff)"
+															onMouseOver="@command('mouseOverButtonFlag', comp = each.getValue().fileIdReff)"
+															onMouseOut="@command('mouseOutButtonFlag', comp = each.getValue().fileIdReff)" />
+														<button
+															iconSclass="z-icon-trash z-icon-100x"
+															sclass="buttonAnxiousBlocker"
+															onClick="@command('hapus', comp = each.getValue().fileIdReff)"
+															onMouseOver="@command('mouseOverButtonTrash', comp = each.getValue().fileIdReff)"
+															onMouseOut="@command('mouseOutButtonTrash', comp = each.getValue().fileIdReff)" />
+													</hbox>
+													<hbox>
+														<button
+															iconSclass="z-icon-edit z-icon-100x"
+															sclass="buttonAnxiousBlocker"
+															onClick="@command('edit', comp = each.getValue().fileIdReff)"
+															onMouseOver="@command('mouseOverButtonEdit', comp = each.getValue().fileIdReff)"
+															onMouseOut="@command('mouseOutButtonEdit', comp = each.getValue().fileIdReff)" />
+														<button
+															iconSclass="z-icon-eye z-icon-100x"
+															sclass="buttonAnxiousBlocker"
+															onMouseOver="@command('mouseOverButtoneye', comp = each.getValue().fileIdReff)"
+															onMouseOut="@command('mouseOutButtoneye', comp = each.getValue().fileIdReff)" />
+													</hbox>
+												</vbox>
+												<div
+													sclass="subtitleBlocker">
+												</div>
+												<div
+													sclass="activeblocker">
+													<label
+														value="@load(each.getValue().fileName)"
+														tooltiptext="@load(each.getValue().fileName)"
+														style="position : absolute;bottom : 32px;left : 10px;font-family: Lato; 
+								font-size: 14px; width : 120px; height :21px; overflow : hidden;" />
+													<textbox
+														value="@save(vm.changeName)" onOK="@command('saveTitleChange', comp = each.getValue().fileIdReff)"
+														visible="@load(vm.selectedFileIdReff eq each.getValue().fileIdReff and vm.visibleEdit)"
+														style="position : absolute;bottom : 32px;left : 10px;font-family: Lato; 
+								font-size: 14px; width : 120px; height :21px; overflow : hidden; border-color : black;" />
+												</div>
+												<div
+													sclass="middleblocker">
+													<label
+														value="@load(each.getValue().createdDate) @converter('converter.MyDateFormatConverter', format='dd/MM/yyyy')"
+														style="position : absolute;bottom : 38px; right : 12px;font-family: Lato; font-size: 8px;" />
+												</div>
+												<div
+													sclass="lowerblocker">
+													<label
+														value="@load(each.getValue().createdDate) @converter('converter.MyDateFormatConverter', format='HH:mm:ss')"
+														style="position : absolute;bottom : 30px;  right: 12px;font-family: Lato; font-size: 6px;" />
+												</div>
+												<button
+													tooltiptext="Simpan"
+													onClick="@command('saveTitleChange', comp = each.getValue().fileIdReff)"
+													visible="@load(vm.selectedFileIdReff eq each.getValue().fileIdReff and vm.visibleEdit)"
+													style="position : absolute;bottom : 30.5px;width : 45px; height : 21px;right : 12px;font-family: Lato; font-size: 8px;text-align:justify;" />
+											</div>
+										</panelchildren>
+									</panel>
+								</template>
+							</hbox>
+						</template>
+					</vbox>
+				</div>
+			    </div>
+			<div></div>
+		</div>
 </window>
 </zk>

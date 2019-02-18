@@ -10,5 +10,5 @@ public interface TblEfimDbSvc {
    
    public Map<String,Object> getAllDataAndFileOwner(Map<String, Object> mapResult, int page);
    
-   public Map<String,Object> searchFileDataWithSensitive(String search, String fileStrIdReff,String projectCode, int page);
+   public Map<String,Object> searchFileDataWithSensitive(String search, String fileStrIdReff,String projectCode,String caseSensitive, String fileType ,int page);
 }

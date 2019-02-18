@@ -76,6 +76,30 @@ public class pictureVmd extends BaseVmd implements Serializable {
 	public void setActivator(boolean activator) {
 		this.activator = activator;
 	}
+	
+	@Command("caseChange")
+	public void caseChange(@BindingParam("caseMethod") String caseMethod) {
+		Map<String, Object> bodyInfo = new HashMap<>();
+		setCaseSearch(caseMethod);
+		bodyInfo.put("search", getSearch());
+		bodyInfo.put("case_sensitive", getCaseSearch());
+		WsResponse response = restTemplateLib.getResultWs("/UserEfimDbCompCtl/SensitiveSearch/PICT", bodyInfo, "post",
+				"projectCode=" + getComponentUser().getProjectCode(),"fileStrIdReff="+getComponentUser().getUserSessionCode(),
+				"page=1");
+		BindUtils.postNotifyChange(null, null, this, "caseSearch");
+		getAllResultOfTableContent(response);
+	}
+	
+	@Command("searchOrClick")
+	public void searchOrClick() {
+		Map<String, Object> bodyInfo = new HashMap<>();
+		bodyInfo.put("search", getSearch());
+		bodyInfo.put("case_sensitive", getCaseSearch());
+		WsResponse response = restTemplateLib.getResultWs("/UserEfimDbCompCtl/SensitiveSearch/PICT", bodyInfo, "post",
+				"projectCode=" + getComponentUser().getProjectCode(),"fileStrIdReff="+getComponentUser().getUserSessionCode(),
+				"page=1");
+		getAllResultOfTableContent(response);
+	}
 
 	@Command("mouseOverPict")
 	public void mouseOverPict(@BindingParam("imagePart") String imagePart,
@@ -239,16 +263,7 @@ public class pictureVmd extends BaseVmd implements Serializable {
 			loadList();
 	}
 
-
-	@Override
-	public void loadList() {
-		super.loadList();
-		Map<String, Object> tempTblEfim = new HashMap<>();
-		tempTblEfim.put("userId", getComponentUser().getUserId());
-		tempTblEfim.put("projectCode", getComponentUser().getProjectCode());
-		tempTblEfim.put("fileType", PICT);
-		WsResponse response = restTemplateLib.getResultWs("/UserEfimDbCompCtl/UserEfim", tempTblEfim, "post",
-				"projectCode=" + getComponentUser().getProjectCode(), "page=1");
+	protected void getAllResultOfTableContent(WsResponse response) {
 		List<TblEfimDbDto> tblEfimDbDtos = new ArrayList<>();
 		try {
 			tblEfimDbDtos = new RestTemplateLib().mapperJsonToListDto(response.getWsContent(), TblEfimDbDto.class);
@@ -322,7 +337,18 @@ public class pictureVmd extends BaseVmd implements Serializable {
 		// }
 		// }
 		// }).start();
+	}
 
+	@Override
+	public void loadList() {
+		super.loadList();
+		Map<String, Object> tempTblEfim = new HashMap<>();
+		tempTblEfim.put("userId", getComponentUser().getUserId());
+		tempTblEfim.put("projectCode", getComponentUser().getProjectCode());
+		tempTblEfim.put("fileType", PICT);
+		WsResponse response = restTemplateLib.getResultWs("/UserEfimDbCompCtl/UserEfim", tempTblEfim, "post",
+				"projectCode=" + getComponentUser().getProjectCode(), "page=1");
+		getAllResultOfTableContent(response);
 	}
 
 	public List<TblEfimDbDto> getTblEfimDbDtos1() {

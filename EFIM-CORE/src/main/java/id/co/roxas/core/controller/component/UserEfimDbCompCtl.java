@@ -8,7 +8,9 @@ import org.springframework.http.CacheControl;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -60,14 +62,16 @@ public class UserEfimDbCompCtl extends CommonConstant{
 	}
 	
 	@SuppressWarnings("unchecked")
-	@RequestMapping(value = "/SensitiveSearch", method = RequestMethod.POST, params = {"projectCode","fileStrIdReff","page"})
-	public WsResponse searchFileDataWithSensitiveCtl(@RequestParam String projectCode,
+	@RequestMapping(value = "/SensitiveSearch/{fileType}", method = RequestMethod.POST, params = {"projectCode","fileStrIdReff","page"})
+	public WsResponse searchFileDataWithSensitiveCtl(@PathVariable String fileType,@RequestParam String projectCode,
 			@RequestParam String fileStrIdReff,
 			@RequestParam int page,
 			@RequestBody Map<String, Object> requestBody) {
 		String search = (String) requestBody.get("search");
-		Map<String, Object> mapper = tblEfimDbSvc.searchFileDataWithSensitive(search, fileStrIdReff, projectCode, page);
-		int total = (int) mapper.get("count");
+		String caseSensitive = (String) requestBody.get("case_sensitive");
+		System.err.println("case sensitive : " + caseSensitive);
+		Map<String, Object> mapper = tblEfimDbSvc.searchFileDataWithSensitive(search, fileStrIdReff, projectCode, caseSensitive, fileType,page);
+		int total = (int) mapper.get("count");		
 		List<TblEfimDbDto> tblEfimDbDtos = (List<TblEfimDbDto>) mapper.get("content");
 		WsResponse wsResponse = new WsResponse(tblEfimDbDtos, total, true, page, total);
 		return wsResponse;

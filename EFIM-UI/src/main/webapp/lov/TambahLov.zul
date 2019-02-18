@@ -13,13 +13,11 @@
                      align-items: center; overflow:auto; cursor: pointer;  
               justify-content: center;">
                 <button upload="true,maxsize=-1,native"
-					onUpload="@command('onPhotoUpload')" label="UPLOAD PHOTO"
+					onUpload="@command('onPhotoUpload')" label="@bind(vm.uploadLabel)"
 					iconSclass="z-icon-photo" orient="vertical" height="10%" visible="@load(vm.onUpload eq true)"/>
 				<separator width="100px" visible="@load(vm.onUpload eq true)" />	
-
  	            <button iconSclass="z-icon-arrow-left" orient="vertical" onClick="@command('kembali', destroy = lov)" 
 	                    label="KEMBALI" visible="@load(vm.onUpload eq true)" height="10%" width = "10%"/>
-				
 				<button sclass="upload-button" upload="true,maxsize=-1,native"
 					onUpload="@command('onPhotoUpload')" label="UPLOAD" id="uploadLov"
 					orient="vertical" visible="@load(vm.onUpload ne true)"/>	

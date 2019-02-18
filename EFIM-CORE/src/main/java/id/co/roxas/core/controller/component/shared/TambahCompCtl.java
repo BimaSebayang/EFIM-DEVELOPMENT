@@ -105,4 +105,71 @@ public class TambahCompCtl extends CommonConstant {
 			return response;
 		}
 	}
+	
+	@RequestMapping(value = "/Restore", method = RequestMethod.POST)
+	public WsResponse restoreEfimDb(@RequestBody TblEfimDbDto saveBody) {
+       // System.err.println("restore kepanggil nggak sih");
+		if (saveBody == null) {
+			WsResponse response = new WsResponse();
+			response.setErrorCmd(NULLBODY);
+			response.setIsErrorSvc(true);
+			return response;
+		}
+
+		System.err.println("body : " + new Gson().toJson(saveBody));
+		
+		String fileIdReff = "";
+		String fileStrIdReff = "";
+		String projectCode = "";
+		try {
+			fileIdReff = saveBody.getFileIdReff();
+			fileStrIdReff = saveBody.getFileStrIdReff();
+			projectCode = saveBody.getProjectCode();
+		} catch (Exception exp) {
+			exp.printStackTrace();
+			WsResponse response = new WsResponse();
+			response.setIsErrorSvc(true);
+			response.setErrorCmd(exp.toString());
+			return response;
+		}
+		String createdDate = CommonDateLibPr.formattingDateToString(new Date());
+		System.err.println("cd : " + createdDate);
+		String result = "";
+		try {
+			result = procedureDao.spRestoreDataBin(fileIdReff, projectCode, fileStrIdReff, createdDate);
+		} catch (Exception exp) {
+			exp.printStackTrace();
+			WsResponse response = new WsResponse();
+			response.setIsErrorSvc(true);
+			response.setErrorCmd(exp.toString() + " with parameter : " + new Gson().toJson(saveBody));
+			return response;
+		}
+
+		Map<String, Object> mapper = new MapperWs().mapperJsonToHashMap(result);
+		if (mapper != null) {
+			if (mapper.get("error_method") == null) {
+				if ((boolean) mapper.get("result")) {
+					WsResponse response = new WsResponse();
+					response.setIsErrorSvc(false);
+					response.setWsContent(result);
+					return response;
+				} else {
+					WsResponse response = new WsResponse();
+					response.setErrorCmd((String) mapper.get("error"));
+					response.setIsErrorSvc(true);
+					return response;
+				}
+			} else {
+				WsResponse response = new WsResponse();
+				response.setErrorCmd((String) mapper.get("error_method"));
+				response.setIsErrorSvc(true);
+				return response;
+			}
+		} else {
+			WsResponse response = new WsResponse();
+			response.setErrorCmd(CANNOTRETRIEVE);
+			response.setIsErrorSvc(true);
+			return response;
+		}
+	}
 }

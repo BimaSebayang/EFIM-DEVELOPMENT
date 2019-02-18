@@ -27,6 +27,7 @@ import id.co.roxas.efim.common.common.dto.headuser.TblEfimDbDto;
 import id.co.roxas.efim.common.common.lib.CommonDateLibPr;
 import id.co.roxas.efim.common.constant.CommonConstant;
 import id.co.roxas.efim.common.paging.request.RequestPaging;
+import id.co.roxas.efim.common.tester.AlgoritmaLevenshtein;
 import id.co.roxas.efim.common.webservice.lib.RestTemplateLib;
 import ma.glasnost.orika.MapperFacade;
 import ma.glasnost.orika.impl.DefaultMapperFactory;
@@ -126,21 +127,54 @@ public class TblEfimDbSvcImpl extends CommonConstant implements TblEfimDbSvc{
 	}
 
 	@Override
-	public Map<String, Object> searchFileDataWithSensitive(String search, String fileStrIdReff,String projectCode, int page) {
+	public Map<String, Object> searchFileDataWithSensitive(String search, String fileStrIdReff,String projectCode,String caseSensitive, String fileType,int page) {
 		String createdDate = CommonDateLibPr.formattingDateToString(new Date());
 		List<TblEfimDb> tblEfimDbs = new ArrayList<>();
-		System.err.println("page : " + page);
+		System.err.println("page : " + page + ", fileType : " + fileType + ", caseSensitive : "+ caseSensitive + ", projectCode : " +
+		projectCode + ", fileStrIdReff : " + fileStrIdReff + ", search : " + search);
+		
+	
+		
 		try {
-			tblEfimDbs = new RestTemplateLib().mapperJsonToListDto(searchProcedureDao.getAllSearch(fileStrIdReff, search, projectCode, createdDate,"true",page),
+			
+			String result = searchProcedureDao.getAllSearch(fileStrIdReff, search, projectCode, createdDate, caseSensitive, fileType, page); 
+			tblEfimDbs = new RestTemplateLib().mapperJsonToListDto
+					(result,
 					TblEfimDb.class);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		
+		List<TblEfimDbDto> tblEfimDbDtos = new ArrayList<>();
+		
+	    if(caseSensitive.equalsIgnoreCase("false")) {
+			List<String> strings = new ArrayList<>();
+	    	for (TblEfimDb tblEfimDb : tblEfimDbs) {
+				strings.add(tblEfimDb.getFileName());
+			}
+	    	List<String> stringNews = new ArrayList<>();
+			stringNews = AlgoritmaLevenshtein.getAllClosestWordWithLevenshtein(strings, search);	
+			for (String sn : stringNews) {
+			for (TblEfimDb tblEfimDb : tblEfimDbs) {
+					if(tblEfimDb.getFileName().equalsIgnoreCase(sn)) {
+						TblEfimDbDto tblEfimDbDto = new TblEfimDbDto();
+						tblEfimDbDto = mapperFacade.map(tblEfimDb, TblEfimDbDto.class);
+						tblEfimDbDtos.add(tblEfimDbDto);
+					}
+				}	
+			}	
+		}
+	    else {
+	    	tblEfimDbDtos = mapperFacade.mapAsList(tblEfimDbs, TblEfimDbDto.class);
+	    }
 	
+	    for (TblEfimDbDto tblEfimDbDto : tblEfimDbDtos) {
+			System.err.println("file name : " + tblEfimDbDto.getFileName());
+		}
+	    
 		Map<String, Object> mapper = new HashMap<>();
-		mapper.put("count",tblEfimDbs.size());
-		mapper.put("content", tblEfimDbs);	
+		mapper.put("count",tblEfimDbDtos.size());
+		mapper.put("content", tblEfimDbDtos);	
 		return mapper;
 	}
 

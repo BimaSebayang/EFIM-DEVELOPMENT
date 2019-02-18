@@ -20,6 +20,7 @@ public class TblEfimDbDto implements Serializable{
 	private String fileStatus;
 	private String projectCode;
 	private String fileType;
+	private String fileTypeInBin;
 	private TblEfimFileDbstorageDto tblEfimFileDbstorageDto;
 	
 	public String getFileIdReff() {
@@ -105,6 +106,12 @@ public class TblEfimDbDto implements Serializable{
 	}
 	public void setTblEfimFileDbstorageDto(TblEfimFileDbstorageDto tblEfimFileDbstorageDto) {
 		this.tblEfimFileDbstorageDto = tblEfimFileDbstorageDto;
+	}
+	public String getFileTypeInBin() {
+		return fileTypeInBin;
+	}
+	public void setFileTypeInBin(String fileTypeInBin) {
+		this.fileTypeInBin = fileTypeInBin;
 	}
 
 	

@@ -40,6 +40,7 @@ public class BaseVmd extends BaseComponent implements Serializable {
 	protected final String BIN = "BIN";
 	protected final String PICT = "PICT";
     protected final String PROJECT = "EFIM";
+    protected String caseSearch = "true";
 	public final Integer DIV = 4;
 	protected String search = "";
 	protected static int PAGE = 1;
@@ -600,6 +601,14 @@ public class BaseVmd extends BaseComponent implements Serializable {
 
 	public void setCoolQuestionMark(byte[] coolQuestionMark) {
 		this.coolQuestionMark = coolQuestionMark;
+	}
+
+	public String getCaseSearch() {
+		return caseSearch;
+	}
+
+	public void setCaseSearch(String caseSearch) {
+		this.caseSearch = caseSearch;
 	}
 
 	

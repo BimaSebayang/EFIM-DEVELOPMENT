@@ -41,6 +41,7 @@ public class TambahLovVmd extends BaseVmd implements Serializable {
 	private byte[] initPic = null;
 	private ImageCaptureDto getImage = new ImageCaptureDto();
 	private boolean onUpload = true;
+	private String uploadLabel = "";
 
 	@Command("onPhotoUpload")
 	public void onPhotoUpload(@ContextParam(ContextType.BIND_CONTEXT) BindContext ctx) {
@@ -93,8 +94,26 @@ public class TambahLovVmd extends BaseVmd implements Serializable {
 				BindUtils.postNotifyChange(null, null, this, "onUpload");
 				BindUtils.postNotifyChange(null, null, this, "initPic");
 				BindUtils.postNotifyChange(null, null, this, "getImage");
-			} else {
-				// showWarningMessageBox(WARNING.W003.getMessage());
+			} else if(typeMedias[0].equalsIgnoreCase("application")){
+				getImage = new ImageCaptureDto(media.getByteData(), media.getName());
+				initPic = getImage.getByte();
+				onUpload = false;
+				InValidFormClass("uploadLov", "upload-button");
+				InValidFormClass("backLov", "return-button");
+				InValidFormClass("saveLov", "upload-button");
+				BindUtils.postNotifyChange(null, null, this, "onUpload");
+				BindUtils.postNotifyChange(null, null, this, "initPic");
+				BindUtils.postNotifyChange(null, null, this, "getImage");
+			} else if(typeMedias[0].equalsIgnoreCase("video")){
+				getImage = new ImageCaptureDto(media.getByteData(), media.getName());
+				initPic = getImage.getByte();
+				onUpload = false;
+				InValidFormClass("uploadLov", "upload-button");
+				InValidFormClass("backLov", "return-button");
+				InValidFormClass("saveLov", "upload-button");
+				BindUtils.postNotifyChange(null, null, this, "onUpload");
+				BindUtils.postNotifyChange(null, null, this, "initPic");
+				BindUtils.postNotifyChange(null, null, this, "getImage");
 			}
 		}
 	}
@@ -163,6 +182,20 @@ public class TambahLovVmd extends BaseVmd implements Serializable {
 	@Override
 	public void loadList() {
 		super.loadList();
+		String textUpload = "";
+		String fileType = (String) getInformationForLov("file_type").getValue();
+		if(fileType.equalsIgnoreCase(DOCU)) {
+			textUpload = "DOKUMEN";
+		}
+		else if(fileType.equalsIgnoreCase(PICT)) {
+			textUpload = "PHOTO";
+		}
+		else if(fileType.equalsIgnoreCase(VIDEO)) {
+			textUpload = "VIDEO";
+		}
+		
+		uploadLabel = "UPLOAD "+textUpload;
+		BindUtils.postNotifyChange(null, null, this, "uploadLabel");
 		BindUtils.postNotifyChange(null, null, this, "getImage");
 	}
 
@@ -188,6 +221,14 @@ public class TambahLovVmd extends BaseVmd implements Serializable {
 
 	public void setOnUpload(boolean onUpload) {
 		this.onUpload = onUpload;
+	}
+
+	public String getUploadLabel() {
+		return uploadLabel;
+	}
+
+	public void setUploadLabel(String uploadLabel) {
+		this.uploadLabel = uploadLabel;
 	}
 
 }
