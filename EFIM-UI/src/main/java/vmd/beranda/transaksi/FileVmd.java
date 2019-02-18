@@ -112,19 +112,17 @@ public class FileVmd extends BaseVmd implements Serializable {
 		callLovVmd( "/lov/TambahLov.zul", new MapperLovInformation("file_type", selectedFile));
 	}
 	
-	@Command("hapusMaster")
-	public void hapusMaster() {
-		
-	}
-	
-	@Command("refreshMaster")
-	public void refreshMaster() {
-		
-	}
 	
 	@Command("kembaliMaster")
 	public void kembaliMaster() {
-		
+		visCamera = true;
+		visDocument = true;
+		visVideo = true;
+		visBin = true;
+		BindUtils.postNotifyChange(null, null, this, "visCamera");
+		BindUtils.postNotifyChange(null, null, this, "visDocument");
+		BindUtils.postNotifyChange(null, null, this, "visVideo");
+		BindUtils.postNotifyChange(null, null, this, "visBin");
 	}
 	
 	public boolean isVisDocument() {

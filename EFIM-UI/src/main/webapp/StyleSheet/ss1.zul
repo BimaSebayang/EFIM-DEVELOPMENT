@@ -129,9 +129,10 @@ position : absolute; border-radius: 60%;
     margin: 25px;
     position : absolute;
     top : -50px; 
-    left : 320%;  
-    
+    left : 450%;  
+    transition: all 0.7s;   
 }
+
 
 .boxListButtonDetailBfr{
  position : absolute;
@@ -654,7 +655,7 @@ transition: all 0.5s;
 
 .ocHboxVideo{
 position : absolute;
-left : 0px;
+left : -13.6%;
 bottom : -70px;
 overflow : hidden;
 border: 5px solid rgb(170, 180, 193);
@@ -687,7 +688,7 @@ transition: all 0.5s;
 
 .ocHboxReBin{
 position : absolute;
-right : 190px;
+right : 78%;
 bottom : -70px;
 overflow : hidden;
 border: 5px solid rgb(170, 180, 193);

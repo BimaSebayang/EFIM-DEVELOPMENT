@@ -135,10 +135,10 @@
 				<div id= "idHbox4" sclass="hboxReBin" onClick="@command('showBin')" 
 				visible="@load(vm.visBin)">
 				
-				<attribute name="onClick">
+				    <attribute name="onClick">
 				    idHbox4.setSclass("ocHboxReBin");
-				      fileDetail.setSclass("boxFileDetail");
-				       buttonMasterFileDetail.setSclass("boxListButtonDetail");
+				    fileDetail.setSclass("boxFileDetail");
+				    buttonMasterFileDetail.setSclass("boxListButtonDetail");
 				    </attribute>
 				    <attribute name="onMouseOver">
 				     if(!idHbox4.getSclass().equalsIgnoreCase("ocHboxReBin")){
@@ -179,7 +179,16 @@
 			<separator height="25px"/>
 			<button label="Tambah" iconSclass="z-icon-image" orient="vertical" style="width : 100px;" onClick="@command('tambahMaster')"/>
 			<separator height="25px"/>
-			<button label="Kembali" iconSclass="z-icon-arrow-left" orient="vertical" style="width : 100px;" onClick="@command('kembaliMaster')"/>
+			<button label="Kembali" iconSclass="z-icon-arrow-left" orient="vertical" style="width : 100px;" onClick="@command('kembaliMaster')">
+			<attribute name="onClick">
+			fileDetail.setSclass("boxFileDetailBfr");
+			buttonMasterFileDetail.setSclass("boxListButtonDetailBfr");
+			idHbox1.setSclass("hboxDokumen");
+			idHbox2.setSclass("hboxGambar");
+			idHbox3.setSclass("hboxVideo");
+			idHbox4.setSclass("hboxReBin");
+			</attribute>
+			</button>
 			</vbox>
 			</div>
 			
