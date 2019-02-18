@@ -295,6 +295,12 @@ public class binVmd extends BaseVmd implements Serializable{
 		} catch (NullPointerException npe) {
 			npe.printStackTrace();
 		}
+		
+		if (tblEfimDbDtos.size()==0) {
+			mapForColumns =new HashMap<>();
+			mapTblEfimDbDto = new HashMap<>();
+		}
+		
 		BindUtils.postNotifyChange(null, null, this, "mapForColumns");
 		BindUtils.postNotifyChange(null, null, this, "mapTblEfimDbDto");
 		// BindUtils.postNotifyChange(null, null, this, "mapPictures");
