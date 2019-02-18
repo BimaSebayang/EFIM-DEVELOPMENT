@@ -9,7 +9,7 @@ import org.zkoss.zul.Constraint;
 import org.zkoss.zul.Intbox;
 import org.zkoss.zul.Textbox;
 
-import id.co.roxas.efim.common.common.lib.AlphabeticCheckerPr;
+import id.co.roxas.efim.common.common.lib.lib.AlphabeticCheckerPr;
 
 
 public class ConstraintForm implements Serializable{

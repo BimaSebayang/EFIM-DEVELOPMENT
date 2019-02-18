@@ -11,7 +11,7 @@ import org.springframework.stereotype.Service;
 import entity.master.TblCode;
 import id.co.roxas.core.dao.master.TblCodeDao;
 import id.co.roxas.core.service.master.TblCodeSvc;
-import id.co.roxas.efim.common.common.dto.master.TblCodeDto;
+import id.co.roxas.efim.common.common.lib.dto.master.TblCodeDto;
 import id.co.roxas.efim.common.constant.CommonConstant;
 import ma.glasnost.orika.MapperFacade;
 import ma.glasnost.orika.impl.DefaultMapperFactory;

@@ -27,8 +27,8 @@ import org.zkoss.zul.Window;
 
 import com.thoughtworks.xstream.core.util.Base64Encoder;
 
-import id.co.roxas.efim.common.common.dto.MapperLovInformation;
-import id.co.roxas.efim.common.common.dto.master.TblCodeDto;
+import id.co.roxas.efim.common.common.lib.dto.MapperLovInformation;
+import id.co.roxas.efim.common.common.lib.dto.master.TblCodeDto;
 import id.co.roxas.efim.common.constant.INFORMATION;
 import id.co.roxas.efim.common.webservice.global.WsResponse;
 import id.co.roxas.efim.common.webservice.lib.RestTemplateLib;

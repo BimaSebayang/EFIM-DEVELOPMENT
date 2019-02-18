@@ -19,8 +19,8 @@ import org.zkoss.lang.Strings;
 
 import id.co.roxas.core.service.headuser.TblEfimDbSvc;
 import id.co.roxas.core.service.stream.TblEfimFileDbstorageSvc;
-import id.co.roxas.efim.common.common.dto.headuser.TblEfimDbDto;
-import id.co.roxas.efim.common.common.dto.stream.TblEfimFileDbstorageDto;
+import id.co.roxas.efim.common.common.lib.dto.headuser.TblEfimDbDto;
+import id.co.roxas.efim.common.common.lib.dto.stream.TblEfimFileDbstorageDto;
 import id.co.roxas.efim.common.constant.CommonConstant;
 import id.co.roxas.efim.common.webservice.global.WsResponse;
 

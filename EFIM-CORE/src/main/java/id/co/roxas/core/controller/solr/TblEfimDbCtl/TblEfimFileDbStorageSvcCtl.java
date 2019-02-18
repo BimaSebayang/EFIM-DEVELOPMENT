@@ -14,7 +14,7 @@ import entity.headuser.TblEfimDb;
 import entity.stream.TblEfimFileDbstorage;
 import id.co.roxas.core.dao.headuser.TblEfimDbDao;
 import id.co.roxas.core.dao.stream.TblEfimFileDbStorageDao;
-import id.co.roxas.efim.common.common.dto.stream.TblEfimFileDbstorageDto;
+import id.co.roxas.efim.common.common.lib.dto.stream.TblEfimFileDbstorageDto;
 import id.co.roxas.efim.common.constant.CommonConstant;
 import id.co.roxas.efim.common.webservice.global.WsResponse;
 

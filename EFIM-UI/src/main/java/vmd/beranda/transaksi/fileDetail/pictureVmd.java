@@ -16,9 +16,9 @@ import org.zkoss.bind.annotation.ContextType;
 import org.zkoss.bind.annotation.GlobalCommand;
 import org.zkoss.bind.annotation.Init;
 
-import id.co.roxas.efim.common.common.dto.MapperLovInformation;
-import id.co.roxas.efim.common.common.dto.headuser.TblEfimDbDto;
-import id.co.roxas.efim.common.common.dto.stream.TblEfimFileDbstorageDto;
+import id.co.roxas.efim.common.common.lib.dto.MapperLovInformation;
+import id.co.roxas.efim.common.common.lib.dto.headuser.TblEfimDbDto;
+import id.co.roxas.efim.common.common.lib.dto.stream.TblEfimFileDbstorageDto;
 import id.co.roxas.efim.common.webservice.global.WsResponse;
 import id.co.roxas.efim.common.webservice.lib.RestTemplateLib;
 import vmd.BaseVmd;

@@ -11,7 +11,7 @@ import entity.stream.TblEfimFileDbstorage;
 import id.co.roxas.core.dao.stream.TblEfimFileDbStorageDao;
 import id.co.roxas.core.service.headuser.TblPictureFrontEndSvc;
 import id.co.roxas.core.service.stream.TblEfimFileDbstorageSvc;
-import id.co.roxas.efim.common.common.dto.stream.TblEfimFileDbstorageDto;
+import id.co.roxas.efim.common.common.lib.dto.stream.TblEfimFileDbstorageDto;
 import ma.glasnost.orika.MapperFacade;
 import ma.glasnost.orika.impl.DefaultMapperFactory;
 

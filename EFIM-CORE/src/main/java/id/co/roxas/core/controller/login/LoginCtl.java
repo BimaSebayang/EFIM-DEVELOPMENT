@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import id.co.roxas.core.dao.ProcedureDao;
 import id.co.roxas.core.service.headuser.TblDataUserSvc;
-import id.co.roxas.efim.common.common.dto.headuser.TblDataUserDto;
+import id.co.roxas.efim.common.common.lib.dto.headuser.TblDataUserDto;
 import id.co.roxas.efim.common.webservice.global.WsResponse;
 import id.co.roxas.efim.common.webservice.lib.RestTemplateLib;
 
