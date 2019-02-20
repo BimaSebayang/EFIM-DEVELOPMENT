@@ -1,11 +1,34 @@
 package vmd.beranda.transaksi.fileDetail;
 
+import java.awt.Graphics2D;
+import java.awt.Image;
+import java.awt.Rectangle;
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.RandomAccessFile;
 import java.io.Serializable;
+import java.net.URLConnection;
+import java.nio.MappedByteBuffer;
+import java.nio.channels.FileChannel;
+import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 
+import javax.activation.MimetypesFileTypeMap;
+import javax.imageio.ImageIO;
+
+import org.apache.commons.io.FileUtils;
+import org.apache.pdfbox.pdmodel.PDDocument;
+import org.apache.pdfbox.pdmodel.PDPage;
 import org.zkoss.bind.BindContext;
 import org.zkoss.bind.BindUtils;
 import org.zkoss.bind.annotation.BindingParam;
@@ -14,9 +37,16 @@ import org.zkoss.bind.annotation.ContextParam;
 import org.zkoss.bind.annotation.ContextType;
 import org.zkoss.bind.annotation.GlobalCommand;
 import org.zkoss.bind.annotation.Init;
+import org.zkoss.zul.Filedownload;
 
+import com.sun.pdfview.PDFFile;
+import com.sun.pdfview.PDFPage;
+
+import antlr.ByteBuffer;
 import id.co.roxas.efim.common.common.lib.dto.MapperLovInformation;
 import id.co.roxas.efim.common.common.lib.dto.headuser.TblEfimDbDto;
+import id.co.roxas.efim.common.common.lib.dto.stream.TblEfimFileDbstorageDto;
+import id.co.roxas.efim.common.common.lib.lib.GraphicOverlay2D;
 import id.co.roxas.efim.common.webservice.global.WsResponse;
 import id.co.roxas.efim.common.webservice.lib.RestTemplateLib;
 import vmd.BaseVmd;
@@ -38,11 +68,23 @@ public class documentVmd extends BaseVmd implements Serializable {
 	private byte[] fileStr = null;
 	private String selectedPict = new String();
 	private String selectedFileIdReff = new String();
-    private boolean visibleEdit = false;
-    
-    @Override
+	private boolean visibleEdit = false;
+
+	@Override
 	public void loadList() {
 		super.loadList();
+		
+		try {
+			if(new GraphicOverlay2D().changePdfFileToPicture(coolDocumentMark)!=null) {
+			coolDocumentMark = new GraphicOverlay2D().changePdfFileToPicture(coolDocumentMark);
+			}else {
+				//String getMimeText = GraphicOverlay2D.detectMimeType(coolDocumentMark)
+			}
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		BindUtils.postNotifyChange(null, null, this, "coolDocumentMark");
 		Map<String, Object> tempTblEfim = new HashMap<>();
 		tempTblEfim.put("userId", getComponentUser().getUserId());
 		tempTblEfim.put("projectCode", getComponentUser().getProjectCode());
@@ -51,28 +93,43 @@ public class documentVmd extends BaseVmd implements Serializable {
 				"projectCode=" + getComponentUser().getProjectCode(), "page=1");
 		getAllResultOfTableContent(response);
 	}
-    
-    @Command("caseChange")
+
+	@Command("seeCommand")
+	public void seeCommand(@BindingParam("comp1") String comp1, @BindingParam("comp2") String comp2) {
+		WsResponse response = restTemplateLib.getResultWs("/UserEfimDbCompCtl/FileStream", null, "get",
+				"projectCode=" + PROJECT, "fileStrIdRef=" + getComponentUser().getUserSessionCode(),
+				"fileIdRef=" + comp1);
+		TblEfimFileDbstorageDto tblEfimFileDbstorageDto = new TblEfimFileDbstorageDto();
+		try {
+			tblEfimFileDbstorageDto = restTemplateLib.mapperJsonToSingleDto(response.getWsContent(),
+					TblEfimFileDbstorageDto.class);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		Filedownload.save(tblEfimFileDbstorageDto.getFileStr(), GraphicOverlay2D.detectMimeType(tblEfimFileDbstorageDto.getFileStr()), comp2);
+	}
+
+	@Command("caseChange")
 	public void caseChange(@BindingParam("caseMethod") String caseMethod) {
 		Map<String, Object> bodyInfo = new HashMap<>();
 		setCaseSearch(caseMethod);
 		bodyInfo.put("search", getSearch());
 		bodyInfo.put("case_sensitive", getCaseSearch());
 		WsResponse response = restTemplateLib.getResultWs("/UserEfimDbCompCtl/SensitiveSearch/DOCU", bodyInfo, "post",
-				"projectCode=" + getComponentUser().getProjectCode(),"fileStrIdReff="+getComponentUser().getUserSessionCode(),
-				"page=1");
+				"projectCode=" + getComponentUser().getProjectCode(),
+				"fileStrIdReff=" + getComponentUser().getUserSessionCode(), "page=1");
 		BindUtils.postNotifyChange(null, null, this, "caseSearch");
 		getAllResultOfTableContent(response);
 	}
-	
+
 	@Command("searchOrClick")
 	public void searchOrClick() {
 		Map<String, Object> bodyInfo = new HashMap<>();
 		bodyInfo.put("search", getSearch());
 		bodyInfo.put("case_sensitive", getCaseSearch());
 		WsResponse response = restTemplateLib.getResultWs("/UserEfimDbCompCtl/SensitiveSearch/DOCU", bodyInfo, "post",
-				"projectCode=" + getComponentUser().getProjectCode(),"fileStrIdReff="+getComponentUser().getUserSessionCode(),
-				"page=1");
+				"projectCode=" + getComponentUser().getProjectCode(),
+				"fileStrIdReff=" + getComponentUser().getUserSessionCode(), "page=1");
 		getAllResultOfTableContent(response);
 	}
 
@@ -158,16 +215,17 @@ public class documentVmd extends BaseVmd implements Serializable {
 
 	@Command("hapus")
 	public void hapus(@BindingParam("comp") String comp) {
-		forLov(comp,"/lov/HapusLov.zul");
+		forLov(comp, "/lov/HapusLov.zul");
 	}
-	
+
 	@Command("changeFlag")
 	public void changeFlag(@BindingParam("comp") String comp) {
-		Map<String, Object> bodyRequest = new HashMap<>(); 
+		Map<String, Object> bodyRequest = new HashMap<>();
 		bodyRequest.put("file_id_reff", comp);
 		bodyRequest.put("file_str_id_reff", getComponentUser().getUserSessionCode());
-		WsResponse wsResponse = new RestTemplateLib().getResultWs("/PictureCtl/SaveFlagChange", bodyRequest, "Post", "projectCode="+getComponentUser().getProjectCode());
-		if(!wsResponse.getIsErrorSvc().booleanValue()) {
+		WsResponse wsResponse = new RestTemplateLib().getResultWs("/PictureCtl/SaveFlagChange", bodyRequest, "Post",
+				"projectCode=" + getComponentUser().getProjectCode());
+		if (!wsResponse.getIsErrorSvc().booleanValue()) {
 			Map<String, Object> mapper = new RestTemplateLib().mapperJsonToHashMap(wsResponse.getWsContent());
 			boolean result;
 			if (mapper != null) {
@@ -182,15 +240,16 @@ public class documentVmd extends BaseVmd implements Serializable {
 			}
 		}
 	}
-	
+
 	@Command("saveTitleChange")
 	public void saveTitleChange(@BindingParam("comp") String comp) {
-		Map<String, Object> bodyRequest = new HashMap<>(); 
+		Map<String, Object> bodyRequest = new HashMap<>();
 		bodyRequest.put("file_id_reff", comp);
 		bodyRequest.put("new_file_name", changeName);
 		bodyRequest.put("file_str_id_reff", getComponentUser().getUserSessionCode());
-		WsResponse wsResponse = new RestTemplateLib().getResultWs("/PictureCtl/SaveTitleChange", bodyRequest, "Post", "projectCode="+getComponentUser().getProjectCode());
-		if(!wsResponse.getIsErrorSvc().booleanValue()) {
+		WsResponse wsResponse = new RestTemplateLib().getResultWs("/PictureCtl/SaveTitleChange", bodyRequest, "Post",
+				"projectCode=" + getComponentUser().getProjectCode());
+		if (!wsResponse.getIsErrorSvc().booleanValue()) {
 			Map<String, Object> mapper = new RestTemplateLib().mapperJsonToHashMap(wsResponse.getWsContent());
 			boolean result;
 			if (mapper != null) {
@@ -209,7 +268,7 @@ public class documentVmd extends BaseVmd implements Serializable {
 			}
 		}
 	}
-	
+
 	@Command("edit")
 	public void edit(@BindingParam("comp") String comp) {
 		visibleEdit = true;
@@ -217,25 +276,30 @@ public class documentVmd extends BaseVmd implements Serializable {
 		BindUtils.postNotifyChange(null, null, this, "visibleEdit");
 		BindUtils.postNotifyChange(null, null, this, "selectedFileIdReff");
 	}
-	
+
 	public void forLov(String comp, String url) {
-		callLovVmd(url , new MapperLovInformation("file_id_reff", comp), new MapperLovInformation("file_type", DOCU)
-				, new MapperLovInformation("file_str_id_reff", getComponentUser().getUserSessionCode()));
+		callLovVmd(url, new MapperLovInformation("file_id_reff", comp), new MapperLovInformation("file_type", DOCU),
+				new MapperLovInformation("file_str_id_reff", getComponentUser().getUserSessionCode()));
 	}
-	
+
 	@GlobalCommand("TambahLov")
 	public void tambahLov(@BindingParam("success") boolean success) {
 		if (success) {
 			loadList();
 		}
 	}
-	
+
 	@GlobalCommand("HapusLov")
 	public void hapusLov(@BindingParam("success") boolean success) {
-			loadList();
+		loadList();
 	}
-    
-    protected void getAllResultOfTableContent(WsResponse response) {
+
+//	@Command("onRecruitPictureTime")
+//	public void onRecruitPictureTime() {
+//		BindUtils.postNotifyChange(null, null, this, "mapPictures");
+//	}
+
+	protected void getAllResultOfTableContent(WsResponse response) {
 		List<TblEfimDbDto> tblEfimDbDtos = new ArrayList<>();
 		try {
 			tblEfimDbDtos = new RestTemplateLib().mapperJsonToListDto(response.getWsContent(), TblEfimDbDto.class);
@@ -267,146 +331,170 @@ public class documentVmd extends BaseVmd implements Serializable {
 		} catch (NullPointerException npe) {
 			npe.printStackTrace();
 		}
-		
-		
-		if (tblEfimDbDtos.size()==0) {
-			mapForColumns =new HashMap<>();
+
+		if (tblEfimDbDtos.size() == 0) {
+			mapForColumns = new HashMap<>();
 			mapTblEfimDbDto = new HashMap<>();
 		}
-		
+
 		BindUtils.postNotifyChange(null, null, this, "mapForColumns");
 		BindUtils.postNotifyChange(null, null, this, "mapTblEfimDbDto");
-		// BindUtils.postNotifyChange(null, null, this, "mapPictures");
+		BindUtils.postNotifyChange(null, null, this, "mapPictures");
 
-		// new Thread(new Runnable() {
-		// public void run() {
-		// boolean cont = true;
-		// while (cont) {
-		// if (!mapForColumns.isEmpty()) {
-		// if (timeCounter <= mapForColumns.size()) {
-		// // Map<Integer, TblEfimDbDto> tempTblEfim = mapForColumns.get(timeCounter);
-		// for (Entry<Integer, TblEfimDbDto> b :
-		// mapForColumns.get(timeCounter).entrySet()) {
-		// WsResponse response =
-		// restTemplateLib.getResultWs("/UserEfimDbCompCtl/FileStream", null,
-		// "get", "projectCode=" + PROJECT,
-		// "fileStrIdRef=" + b.getValue().getFileStrIdReff(),
-		// "fileIdRef=" + b.getValue().getFileIdReff());
-		// TblEfimDbDto efimDbDto = b.getValue();
-		// TblEfimFileDbstorageDto tblEfimFileDbstorageDto = new
-		// TblEfimFileDbstorageDto();
-		// try {
-		// tblEfimFileDbstorageDto = restTemplateLib.mapperJsonToSingleDto(
-		// response.getWsContent(), TblEfimFileDbstorageDto.class);
-		// efimDbDto.setTblEfimFileDbstorageDto(restTemplateLib.mapperJsonToSingleDto(
-		// response.getWsContent(), TblEfimFileDbstorageDto.class));
-		// mapPictures.put(tblEfimFileDbstorageDto.getFileIdRef(),
-		// tblEfimFileDbstorageDto.getFileStr());
-		// } catch (Exception e) {
-		// e.printStackTrace();
-		// }
-		// // tempTblEfim.put(b.getKey(), efimDbDto);
-		// }
-		// // mapForColumns.put(timeCounter, tempTblEfim);
-		// timeCounter++;
-		// }
-		// } else {
-		// cont = false;
-		// }
-		// }
-		// }
-		// }).start();
+//		new Thread(new Runnable() {
+//			public void run() {
+//				boolean cont = true;
+//				while (cont) {
+//					if (!mapForColumns.isEmpty()) {
+//						if (timeCounter <= mapForColumns.size()) {
+//							// Map<Integer, TblEfimDbDto> tempTblEfim = mapForColumns.get(timeCounter);
+//							for (Entry<Integer, TblEfimDbDto> b : mapForColumns.get(timeCounter).entrySet()) {
+//								WsResponse response = restTemplateLib.getResultWs("/UserEfimDbCompCtl/FileStream", null,
+//										"get", "projectCode=" + PROJECT,
+//										"fileStrIdRef=" + b.getValue().getFileStrIdReff(),
+//										"fileIdRef=" + b.getValue().getFileIdReff());
+//								TblEfimDbDto efimDbDto = b.getValue();
+//								TblEfimFileDbstorageDto tblEfimFileDbstorageDto = new TblEfimFileDbstorageDto();
+//								try {
+//									tblEfimFileDbstorageDto = restTemplateLib.mapperJsonToSingleDto(
+//											response.getWsContent(), TblEfimFileDbstorageDto.class);
+//									efimDbDto.setTblEfimFileDbstorageDto(restTemplateLib.mapperJsonToSingleDto(
+//											response.getWsContent(), TblEfimFileDbstorageDto.class));
+//									mapPictures.put(tblEfimFileDbstorageDto.getFileIdRef(), new GraphicOverlay2D()
+//											.changePdfFileToPicture(tblEfimFileDbstorageDto.getFileStr()));
+//								} catch (Exception e) {
+//									e.printStackTrace();
+//								}
+//								// tempTblEfim.put(b.getKey(), efimDbDto);
+//							}
+//							// mapForColumns.put(timeCounter, tempTblEfim);
+//							timeCounter++;
+//						}
+//					} else {
+//						cont = false;
+//					}
+//				}
+//			}
+//		}).start();
 	}
-    
-    
+
 	public List<TblEfimDbDto> getTblEfimDbDtos1() {
 		return tblEfimDbDtos1;
 	}
+
 	public void setTblEfimDbDtos1(List<TblEfimDbDto> tblEfimDbDtos1) {
 		this.tblEfimDbDtos1 = tblEfimDbDtos1;
 	}
+
 	public List<TblEfimDbDto> getTblEfimDbDtos2() {
 		return tblEfimDbDtos2;
 	}
+
 	public void setTblEfimDbDtos2(List<TblEfimDbDto> tblEfimDbDtos2) {
 		this.tblEfimDbDtos2 = tblEfimDbDtos2;
 	}
+
 	public Map<Integer, Map<Integer, TblEfimDbDto>> getMapForColumns() {
 		return mapForColumns;
 	}
+
 	public void setMapForColumns(Map<Integer, Map<Integer, TblEfimDbDto>> mapForColumns) {
 		this.mapForColumns = mapForColumns;
 	}
+
 	public Map<String, TblEfimDbDto> getMapTblEfimDbDto() {
 		return mapTblEfimDbDto;
 	}
+
 	public void setMapTblEfimDbDto(Map<String, TblEfimDbDto> mapTblEfimDbDto) {
 		this.mapTblEfimDbDto = mapTblEfimDbDto;
 	}
+
 	public Map<String, byte[]> getMapPictures() {
 		return mapPictures;
 	}
+
 	public void setMapPictures(Map<String, byte[]> mapPictures) {
 		this.mapPictures = mapPictures;
 	}
+
 	public TblEfimDbDto getTblEfimDbDto() {
 		return tblEfimDbDto;
 	}
+
 	public void setTblEfimDbDto(TblEfimDbDto tblEfimDbDto) {
 		this.tblEfimDbDto = tblEfimDbDto;
 	}
+
 	public boolean isEnoughTop() {
 		return enoughTop;
 	}
+
 	public void setEnoughTop(boolean enoughTop) {
 		this.enoughTop = enoughTop;
 	}
+
 	public boolean isEnoughBottom() {
 		return enoughBottom;
 	}
+
 	public void setEnoughBottom(boolean enoughBottom) {
 		this.enoughBottom = enoughBottom;
 	}
+
 	public boolean isMoveTimer() {
 		return moveTimer;
 	}
+
 	public void setMoveTimer(boolean moveTimer) {
 		this.moveTimer = moveTimer;
 	}
+
 	public String getChangeName() {
 		return changeName;
 	}
+
 	public void setChangeName(String changeName) {
 		this.changeName = changeName;
 	}
+
 	public Integer getTimeCounter() {
 		return timeCounter;
 	}
+
 	public void setTimeCounter(Integer timeCounter) {
 		this.timeCounter = timeCounter;
 	}
+
 	public byte[] getFileStr() {
 		return fileStr;
 	}
+
 	public void setFileStr(byte[] fileStr) {
 		this.fileStr = fileStr;
 	}
+
 	public String getSelectedPict() {
 		return selectedPict;
 	}
+
 	public void setSelectedPict(String selectedPict) {
 		this.selectedPict = selectedPict;
 	}
+
 	public String getSelectedFileIdReff() {
 		return selectedFileIdReff;
 	}
+
 	public void setSelectedFileIdReff(String selectedFileIdReff) {
 		this.selectedFileIdReff = selectedFileIdReff;
 	}
+
 	public boolean isVisibleEdit() {
 		return visibleEdit;
 	}
+
 	public void setVisibleEdit(boolean visibleEdit) {
 		this.visibleEdit = visibleEdit;
-	}   
+	}
 }

@@ -1,9 +1,11 @@
 package id.co.roxas.core.controller.extention;
 
 import java.awt.image.BufferedImage;
+import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -55,10 +57,22 @@ public class PictureCtl extends CommonConstant{
 	
 	@RequestMapping(value = "/GetTheBackgroundPicture", method = RequestMethod.POST,params = {"projectCode"})
 	public ResponseEntity<byte[]> getImageFromDatabase(@RequestBody String pictureName, 
-			@RequestParam String projectCode) {
+			@RequestParam String projectCode) throws IOException {
 		HttpHeaders headers = new HttpHeaders();
 		System.err.println("picture id " + pictureName + " project code " + projectCode);
-		byte[] media = tblPictureFrontEndSvc.getTheImage(pictureName, projectCode);
+		
+		
+		byte[] media = null;
+		
+//		if(pictureName.equalsIgnoreCase("PDFTEST")) {
+//		File file = new File("D:\\Folder Penting\\Keperluan iglo\\CV BIMA SATRYA SEBAYANG (2).pdf");
+//		media = Files.readAllBytes(file.toPath());
+//		}
+//		else{
+//			media = tblPictureFrontEndSvc.getTheImage(pictureName, projectCode);
+//		}
+		
+		media = tblPictureFrontEndSvc.getTheImage(pictureName, projectCode);
 		headers.setCacheControl(CacheControl.noCache().getHeaderValue());
 		ResponseEntity<byte[]> responseEntity = new ResponseEntity<>(media, headers, HttpStatus.OK);
 	    return responseEntity;

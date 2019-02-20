@@ -7,16 +7,75 @@ import java.awt.RenderingHints;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.net.URLConnection;
+import java.nio.file.Files;
+import java.util.List;
 
 import javax.imageio.ImageIO;
 
+import org.apache.commons.io.FileUtils;
+import org.apache.pdfbox.pdmodel.PDDocument;
+import org.apache.pdfbox.pdmodel.PDPage;
+import org.apache.poi.hwpf.HWPFDocument;
+import org.apache.poi.hwpf.extractor.WordExtractor;
+import org.apache.poi.hwpf.usermodel.Range;
+import org.apache.poi.poifs.filesystem.POIFSFileSystem;
 import org.apache.sanselan.ImageReadException;
 
-import id.co.roxas.efim.common.common.lib.dto.ImageCaptureDto;
+import com.lowagie.text.Document;
+import com.lowagie.text.Paragraph;
+import com.lowagie.text.pdf.PdfWriter;
+
+import id.co.roxas.efim.common.common.lib.dto.FileCaptureDto;
 
 public class GraphicOverlay2D {
 	// public BufferedImage overLayImages
+
+	public static String detectMimeType(byte[] fileStream) {
+		InputStream is = new ByteArrayInputStream(fileStream);
+		String mimeType = null;
+		try {
+			mimeType = URLConnection.guessContentTypeFromStream(is);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return mimeType;
+	}
+	
+	public byte[] changePdfFileToPicture(byte[] pdfFile) throws IOException {
+		byte[] finalImage = null;
+		File outputfile = null;
+		FileUtils.writeByteArrayToFile(new File("pathname"), pdfFile);
+		try {
+			BufferedImage image = null;
+			File sourceFile = new File("pathname");
+			if (sourceFile.exists()) {
+				PDDocument document = PDDocument.load(sourceFile);
+				List<PDPage> page = document.getDocumentCatalog().getAllPages();
+				image = page.get(0).convertToImage();
+				outputfile = new File("dokumenpath");
+				ImageIO.write(image, "png", outputfile);
+				document.close();
+			} else {
+				System.err.println(sourceFile.getName() + " File not exists");
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		if(outputfile!=null) {
+		finalImage = Files.readAllBytes(outputfile.toPath());
+		}
+		else {
+			finalImage = null;
+		}
+		return finalImage;
+	}
 
 	public byte[] bufferedImageToByte(BufferedImage image) {
 		ByteArrayOutputStream baos = new ByteArrayOutputStream();
@@ -67,7 +126,7 @@ public class GraphicOverlay2D {
 	 * @param coorY
 	 * @return
 	 */
-	public BufferedImage overLayImagesWithSpecificCoordinateNew(ImageCaptureDto bg, ImageCaptureDto fg, float coorX,
+	public BufferedImage overLayImagesWithSpecificCoordinateNew(FileCaptureDto bg, FileCaptureDto fg, float coorX,
 			float coorY) {
 		if (fg.getHeight() > bg.getHeight()) {
 			// Messagebox.show("picture foreground lebih besar dari background");

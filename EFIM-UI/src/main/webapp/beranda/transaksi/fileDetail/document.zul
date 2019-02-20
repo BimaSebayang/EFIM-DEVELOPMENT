@@ -3,6 +3,10 @@
 <window height="1000%" width="457%" border="normal"
 		apply="org.zkoss.bind.BindComposer"
 		viewModel="@id('vm') @init('vmd.beranda.transaksi.fileDetail.documentVmd')">
+		
+<!-- 				<timer onTimer="@command('onRecruitPictureTime')" delay="10000" -->
+<!-- 					repeats="true"/> -->
+		
 <div sclass="panelButtonReg1">
 			<div>
 				<div>
@@ -41,7 +45,7 @@
 												sclass="headerblocker">
 												<image
 													id="${each.getValue().fileIdReff}"
-													content="@load(vm.mapPictures.get(each.getValue().fileIdReff) eq null? vm.coolLoading : 
+													content="@load(vm.mapPictures.get(each.getValue().fileIdReff) eq null? vm.coolDocumentMark : 
 								vm.mapPictures.get(each.getValue().fileIdReff)) @converter('converter.ImageToZkImageConverter')"
 													sclass="pictPanel"
 													onMouseOver="@command('mouseOverPict', imagePart = self.id)"
@@ -73,7 +77,8 @@
 															onMouseOut="@command('mouseOutButtonEdit', comp = each.getValue().fileIdReff)" />
 														<button
 															iconSclass="z-icon-eye z-icon-100x"
-															sclass="buttonAnxiousBlocker"
+															sclass="buttonAnxiousBlocker" onClick="@command('seeCommand', 
+															comp1 = each.getValue().fileIdReff, comp2 = each.getValue().fileName)"
 															onMouseOver="@command('mouseOverButtoneye', comp = each.getValue().fileIdReff)"
 															onMouseOut="@command('mouseOutButtoneye', comp = each.getValue().fileIdReff)" />
 													</hbox>

@@ -29,6 +29,7 @@ import com.thoughtworks.xstream.core.util.Base64Encoder;
 
 import id.co.roxas.efim.common.common.lib.dto.MapperLovInformation;
 import id.co.roxas.efim.common.common.lib.dto.master.TblCodeDto;
+import id.co.roxas.efim.common.common.lib.lib.GraphicOverlay2D;
 import id.co.roxas.efim.common.constant.INFORMATION;
 import id.co.roxas.efim.common.webservice.global.WsResponse;
 import id.co.roxas.efim.common.webservice.lib.RestTemplateLib;
@@ -54,6 +55,7 @@ public class BaseVmd extends BaseComponent implements Serializable {
 	protected byte[] coolLoading;
 	protected byte[] coolBinGif;
 	protected byte[] coolQuestionMark;
+	protected byte[] coolDocumentMark;
 	protected RestTemplateLib restTemplateLib = new RestTemplateLib();
 
 	public void callLovVmd(String uri, MapperLovInformation... mappers) {
@@ -208,7 +210,7 @@ public class BaseVmd extends BaseComponent implements Serializable {
 	}
 
 	@Init(superclass = true)
-	public void loadList() {
+	public void loadList() {		
         coolLoading = getTheFileFileStream("/PictureCtl/GetTheBackgroundPicture", new HashMap<>(),"loading1.gif", "projectCode=" + getComponentUser().getProjectCode());
 		coolBackground = getTheFileFileStream("/PictureCtl/GetTheBackgroundPicture", new HashMap<>(), "EFIMBG.png","projectCode=" + getComponentUser().getProjectCode());
 		coolLogo = getTheFileFileStream("/PictureCtl/GetTheBackgroundPicture", new HashMap<>(), "EFIMLOGO.png",
@@ -218,6 +220,8 @@ public class BaseVmd extends BaseComponent implements Serializable {
 		coolBinGif = getTheFileFileStream("/PictureCtl/GetTheBackgroundPicture", new HashMap<>(), "binGif.png",
 				"projectCode=" + getComponentUser().getProjectCode());
 		coolQuestionMark = getTheFileFileStream("/PictureCtl/GetTheBackgroundPicture", new HashMap<>(), "confused.gif",
+				"projectCode=" + getComponentUser().getProjectCode());
+		coolDocumentMark = getTheFileFileStream("/PictureCtl/GetTheBackgroundPicture", new HashMap<>(), "WORDTEST",
 				"projectCode=" + getComponentUser().getProjectCode());
 		// coolLogo = getTheFile("\\BG", "EFIMLOGO.png", "jpg");
 		// coolBackground = getTheFile("\\BG", "EFIMBG.png", "jpg");
@@ -609,6 +613,14 @@ public class BaseVmd extends BaseComponent implements Serializable {
 
 	public void setCaseSearch(String caseSearch) {
 		this.caseSearch = caseSearch;
+	}
+
+	public byte[] getCoolDocumentMark() {
+		return coolDocumentMark;
+	}
+
+	public void setCoolDocumentMark(byte[] coolDocumentMark) {
+		this.coolDocumentMark = coolDocumentMark;
 	}
 
 	

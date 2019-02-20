@@ -26,7 +26,7 @@ import org.zkoss.zul.Window;
 
 import com.google.protobuf.Message;
 
-import id.co.roxas.efim.common.common.lib.dto.ImageCaptureDto;
+import id.co.roxas.efim.common.common.lib.dto.FileCaptureDto;
 import id.co.roxas.efim.common.common.lib.dto.headuser.TblEfimDbDto;
 import id.co.roxas.efim.common.common.lib.dto.stream.TblEfimFileDbstorageDto;
 import id.co.roxas.efim.common.common.lib.lib.GraphicOverlay2D;
@@ -39,7 +39,7 @@ public class TambahLovVmd extends BaseVmd implements Serializable {
 
 	private static final long serialVersionUID = 3276365232009484683L;
 	private byte[] initPic = null;
-	private ImageCaptureDto getImage = new ImageCaptureDto();
+	private FileCaptureDto getImage = new FileCaptureDto();
 	private boolean onUpload = true;
 	private String uploadLabel = "";
 
@@ -56,7 +56,7 @@ public class TambahLovVmd extends BaseVmd implements Serializable {
 			if (typeMedias[0].equalsIgnoreCase("image")) {
 				GraphicOverlay2D overlay2d = new GraphicOverlay2D();
 				Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-				getImage = new ImageCaptureDto(media.getByteData(), media.getName());
+				getImage = new FileCaptureDto(media.getByteData(), media.getName());
 				int height = (int) (getImage.getHeight());
 				int width = (int) (getImage.getWidth());
 				int szHeight = (int) (screenSize.height * 0.7);
@@ -95,7 +95,7 @@ public class TambahLovVmd extends BaseVmd implements Serializable {
 				BindUtils.postNotifyChange(null, null, this, "initPic");
 				BindUtils.postNotifyChange(null, null, this, "getImage");
 			} else if(typeMedias[0].equalsIgnoreCase("application")){
-				getImage = new ImageCaptureDto(media.getByteData(), media.getName());
+				getImage = new FileCaptureDto(media.getByteData(), media.getName());
 				initPic = getImage.getByte();
 				onUpload = false;
 				InValidFormClass("uploadLov", "upload-button");
@@ -105,7 +105,7 @@ public class TambahLovVmd extends BaseVmd implements Serializable {
 				BindUtils.postNotifyChange(null, null, this, "initPic");
 				BindUtils.postNotifyChange(null, null, this, "getImage");
 			} else if(typeMedias[0].equalsIgnoreCase("video")){
-				getImage = new ImageCaptureDto(media.getByteData(), media.getName());
+				getImage = new FileCaptureDto(media.getByteData(), media.getName());
 				initPic = getImage.getByte();
 				onUpload = false;
 				InValidFormClass("uploadLov", "upload-button");
@@ -207,11 +207,11 @@ public class TambahLovVmd extends BaseVmd implements Serializable {
 		this.initPic = initPic;
 	}
 
-	public ImageCaptureDto getGetImage() {
+	public FileCaptureDto getGetImage() {
 		return getImage;
 	}
 
-	public void setGetImage(ImageCaptureDto getImage) {
+	public void setGetImage(FileCaptureDto getImage) {
 		this.getImage = getImage;
 	}
 

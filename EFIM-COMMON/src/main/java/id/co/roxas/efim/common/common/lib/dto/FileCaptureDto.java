@@ -10,14 +10,14 @@ import javax.imageio.ImageIO;
 
 import org.apache.commons.io.FileUtils;
 
-public class ImageCaptureDto {
+public class FileCaptureDto {
 	private byte[] imageByte;
 	private String imageTitle;
 
-	public ImageCaptureDto() {
+	public FileCaptureDto() {
 	}
 
-	public ImageCaptureDto(byte[] imageByte, String imageTitle) {
+	public FileCaptureDto(byte[] imageByte, String imageTitle) {
 		this.imageByte = imageByte;
 		this.imageTitle = imageTitle;
 	}

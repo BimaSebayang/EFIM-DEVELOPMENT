@@ -24,12 +24,76 @@
 		<javaee-web-api.version>7.0</javaee-web-api.version>
 		<bouncycastle.version>1.43</bouncycastle.version>
 		<joda-time.version>2.3</joda-time.version>
+		<pdf-renderer.version>1.0.5</pdf-renderer.version>
 		<modelmapper.version>0.7.2</modelmapper.version>
 		<maven.compiler.source>1.7</maven.compiler.source>
 		<maven.compiler.target>1.7</maven.compiler.target>
 	</properties>
 
 	<dependencies>
+
+
+<!-- https://mvnrepository.com/artifact/org.apache.poi/poi -->
+
+<!-- https://mvnrepository.com/artifact/org.apache.poi/poi-ooxml -->
+<dependency>
+        <groupId>org.apache.poi</groupId>
+        <artifactId>poi</artifactId>
+        <version>3.13</version>
+    </dependency>
+
+    <dependency>
+        <groupId>org.apache.poi</groupId>
+        <artifactId>poi-ooxml</artifactId>
+        <version>3.13</version>
+    </dependency>
+<!-- https://mvnrepository.com/artifact/com.itextpdf/itextpdf -->
+<dependency>
+    <groupId>com.itextpdf</groupId>
+    <artifactId>itextpdf</artifactId>
+    <version>5.5.13</version>
+</dependency>
+
+<!-- https://mvnrepository.com/artifact/org.apache.xmlbeans/xmlbeans -->
+<dependency>
+    <groupId>org.apache.xmlbeans</groupId>
+    <artifactId>xmlbeans</artifactId>
+    <version>2.3.0</version>
+</dependency>
+
+
+<!-- https://mvnrepository.com/artifact/org.apache.poi/poi-scratchpad -->
+<dependency>
+    <groupId>org.apache.poi</groupId>
+    <artifactId>poi-scratchpad</artifactId>
+    <version>4.0.1</version>
+</dependency>
+
+<!-- https://mvnrepository.com/artifact/com.lowagie/itext -->
+<dependency>
+    <groupId>com.lowagie</groupId>
+    <artifactId>itext</artifactId>
+    <version>2.1.7</version>
+</dependency>
+
+
+
+
+
+<!-- https://mvnrepository.com/artifact/org.swinglabs/pdf-renderer -->
+
+
+<dependency>
+    <groupId>org.apache.pdfbox</groupId>
+    <artifactId>pdfbox</artifactId>
+    <version>1.8.3</version>
+</dependency>
+
+<dependency>
+    <groupId>org.swinglabs</groupId>
+    <artifactId>pdf-renderer</artifactId>
+    <version>${pdf-renderer.version}</version>
+</dependency>
 
 
 		<!-- https://mvnrepository.com/artifact/javax.mail/mail -->
