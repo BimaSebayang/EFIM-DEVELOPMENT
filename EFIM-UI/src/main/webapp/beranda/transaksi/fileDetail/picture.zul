@@ -3,8 +3,8 @@
 	<window height="1000%" width="457%" border="normal"
 		apply="org.zkoss.bind.BindComposer"
 		viewModel="@id('vm') @init('vmd.beranda.transaksi.fileDetail.pictureVmd')">
-		<!-- 		<timer onTimer="@command('onRecruitPictureTime')" delay="10000" -->
-		<!-- 			repeats="true"/> -->
+<!-- 				<timer onTimer="@command('onRecruitPictureTime')" delay="10000" -->
+<!-- 					repeats="true"/> -->
 		<div sclass="panelButtonReg1">
 			<div>
 				<div>

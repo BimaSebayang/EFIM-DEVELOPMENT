@@ -8,7 +8,7 @@ import org.zkoss.bind.BindUtils;
 import org.zkoss.bind.annotation.Command;
 import org.zkoss.bind.annotation.Init;
 
-import id.co.roxas.efim.common.common.lib.dto.MapperLovInformation;
+import Share.Dto.MapperLovInformation;
 import vmd.BaseVmd;
 
 

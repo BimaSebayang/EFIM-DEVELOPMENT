@@ -32,7 +32,6 @@ import com.lowagie.text.Document;
 import com.lowagie.text.Paragraph;
 import com.lowagie.text.pdf.PdfWriter;
 
-import id.co.roxas.efim.common.common.lib.dto.FileCaptureDto;
 
 public class GraphicOverlay2D {
 	// public BufferedImage overLayImages

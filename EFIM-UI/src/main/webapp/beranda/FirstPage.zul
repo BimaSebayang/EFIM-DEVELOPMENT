@@ -9,7 +9,7 @@
 
 	<window title="" sclass="window" border="normal"
 		apply="org.zkoss.bind.BindComposer" id="firstPage"
-		viewModel="@id('vm') @init('vmd.beranda.FirstPageVmd')">
+		viewModel="@id('vm') @init('head.FirstPageVmd')">
 
 <!-- <timer onTimer="@command('onRecruitTime')" delay="1000" repeats="@load(vm.moveTimer)" ></timer> -->
 

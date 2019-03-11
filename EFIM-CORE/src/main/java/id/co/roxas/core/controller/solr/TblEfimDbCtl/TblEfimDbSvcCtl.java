@@ -10,12 +10,12 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import Share.WsResponse;
 import entity.headuser.TblEfimDb;
 import id.co.roxas.core.dao.headuser.TblDataUserDao;
 import id.co.roxas.core.dao.headuser.TblEfimDbDao;
 import id.co.roxas.core.service.master.TblCodeSvc;
 import id.co.roxas.efim.common.constant.CommonConstant;
-import id.co.roxas.efim.common.webservice.global.WsResponse;
 
 @RestController
 @RequestMapping("/TblEfimDbSvcCtl")

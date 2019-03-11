@@ -12,9 +12,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import Share.WsResponse;
 import id.co.roxas.core.dao.ProcedureDao;
 import id.co.roxas.core.service.headuser.TblDataUserSvc;
-import id.co.roxas.efim.common.webservice.global.WsResponse;
 
 @RestController
 @RequestMapping("/ForgotPassCtl")
@@ -31,8 +31,8 @@ public class ForgotPassCtl {
     		@RequestParam String projectCode) {
     String TS = new SimpleDateFormat("dd.MM.yyyy.HH.mm.ss").format(new Date());
     	
-        procedureDao.spCreatedHistoryAccess((String)rh.get("ip"),(String)rh.get("mac") , (String)rh.get("sn"), TS, "NONE",
-	    		  "http://localhost:8080/EFIM-CORE/ForgotPassCtl/GetEmail", projectCode);
+//        procedureDao.spCreatedHistoryAccess((String)rh.get("ip"),(String)rh.get("mac") , (String)rh.get("sn"), TS, "NONE",
+//	    		  "http://localhost:8080/EFIM-CORE/ForgotPassCtl/GetEmail", projectCode);
     
         Map<String, Object> mapResult = tblDataUserSvc.getTheResultEmailAddress(userId, projectCode);
     	WsResponse wsResponse = new WsResponse(mapResult.get("content"),(int)mapResult.get("count"),false,null,null);
@@ -45,8 +45,8 @@ public class ForgotPassCtl {
     		@RequestParam String projectCode) {
     String TS = new SimpleDateFormat("dd.MM.yyyy.HH.mm.ss").format(new Date());
     	
-        procedureDao.spCreatedHistoryAccess((String)rh.get("ip"),(String)rh.get("mac") , (String)rh.get("sn"), TS, "NONE",
-	    		  "http://localhost:8080/EFIM-CORE/ForgotPassCtl/GetUserId", projectCode);
+//        procedureDao.spCreatedHistoryAccess((String)rh.get("ip"),(String)rh.get("mac") , (String)rh.get("sn"), TS, "NONE",
+//	    		  "http://localhost:8080/EFIM-CORE/ForgotPassCtl/GetUserId", projectCode);
     
         String userId = procedureDao.spCheckEmailIsValid(emailNo, projectCode);
     	WsResponse wsResponse = new WsResponse(userId,1);	
@@ -59,8 +59,8 @@ public class ForgotPassCtl {
     		@RequestParam String projectCode) {
         String TS = new SimpleDateFormat("dd.MM.yyyy.HH.mm.ss").format(new Date());
     	
-        procedureDao.spCreatedHistoryAccess((String)rh.get("ip"),(String)rh.get("mac") , (String)rh.get("sn"), TS, "NONE",
-	    		  "http://localhost:8080/EFIM-CORE/ForgotPassCtl/ResetPassword", projectCode);
+//        procedureDao.spCreatedHistoryAccess((String)rh.get("ip"),(String)rh.get("mac") , (String)rh.get("sn"), TS, "NONE",
+//	    		  "http://localhost:8080/EFIM-CORE/ForgotPassCtl/ResetPassword", projectCode);
         procedureDao.spResetPassword(mapper.get("user"),mapper.get("pass"), TS, projectCode);
     	WsResponse wsResponse = new WsResponse("true",1);
     	return wsResponse;

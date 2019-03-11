@@ -16,7 +16,7 @@ import org.zkoss.zk.ui.WrongValueException;
 import org.zkoss.zul.Constraint;
 import org.zkoss.zul.Messagebox;
 
-import id.co.roxas.efim.common.webservice.global.WsResponse;
+import Share.WsResponse;
 import vmd.BaseVmd;
 
 @Init(superclass = true)

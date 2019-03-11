@@ -11,10 +11,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.zkoss.lang.Strings;
 
+import Share.Dto.HeadUser.TblDataUserDto;
 import entity.headuser.TblDataUser;
 import id.co.roxas.core.dao.headuser.TblDataUserDao;
 import id.co.roxas.core.service.headuser.TblDataUserSvc;
-import id.co.roxas.efim.common.common.lib.dto.headuser.TblDataUserDto;
 import ma.glasnost.orika.MapperFacade;
 import ma.glasnost.orika.impl.DefaultMapperFactory;
 

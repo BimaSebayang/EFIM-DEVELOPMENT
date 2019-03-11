@@ -19,8 +19,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ser.impl.StringArraySerializer;
 import com.google.gson.Gson;
 
+import Share.WsResponse;
 import id.co.roxas.efim.common.common.lib.lib.SecurityPr;
-import id.co.roxas.efim.common.webservice.global.WsResponse;
 
 public class RestTemplateLib extends MapperWs implements Serializable{
 

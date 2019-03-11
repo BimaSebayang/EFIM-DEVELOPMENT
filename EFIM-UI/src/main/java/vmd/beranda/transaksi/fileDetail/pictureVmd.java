@@ -16,10 +16,10 @@ import org.zkoss.bind.annotation.ContextType;
 import org.zkoss.bind.annotation.GlobalCommand;
 import org.zkoss.bind.annotation.Init;
 
-import id.co.roxas.efim.common.common.lib.dto.MapperLovInformation;
-import id.co.roxas.efim.common.common.lib.dto.headuser.TblEfimDbDto;
-import id.co.roxas.efim.common.common.lib.dto.stream.TblEfimFileDbstorageDto;
-import id.co.roxas.efim.common.webservice.global.WsResponse;
+import Share.WsResponse;
+import Share.Dto.MapperLovInformation;
+import Share.Dto.HeadUser.TblEfimDbDto;
+import Share.Dto.Stream.TblEfimFileDbstorageDto;
 import id.co.roxas.efim.common.webservice.lib.RestTemplateLib;
 import vmd.BaseVmd;
 
@@ -54,10 +54,10 @@ public class pictureVmd extends BaseVmd implements Serializable {
 		return tempTblEfimDbDtos;
 	}
 
-	// @Command("onRecruitPictureTime")
-	// public void onRecruitPictureTime() {
-	// BindUtils.postNotifyChange(null, null, this, "mapPictures");
-	// }
+	 @Command("onRecruitPictureTime")
+	 public void onRecruitPictureTime() {
+	 BindUtils.postNotifyChange(null, null, this, "mapPictures");
+	 }
 
 	public boolean isMoveTimer() {
 		return moveTimer;
@@ -306,44 +306,44 @@ public class pictureVmd extends BaseVmd implements Serializable {
 		BindUtils.postNotifyChange(null, null, this, "mapTblEfimDbDto");
 		// BindUtils.postNotifyChange(null, null, this, "mapPictures");
 
-		// new Thread(new Runnable() {
-		// public void run() {
-		// boolean cont = true;
-		// while (cont) {
-		// if (!mapForColumns.isEmpty()) {
-		// if (timeCounter <= mapForColumns.size()) {
-		// // Map<Integer, TblEfimDbDto> tempTblEfim = mapForColumns.get(timeCounter);
-		// for (Entry<Integer, TblEfimDbDto> b :
-		// mapForColumns.get(timeCounter).entrySet()) {
-		// WsResponse response =
-		// restTemplateLib.getResultWs("/UserEfimDbCompCtl/FileStream", null,
-		// "get", "projectCode=" + PROJECT,
-		// "fileStrIdRef=" + b.getValue().getFileStrIdReff(),
-		// "fileIdRef=" + b.getValue().getFileIdReff());
-		// TblEfimDbDto efimDbDto = b.getValue();
-		// TblEfimFileDbstorageDto tblEfimFileDbstorageDto = new
-		// TblEfimFileDbstorageDto();
-		// try {
-		// tblEfimFileDbstorageDto = restTemplateLib.mapperJsonToSingleDto(
-		// response.getWsContent(), TblEfimFileDbstorageDto.class);
-		// efimDbDto.setTblEfimFileDbstorageDto(restTemplateLib.mapperJsonToSingleDto(
-		// response.getWsContent(), TblEfimFileDbstorageDto.class));
-		// mapPictures.put(tblEfimFileDbstorageDto.getFileIdRef(),
-		// tblEfimFileDbstorageDto.getFileStr());
-		// } catch (Exception e) {
-		// e.printStackTrace();
-		// }
-		// // tempTblEfim.put(b.getKey(), efimDbDto);
-		// }
-		// // mapForColumns.put(timeCounter, tempTblEfim);
-		// timeCounter++;
-		// }
-		// } else {
-		// cont = false;
-		// }
-		// }
-		// }
-		// }).start();
+//		 new Thread(new Runnable() {
+//		 public void run() {
+//		 boolean cont = true;
+//		 while (cont) {
+//		 if (!mapForColumns.isEmpty()) {
+//		 if (timeCounter <= mapForColumns.size()) {
+//		 // Map<Integer, TblEfimDbDto> tempTblEfim = mapForColumns.get(timeCounter);
+//		 for (Entry<Integer, TblEfimDbDto> b :
+//		 mapForColumns.get(timeCounter).entrySet()) {
+//		 WsResponse response =
+//		 restTemplateLib.getResultWs("/UserEfimDbCompCtl/FileStream", null,
+//		 "get", "projectCode=" + PROJECT,
+//		 "fileStrIdRef=" + b.getValue().getFileStrIdReff(),
+//		 "fileIdRef=" + b.getValue().getFileIdReff());
+//		 TblEfimDbDto efimDbDto = b.getValue();
+//		 TblEfimFileDbstorageDto tblEfimFileDbstorageDto = new
+//		 TblEfimFileDbstorageDto();
+//		 try {
+//		 tblEfimFileDbstorageDto = restTemplateLib.mapperJsonToSingleDto(
+//		 response.getWsContent(), TblEfimFileDbstorageDto.class);
+//		 efimDbDto.setTblEfimFileDbstorageDto(restTemplateLib.mapperJsonToSingleDto(
+//		 response.getWsContent(), TblEfimFileDbstorageDto.class));
+//		 mapPictures.put(tblEfimFileDbstorageDto.getFileIdRef(),
+//		 tblEfimFileDbstorageDto.getFileStr());
+//		 } catch (Exception e) {
+//		 e.printStackTrace();
+//		 }
+//		 // tempTblEfim.put(b.getKey(), efimDbDto);
+//		 }
+//		 // mapForColumns.put(timeCounter, tempTblEfim);
+//		 timeCounter++;
+//		 }
+//		 } else {
+//		 cont = false;
+//		 }
+//		 }
+//		 }
+//		 }).start();
 	}
 
 	@Override

@@ -32,13 +32,13 @@ import org.zkoss.lang.Strings;
 import com.google.gson.Gson;
 import com.thoughtworks.xstream.core.util.Base64Encoder;
 
+import Share.WsResponse;
 import entity.stream.TblPictureFrontEnd;
 import id.co.roxas.core.dao.ProcedureDao;
 import id.co.roxas.core.dao.headuser.TblPictureFrontEndDao;
 import id.co.roxas.core.service.headuser.TblPictureFrontEndSvc;
 import id.co.roxas.efim.common.common.lib.lib.CommonDateLibPr;
 import id.co.roxas.efim.common.constant.CommonConstant;
-import id.co.roxas.efim.common.webservice.global.WsResponse;
 import id.co.roxas.efim.common.webservice.lib.MapperWs;
 
 @RestController

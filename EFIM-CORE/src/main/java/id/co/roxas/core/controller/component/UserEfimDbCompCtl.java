@@ -17,12 +17,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.zkoss.lang.Strings;
 
+import Share.WsResponse;
+import Share.Dto.HeadUser.TblEfimDbDto;
+import Share.Dto.Stream.TblEfimFileDbstorageDto;
 import id.co.roxas.core.service.headuser.TblEfimDbSvc;
 import id.co.roxas.core.service.stream.TblEfimFileDbstorageSvc;
-import id.co.roxas.efim.common.common.lib.dto.headuser.TblEfimDbDto;
-import id.co.roxas.efim.common.common.lib.dto.stream.TblEfimFileDbstorageDto;
 import id.co.roxas.efim.common.constant.CommonConstant;
-import id.co.roxas.efim.common.webservice.global.WsResponse;
 
 @RestController
 @RequestMapping("/UserEfimDbCompCtl")

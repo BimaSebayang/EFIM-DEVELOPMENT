@@ -15,6 +15,8 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.zkoss.lang.Strings;
 
+import Share.Dto.UserPrivilegeCustom;
+import Share.Dto.HeadUser.TblEfimDbDto;
 import entity.headuser.TblDataUser;
 import entity.headuser.TblEfimDb;
 import id.co.roxas.core.dao.SearchProcedureDao;
@@ -22,13 +24,11 @@ import id.co.roxas.core.dao.headuser.TblDataUserDao;
 import id.co.roxas.core.dao.headuser.TblEfimDbDao;
 import id.co.roxas.core.dao.stream.TblUserPictureProfileDao;
 import id.co.roxas.core.service.headuser.TblEfimDbSvc;
-import id.co.roxas.efim.common.common.lib.dto.UserPrivilegeCustom;
-import id.co.roxas.efim.common.common.lib.dto.headuser.TblEfimDbDto;
 import id.co.roxas.efim.common.common.lib.lib.AlgoritmaLevenshtein;
 import id.co.roxas.efim.common.common.lib.lib.CommonDateLibPr;
 import id.co.roxas.efim.common.constant.CommonConstant;
-import id.co.roxas.efim.common.paging.request.RequestPaging;
 import id.co.roxas.efim.common.webservice.lib.RestTemplateLib;
+import lib.paging.request.RequestPaging;
 import ma.glasnost.orika.MapperFacade;
 import ma.glasnost.orika.impl.DefaultMapperFactory;
 

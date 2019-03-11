@@ -10,12 +10,12 @@ import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import Share.Dto.HeadUser.TblDataUserDto;
+import Share.Dto.HeadUser.TblSessionUserDto;
 import entity.headuser.TblDataUser;
 import entity.headuser.TblSessionUser;
 import id.co.roxas.core.dao.headuser.TblDataUserDao;
 import id.co.roxas.core.service.headuser.TblSessionUserSvc;
-import id.co.roxas.efim.common.common.lib.dto.headuser.TblDataUserDto;
-import id.co.roxas.efim.common.common.lib.dto.headuser.TblSessionUserDto;
 import ma.glasnost.orika.MapperFacade;
 import ma.glasnost.orika.impl.DefaultMapperFactory;
 

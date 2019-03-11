@@ -1,6 +1,6 @@
 <?page title="" contentType="text/html;charset=UTF-8"?>
 <zk>
-	<window height="1000%" width="457%" border="normal"
+	<window  height="1000%" width="457%" border="normal"
 		apply="org.zkoss.bind.BindComposer"
 		viewModel="@id('vm') @init('vmd.beranda.transaksi.fileDetail.binVmd')">
 		

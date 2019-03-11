@@ -26,11 +26,11 @@ import org.zkoss.zul.Window;
 
 import com.google.protobuf.Message;
 
-import id.co.roxas.efim.common.common.lib.dto.FileCaptureDto;
-import id.co.roxas.efim.common.common.lib.dto.headuser.TblEfimDbDto;
-import id.co.roxas.efim.common.common.lib.dto.stream.TblEfimFileDbstorageDto;
+import Share.WsResponse;
+import Share.Dto.HeadUser.TblEfimDbDto;
+import Share.Dto.Stream.TblEfimFileDbstorageDto;
+import id.co.roxas.efim.common.common.lib.lib.FileCaptureDto;
 import id.co.roxas.efim.common.common.lib.lib.GraphicOverlay2D;
-import id.co.roxas.efim.common.webservice.global.WsResponse;
 import id.co.roxas.efim.common.webservice.lib.RestTemplateLib;
 import vmd.BaseVmd;
 

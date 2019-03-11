@@ -10,9 +10,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.google.gson.Gson;
 
-import id.co.roxas.efim.common.common.lib.dto.headuser.TblEfimDbDto;
-import id.co.roxas.efim.common.common.lib.dto.stream.TblEfimFileDbstorageDto;
-import id.co.roxas.efim.common.webservice.global.WsResponse;
+import Share.WsResponse;
+import Share.Dto.HeadUser.TblEfimDbDto;
+import Share.Dto.Stream.TblEfimFileDbstorageDto;
 import id.co.roxas.efim.common.webservice.lib.RestTemplateLib;
 import id.co.roxas.efim.solr.common.lib.BaseController;
 import id.co.roxas.efim.solr.model.TblEfimDb;

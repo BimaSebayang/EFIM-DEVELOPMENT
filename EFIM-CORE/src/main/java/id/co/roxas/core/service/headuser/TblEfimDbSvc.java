@@ -3,7 +3,7 @@ package id.co.roxas.core.service.headuser;
 import java.util.List;
 import java.util.Map;
 
-import id.co.roxas.efim.common.common.lib.dto.headuser.TblEfimDbDto;
+import Share.Dto.HeadUser.TblEfimDbDto;
 
 public interface TblEfimDbSvc {
    public Map<String,Object> getUserInformativeMotive(Map<String, Object> mapResult);

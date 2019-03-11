@@ -10,7 +10,7 @@ import org.zkoss.bind.annotation.Command;
 import org.zkoss.bind.annotation.Init;
 import org.zkoss.zul.Window;
 
-import id.co.roxas.efim.common.webservice.global.WsResponse;
+import Share.WsResponse;
 import id.co.roxas.efim.common.webservice.lib.RestTemplateLib;
 import vmd.BaseVmd;
 

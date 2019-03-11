@@ -42,12 +42,12 @@ import org.zkoss.zul.Filedownload;
 import com.sun.pdfview.PDFFile;
 import com.sun.pdfview.PDFPage;
 
+import Share.WsResponse;
+import Share.Dto.MapperLovInformation;
+import Share.Dto.HeadUser.TblEfimDbDto;
+import Share.Dto.Stream.TblEfimFileDbstorageDto;
 import antlr.ByteBuffer;
-import id.co.roxas.efim.common.common.lib.dto.MapperLovInformation;
-import id.co.roxas.efim.common.common.lib.dto.headuser.TblEfimDbDto;
-import id.co.roxas.efim.common.common.lib.dto.stream.TblEfimFileDbstorageDto;
 import id.co.roxas.efim.common.common.lib.lib.GraphicOverlay2D;
-import id.co.roxas.efim.common.webservice.global.WsResponse;
 import id.co.roxas.efim.common.webservice.lib.RestTemplateLib;
 import vmd.BaseVmd;
 

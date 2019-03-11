@@ -7,6 +7,9 @@
         <dependent-module archiveName="EFIM-COMMON-1.1.1.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/EFIM-COMMON/EFIM-COMMON">
             <dependency-type>uses</dependency-type>
         </dependent-module>
+        <dependent-module archiveName="EFIM-COMMON-DTO-1.1.1.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/EFIM-COMMON-DTO/EFIM-COMMON-DTO">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
         <property name="context-root" value="EFIM-CORE"/>
         <property name="java-output-path" value="/EFIM-CORE/target/classes"/>
     </wb-module>
